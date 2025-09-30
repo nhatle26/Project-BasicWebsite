@@ -3,13 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Đăng nhập & Đăng ký</title>
-  <style>
-    body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .container { width: 300px; text-align: center; }
-    form { display: none; }
-    form.active { display: block; }
-    button { margin-top: 10px; }
-  </style>
+  <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
   <div class="container">
@@ -33,12 +27,6 @@
     </form>
   </div>
 
-  <script>
-    function toggleForm(formId) {
-      document.getElementById("loginForm").classList.remove("active");
-      document.getElementById("registerForm").classList.remove("active");
-      document.getElementById(formId).classList.add("active");
-    }
-  </script>
+  <script src="js/auth.js"></script>
 </body>
 </html>

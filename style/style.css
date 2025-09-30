@@ -1,0 +1,25 @@
+/* Form đăng kí | đăng nhập */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 300px;
+    text-align: center;
+}
+
+form {
+    display: none;
+}
+
+form.active {
+    display: block;
+}
+
+button {
+    margin-top: 10px;
+}
