@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập & Đăng ký</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Form đăng nhập (có class active ban đầu) -->
+    <form id="loginForm" class="active">
+      <h2>Đăng nhập</h2>
+      <input type="email" placeholder="Email" required><br>
+      <input type="password" placeholder="Mật khẩu" required><br>
+      <button type="submit">Đăng nhập</button>
+      <p>Chưa có tài khoản? <a id="linkToRegister">Đăng ký</a></p>
+    </form>
+
+    <!-- Form đăng ký -->
+    <form id="registerForm">
+      <h2>Đăng ký</h2>
+      <input type="text" placeholder="Tên" required><br>
+      <input type="email" placeholder="Email" required><br>
+      <input type="password" placeholder="Mật khẩu" required><br>
+      <button type="submit">Đăng ký</button>
+      <p>Đã có tài khoản? <a id="linkToLogin">Đăng nhập</a></p>
+    </form>
+  </div>
+
+ <script src="../js/auth.js"></script>cr
+</body>
+</html>

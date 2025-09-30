@@ -1,0 +1,35 @@
+/* Ẩn mọi form mặc định */
+form {
+  display: none;
+}
+
+/* Khi form có class .active thì hiển thị */
+form.active {
+  display: block;
+}
+
+/* Bạn có thể thêm style cho container, input, button, v.v. nếu muốn */
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+button {
+  padding: 10px 20px;
+}
+p {
+  margin-top: 16px;
+}
+a {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
