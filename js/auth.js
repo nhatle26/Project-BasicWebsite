@@ -6,7 +6,7 @@ function toggleForm(formId) {
 }
 
 // Xử lý Đăng ký
-document.getElementById("registerForm").addEventListener("submit", function(e) {
+document.getElementById("registerForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   let name = document.getElementById("regName").value;
@@ -29,7 +29,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
 });
 
 // Xử lý Đăng nhập
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   let email = document.getElementById("loginEmail").value;
