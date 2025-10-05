@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng - ShopVN</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+    <h1>Giỏ hàng của tôi</h1>
+    <div id="cartItems"></div>
+    <div id="totalPrice"></div>
+    <button onclick="checkout()">Thanh toán</button>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            if (!window.auth.requireLogin()) return;
+
+            const user = window.auth.getCurrentUser();
+            const cartItems = await CartAPI.getAll();
+            const myCart = cartItems.filter(item => item.userId === user.id);
+            
+            // Render giỏ hàng...
+        });
+
+        function checkout() {
+            window.location.href = 'checkout.html';
+        }
+    </script>
+</body>
+</html>

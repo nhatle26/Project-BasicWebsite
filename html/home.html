@@ -1,471 +1,76 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-     <meta charset="UTF-8" />
-     <title>MT Boutique</title>
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-     <link rel="stylesheet" href="../style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopVN - Trang chủ</title>
+    <link rel="stylesheet" href="../style/style.css">
 </head>
-<body onload="initApp()">
-     <div class="container-fluid">
-          <h1>MT BOUTIQUE</h1>
-
-          <!-- NÚT QUẢN LÝ SẢN PHẨM -->
-          <button class="btn btn-management" onclick="toggleManagement()">
-               QUẢN LÝ SẢN PHẨM
-          </button>
-
-          <!-- PHẦN QUẢN LÝ (ẨN MẶC ĐỊNH) -->
-          <div id="managementArea" class="hidden">
-               <!-- FORM SẢN PHẨM -->
-               <div class="container management-section">
-                    <h2>Form sản phẩm</h2>
-                    <form id="productForm" onsubmit="handleSubmit(event)">
-                         <div class="form-group">
-                              <label>ID:</label>
-                              <input type="text" class="form-control" id="productId" readonly />
-                         </div>
-                         <div class="form-group">
-                              <label>Tên:</label>
-                              <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm"
-                                   required />
-                         </div>
-                         <div class="form-group">
-                              <label>Mã sản phẩm:</label>
-                              <input type="text" class="form-control" id="productCode" placeholder="Nhập mã sản phẩm"
-                                   required />
-                         </div>
-                         <div class="form-group">
-                              <label>Ảnh (link):</label>
-                              <input type="url" class="form-control" id="productImage"
-                                   placeholder="Nhập link ảnh sản phẩm" required />
-                         </div>
-                         <div class="form-group">
-                              <label>Giá:</label>
-                              <input type="text" class="form-control" id="productPrice" placeholder="VD: 450.000"
-                                   required />
-                         </div>
-                         <div class="form-group">
-                              <label>Danh mục:</label>
-                              <select class="form-control" id="productCategory" required>
-                                   <option value="">-- Chọn danh mục --</option>
-                                   <option value="man">Nam</option>
-                                   <option value="women">Nữ</option>
-                              </select>
-                         </div>
-                         <button type="submit" class="btn btn-primary" id="btnSubmit">Thêm</button>
-                         <button type="button" class="btn btn-secondary" id="btnCancel" onclick="cancelEdit()"
-                              style="display:none;">Hủy</button>
-                    </form>
-               </div>
-
-               <!-- DANH SÁCH SẢN PHẨM -->
-               <div class="container table-section">
-                    <h2>Danh sách sản phẩm</h2>
-                    <table class="table table-bordered table-hover">
-                         <thead>
-                              <tr>
-                                   <th>STT</th>
-                                   <th>ID</th>
-                                   <th>Tên</th>
-                                   <th>Ảnh</th>
-                                   <th>Giá</th>
-                                   <th>Hành động</th>
-                              </tr>
-                         </thead>
-                         <tbody id="productTableBody">
-                         </tbody>
-                    </table>
-               </div>
-          </div>
-
-          <!-- TÌM KIẾM SẢN PHẨM -->
-          <div class="container search-section">
-               <h2 class="text-center mb-3">TÌM KIẾM SẢN PHẨM</h2>
-               <div class="row justify-content-center">
-                    <div class="col-md-8">
-                         <div class="input-group mb-3">
-                              <input type="text" class="form-control form-control-lg"
-                                   placeholder="Nhập tên sản phẩm bạn muốn tìm..." id="searchInput" />
-                              <div class="input-group-append">
-                                   <button class="btn btn-primary btn-lg" type="button" onclick="handleSearch()">
-                                        Tìm kiếm
-                                   </button>
-                              </div>
-                         </div>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">🛍️ ShopVN</div>
+            <div class="user-section">
+                <!-- Hiển thị khi CHƯA đăng nhập -->
+                <div id="guestSection" style="display: none;">
+                    <button class="btn btn-primary" onclick="window.location.href='login.html'">
+                        Đăng nhập
+                    </button>
+                </div>
+                
+                <!-- Hiển thị khi ĐÃ đăng nhập -->
+                <div id="userSection" style="display: none;">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <div>
+                            <div style="font-weight: 600;" id="userName">User</div>
+                            <div style="font-size: 12px; color: #666;" id="userEmail">email@example.com</div>
+                        </div>
                     </div>
-               </div>
-               <div class="row" id="searchResult"></div>
-          </div>
+                    <button class="btn btn-secondary" onclick="handleLogout()">
+                        Đăng xuất
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-          <!-- HIỂN THỊ SẢN PHẨM THEO DANH MỤC -->
-          <h1>THỜI TRANG NAM</h1>
-          <div class="container-fluid">
-               <div class="row" id="men"></div>
-          </div>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="welcome">
+            <h1>🎉 Chào mừng đến ShopVN</h1>
+            <p>Khám phá hàng ngàn sản phẩm chất lượng - Giá tốt mỗi ngày!</p>
+        </div>
 
-          <div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px">
-               <h1>THỜI TRANG NỮ</h1>
-               <div class="row" id="women"></div>
-          </div>
-     </div>
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Products sẽ được render bằng JavaScript -->
+        </div>
 
-     <script>
-          // Dữ liệu ban đầu
-          var defaultMan = [
-               {
-                    id: 1,
-                    name: "Áo khoác Sweater nam",
-                    code: "S01",
-                    price: "450.000",
-                    image: "https://salt.tikicdn.com/cache/750x750/ts/product/83/98/00/298d8423a74b1b67518e80187594dfde.jpg.webp",
-               },
-               {
-                    id: 2,
-                    name: "Áo da nam",
-                    code: "D01",
-                    price: "1.750.000",
-                    image: "https://thoitrangbigsize.vn/wp-content/uploads/2023/12/BS2259.jpg",
-               },
-               {
-                    id: 3,
-                    name: "Áo Jeans Nam",
-                    code: "J01",
-                    price: "500.000",
-                    image: "https://img.lazcdn.com/g/ff/kf/S87ea352358e740f1b61051656748c73bp.jpg_720x720q80.jpg_.webp",
-               },
-               {
-                    id: 4,
-                    name: "Áo Bomber nam",
-                    code: "B01",
-                    price: "450.000",
-                    image: "https://product.hstatic.net/200000642007/product/50bks_3ajp…82b997b755189e28_4f44f42287da4b41bddb39c975eb033f_master.jpg",
-               },
-          ];
+        <!-- Actions Section -->
+        <div class="actions-section">
+            <h2>🎯 Các tính năng nâng cao</h2>
+            <div class="actions-grid">
+                <button class="action-btn" onclick="handleCreateShop()">
+                    🏪 Tạo Shop
+                </button>
+                <button class="action-btn" onclick="handleViewOrders()">
+                    📦 Xem đơn hàng
+                </button>
+                <button class="action-btn" onclick="handleViewCart()">
+                    🛒 Giỏ hàng của tôi
+                </button>
+            </div>
+            <p class="notice" id="actionNotice">
+                💡 Các tính năng trên yêu cầu bạn phải đăng nhập
+            </p>
+        </div>
+    </div>
 
-          var defaultWomen = [
-               {
-                    id: 1,
-                    name: "Áo Jean Nữ",
-                    code: "J02",
-                    price: "550.000",
-                    image: "https://m.yodycdn.com/blog/mau-ao-khoac-jean-nu-moi-nhat-1.jpg",
-               },
-               {
-                    id: 2,
-                    name: "Áo da nữ",
-                    code: "D02",
-                    price: "1.250.000",
-                    image: "https://product.hstatic.net/1000078312/product/ao-da-that-nu-x10_master.jpg",
-               },
-               {
-                    id: 3,
-                    name: "Áo sweater nữ",
-                    code: "S02",
-                    price: "470.000",
-                    image: "https://maylanstore.com/wp-content/uploads/2023/10/ao-sweater-ins-theu-noi-4-768x768.jpg",
-               },
-               {
-                    id: 4,
-                    name: "Áo thun",
-                    code: "TC1025011BA",
-                    price: "300.000",
-                    image: "https://dony.vn/wp-content/uploads/2022/01/ao-bomber-nu-dep-1.jpg",
-               },
-          ];
-
-          // Biến toàn cục
-          var man = [];
-          var women = [];
-          var isEditMode = false;
-          var editingId = null;
-          var editingCategory = null;
-          var isManagementOpen = false;
-
-          // Khởi tạo ứng dụng
-          function initApp() {
-               loadDataFromLocalStorage();
-               listProducts();
-               setupSearchEvents();
-          }
-
-          // Load dữ liệu từ localStorage
-          function loadDataFromLocalStorage() {
-               var savedMan = localStorage.getItem("man");
-               var savedWomen = localStorage.getItem("women");
-
-               if (savedMan) {
-                    man = JSON.parse(savedMan);
-               } else {
-                    man = [...defaultMan];
-                    localStorage.setItem("man", JSON.stringify(man));
-               }
-
-               if (savedWomen) {
-                    women = JSON.parse(savedWomen);
-               } else {
-                    women = [...defaultWomen];
-                    localStorage.setItem("women", JSON.stringify(women));
-               }
-          }
-
-          // Lưu dữ liệu vào localStorage
-          function saveToLocalStorage() {
-               localStorage.setItem("man", JSON.stringify(man));
-               localStorage.setItem("women", JSON.stringify(women));
-          }
-
-          // Toggle hiển thị phần quản lý
-          function toggleManagement() {
-               var managementArea = document.getElementById("managementArea");
-               isManagementOpen = !isManagementOpen;
-
-               if (isManagementOpen) {
-                    managementArea.classList.remove("hidden");
-                    displayProductTable();
-                    window.scrollTo({ top: managementArea.offsetTop - 100, behavior: 'smooth' });
-               } else {
-                    managementArea.classList.add("hidden");
-                    cancelEdit();
-               }
-          }
-
-          // Hiển thị bảng sản phẩm
-          function displayProductTable() {
-               var tbody = document.getElementById("productTableBody");
-               tbody.innerHTML = "";
-
-               var allProducts = [];
-               man.forEach(function (item) {
-                    allProducts.push({ ...item, category: "man" });
-               });
-               women.forEach(function (item) {
-                    allProducts.push({ ...item, category: "women" });
-               });
-
-               allProducts.forEach(function (item, index) {
-                    var row = "<tr>";
-                    row += "<td>" + (index + 1) + "</td>";
-                    row += "<td>" + item.id + "</td>";
-                    row += "<td>" + item.name + "</td>";
-                    row += '<td><img src="' + item.image + '" class="product-image-small"></td>';
-                    row += "<td>" + item.price + "</td>";
-                    row += "<td>";
-                    row += '<button class="btn btn-sm btn-edit" onclick="editProduct(' + item.id + ', \'' + item.category + '\')">Sửa</button>';
-                    row += '<button class="btn btn-sm btn-delete" onclick="deleteProduct(' + item.id + ', \'' + item.category + '\')">Xóa</button>';
-                    row += "</td>";
-                    row += "</tr>";
-                    tbody.innerHTML += row;
-               });
-          }
-
-          // Xử lý submit form
-          function handleSubmit(event) {
-               event.preventDefault();
-
-               var id = document.getElementById("productId").value;
-               var name = document.getElementById("productName").value;
-               var code = document.getElementById("productCode").value;
-               var price = document.getElementById("productPrice").value;
-               var image = document.getElementById("productImage").value;
-               var category = document.getElementById("productCategory").value;
-
-               if (isEditMode) {
-                    // Cập nhật sản phẩm
-                    updateProduct(editingId, editingCategory, {
-                         id: parseInt(id),
-                         name: name,
-                         code: code,
-                         price: price,
-                         image: image
-                    });
-                    alert("Cập nhật sản phẩm thành công!");
-                    isEditMode = false;
-                    editingId = null;
-                    editingCategory = null;
-                    document.getElementById("btnSubmit").textContent = "Thêm";
-                    document.getElementById("btnCancel").style.display = "none";
-               } else {
-                    // Thêm sản phẩm mới
-                    var newProduct = {
-                         id: getNextId(category),
-                         name: name,
-                         code: code,
-                         price: price,
-                         image: image
-                    };
-
-                    if (category === "man") {
-                         man.push(newProduct);
-                    } else {
-                         women.push(newProduct);
-                    }
-
-                    saveToLocalStorage();
-                    alert("Thêm sản phẩm thành công!");
-               }
-
-               document.getElementById("productForm").reset();
-               document.getElementById("productId").value = "";
-               displayProductTable();
-               listProducts();
-          }
-
-          // Lấy ID tiếp theo
-          function getNextId(category) {
-               var arr = category === "man" ? man : women;
-               if (arr.length === 0) return 1;
-               var maxId = Math.max(...arr.map(function (item) { return item.id; }));
-               return maxId + 1;
-          }
-
-          // Sửa sản phẩm
-          function editProduct(id, category) {
-               var arr = category === "man" ? man : women;
-               var product = arr.find(function (item) { return item.id === id; });
-
-               if (product) {
-                    document.getElementById("productId").value = product.id;
-                    document.getElementById("productName").value = product.name;
-                    document.getElementById("productCode").value = product.code;
-                    document.getElementById("productPrice").value = product.price;
-                    document.getElementById("productImage").value = product.image;
-                    document.getElementById("productCategory").value = category;
-
-                    isEditMode = true;
-                    editingId = id;
-                    editingCategory = category;
-                    document.getElementById("btnSubmit").textContent = "Cập nhật";
-                    document.getElementById("btnCancel").style.display = "inline-block";
-
-                    var formPosition = document.getElementById("productForm").offsetTop;
-                    window.scrollTo({ top: formPosition - 100, behavior: 'smooth' });
-               }
-          }
-
-          // Cập nhật sản phẩm
-          function updateProduct(id, category, newData) {
-               var arr = category === "man" ? man : women;
-               var index = arr.findIndex(function (item) { return item.id === id; });
-
-               if (index !== -1) {
-                    arr[index] = newData;
-                    saveToLocalStorage();
-               }
-          }
-
-          // Xóa sản phẩm
-          function deleteProduct(id, category) {
-               if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
-                    if (category === "man") {
-                         man = man.filter(function (item) { return item.id !== id; });
-                    } else {
-                         women = women.filter(function (item) { return item.id !== id; });
-                    }
-
-                    saveToLocalStorage();
-                    displayProductTable();
-                    listProducts();
-                    alert("Xóa sản phẩm thành công!");
-               }
-          }
-
-          // Hủy chỉnh sửa
-          function cancelEdit() {
-               isEditMode = false;
-               editingId = null;
-               editingCategory = null;
-               document.getElementById("productForm").reset();
-               document.getElementById("productId").value = "";
-               document.getElementById("btnSubmit").textContent = "Thêm";
-               document.getElementById("btnCancel").style.display = "none";
-          }
-
-          // Hiển thị danh sách sản phẩm
-          function listProducts() {
-               document.getElementById("men").innerHTML = "";
-               document.getElementById("women").innerHTML = "";
-
-               man.forEach(function (item) {
-                    var demo = '<div class="col-3">';
-                    demo += '<div class="card" style="width: 18rem;">';
-                    demo += '<img src="' + item.image + '" class="card-img-top">';
-                    demo += '<div class="card-body">';
-                    demo += '<h5 class="card-title">' + item.name + "</h5>";
-                    demo += '<p class="card-text">' + item.price + "</p>";
-                    demo += '<a href="#" class="btn btn-primary" onclick="order(); return false;">Đặt mua</a>';
-                    demo += "</div></div></div>";
-                    document.getElementById("men").innerHTML += demo;
-               });
-
-               women.forEach(function (item) {
-                    var demo = '<div class="col-3">';
-                    demo += '<div class="card" style="width: 18rem;">';
-                    demo += '<img src="' + item.image + '" class="card-img-top">';
-                    demo += '<div class="card-body">';
-                    demo += '<h5 class="card-title">' + item.name + "</h5>";
-                    demo += '<p class="card-text">' + item.price + "</p>";
-                    demo += '<a href="#" class="btn btn-primary" onclick="order(); return false;">Đặt mua</a>';
-                    demo += "</div></div></div>";
-                    document.getElementById("women").innerHTML += demo;
-               });
-          }
-
-          // Tìm kiếm sản phẩm
-          function findProductByName(name) {
-               var allProducts = [...man, ...women];
-               return allProducts.filter(function (product) {
-                    return product.name.toLowerCase().includes(name.toLowerCase());
-               });
-          }
-
-          function showSearchResult(keyword) {
-               var resultDiv = document.getElementById("searchResult");
-               resultDiv.innerHTML = "";
-               var foundProducts = findProductByName(keyword);
-
-               if (foundProducts.length > 0) {
-                    foundProducts.forEach(function (item) {
-                         var demo = '<div class="col-3">';
-                         demo += '<div class="card" style="width: 18rem;">';
-                         demo += '<img src="' + item.image + '" class="card-img-top">';
-                         demo += '<div class="card-body">';
-                         demo += '<h5 class="card-title">' + item.name + "</h5>";
-                         demo += '<p class="card-text">' + item.price + "</p>";
-                         demo += '<a href="#" class="btn btn-primary" onclick="order(); return false;">Đặt mua</a>';
-                         demo += "</div></div></div>";
-                         resultDiv.innerHTML += demo;
-                    });
-               } else {
-                    resultDiv.innerHTML = '<div class="col-12"><p class="text-center">Không tìm thấy sản phẩm nào!</p></div>';
-               }
-          }
-
-          function handleSearch() {
-               var searchInput = document.getElementById("searchInput");
-               var keyword = searchInput.value.trim();
-
-               if (keyword !== "") {
-                    showSearchResult(keyword);
-               } else {
-                    document.getElementById("searchResult").innerHTML = "";
-               }
-          }
-
-          function setupSearchEvents() {
-               var searchInput = document.getElementById("searchInput");
-               if (searchInput) {
-                    searchInput.addEventListener("keypress", function (event) {
-                         if (event.key === "Enter") {
-                              handleSearch();
-                         }
-                    });
-               }
-          }
-          function order() {
-               alert("Đặt hàng thành công!");
-          }
-     </script>
+    <!-- Import Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+     <script src="js/home.js"></script>
 </body>
 </html>
