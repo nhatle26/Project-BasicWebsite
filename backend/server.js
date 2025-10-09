@@ -8,28 +8,23 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Đường dẫn chính xác đến file db.json
-const dbPath = path.join(__dirname, "../data/db.json");
+// đường dẫn tương đối (Render cần)
+const dbPath = path.join(__dirname, "data/db.json");
 
-// Đọc dữ liệu
+// đọc dữ liệu
 let db = JSON.parse(fs.readFileSync(dbPath));
 
-// GET tất cả sản phẩm
-app.get("/products", (req, res) => {
-  res.json(db.products);
-});
+// API
+app.get("/products", (req, res) => res.json(db.products));
 
-// POST thêm sản phẩm
 app.post("/products", (req, res) => {
   const newProduct = req.body;
   newProduct.id = Date.now();
-
   db.products.push(newProduct);
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
-
   res.status(201).json(newProduct);
 });
 
-app.listen(3000, () => 
-  console.log("API server running on http://localhost:3000")
-);
+// port của Render
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
