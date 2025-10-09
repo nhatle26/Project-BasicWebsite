@@ -138,3 +138,8 @@
                     badge.style.display = 'none';
                }
           });
+            // Render giỏ hàng
+    function renderCart() {
+        const cart = cartUtils.getCart();  // ← Lấy từ localStorage
+        // Hiển thị sản phẩm...
+    }

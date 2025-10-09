@@ -114,6 +114,9 @@ function getPaymentMethodLabel(method) {
     };
     return methodLabels[method] || method;
 }
+ // Thanh toán
+    const cart = cartUtils.getCart();  // ← Lấy giỏ hàng
+    // Xử lý thanh toán...
 
 // ===== TÍNH TỔNG DOANH THU =====
 function calculateTotalRevenue() {
