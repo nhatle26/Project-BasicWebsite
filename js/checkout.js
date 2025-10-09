@@ -139,3 +139,7 @@ window.checkoutUtils = {
     getPaymentMethodLabel,
     calculateTotalRevenue
 };
+document.addEventListener('DOMContentLoaded', function() {
+    renderAllProducts();
+    updateCartBadge();  // ✅ Hiển thị số giỏ hàng khi load
+});

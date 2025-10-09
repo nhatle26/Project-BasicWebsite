@@ -149,12 +149,7 @@
         function hideLoading() {
             document.getElementById('loadingOverlay').classList.remove('show');
         }
-        // Thêm vào giỏ khi click button
-    function quickAddToCart(productId) {
-        const product = getProductById(productId);
-        cartUtils.addToCart(product, 1);  // ← Gọi hàm từ cart.js
-        alert('Đã thêm vào giỏ!');
-    }
+
     </script>
 </body>
 </html>
