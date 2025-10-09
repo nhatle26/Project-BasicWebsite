@@ -1,7 +1,20 @@
 {
-"users": [],
-"products": [],
-"orders": [],
-"categories": [],
-"orders_details": []
+  "products": [
+    {
+      "id": 1,
+      "name": "Áo thun nam",
+      "price": 199000,
+      "category": "Áo",
+      "image": "https://via.placeholder.com/150",
+      "description": "Áo thun cotton thoáng mát, phù hợp đi học đi chơi."
+    },
+    {
+      "id": 2,
+      "name": "Quần jean nữ",
+      "price": 299000,
+      "category": "Quần",
+      "image": "https://via.placeholder.com/150",
+      "description": "Quần jean co giãn nhẹ, tôn dáng."
+    }
+  ]
 }
