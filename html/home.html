@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ - Cửa hàng hoa</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -36,11 +36,59 @@
             <p style="font-size: 14px; margin-top: 10px; opacity: 0.8;">Giao hàng nhanh chóng - Giá cả hợp lý - Chất lượng đảm bảo</p>
         </div>
 
+        <!-- SẮP XẾP & LỌC -->
+        <div class="sort-section">
+            <h2 style="margin: 0; color: #333;">🌹 Sản phẩm nổi bật</h2>
+            <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+                <option value="default">Mặc định</option>
+                <option value="name-asc">Tên: A → Z</option>
+                <option value="name-desc">Tên: Z → A</option>
+                <option value="price-asc">Giá: Thấp → Cao</option>
+                <option value="price-desc">Giá: Cao → Thấp</option>
+            </select>
+        </div>
+
         <!-- DANH SÁCH SẢN PHẨM -->
-        <h2 style="margin-bottom: 20px; color: #333;">🌹 Sản phẩm nổi bật</h2>
         <div class="products-grid" id="productsContainer">
             <!-- Sản phẩm sẽ được render từ products.js -->
         </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🌹 Flower Shop</h3>
+                <p>Cửa hàng hoa tươi uy tín, chất lượng cao.</p>
+                <p>Giao hàng nhanh chóng, giá cả hợp lý.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên hệ</h3>
+                <p>📍 123 Nguyễn Huệ, Q.1, TP.HCM</p>
+                <p>📞 0901 234 567</p>
+                <p>✉️ contact@flowershop.vn</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên kết nhanh</h3>
+                <p><a href="index.html">Trang chủ</a></p>
+                <p><a href="search.html">Tìm kiếm sản phẩm</a></p>
+                <p><a href="orders.html">Lịch sử đơn hàng</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Chính sách</h3>
+                <p><a href="#">Chính sách đổi trả</a></p>
+                <p><a href="#">Chính sách bảo mật</a></p>
+                <p><a href="#">Điều khoản sử dụng</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Flower Shop. All rights reserved. Made with ❤️ by IT Students</p>
+        </div>
+    </footer>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
     </div>
 
     <!-- IMPORT JS -->
@@ -55,6 +103,31 @@
             updateNavbar();
         });
 
+        // Sắp xếp sản phẩm
+        function sortProducts() {
+            const sortValue = document.getElementById('sortSelect').value;
+            const products = window.productsUtils.getAllProducts();
+
+            switch(sortValue) {
+                case 'name-asc':
+                    products.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name-desc':
+                    products.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'price-asc':
+                    products.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-desc':
+                    products.sort((a, b) => b.price - a.price);
+                    break;
+                default:
+                    products.sort((a, b) => a.id - b.id);
+            }
+
+            renderAllProducts();
+        }
+
         // Tìm kiếm sản phẩm
         function searchProducts() {
             const query = document.getElementById('searchInput').value;
@@ -67,6 +140,15 @@
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') searchProducts();
         });
+
+        // Hiển thị loading
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('show');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('show');
+        }
     </script>
 </body>
 </html>
