@@ -4,7 +4,7 @@ function checkAdminAccess() {
     
     if (!user || user.role !== 'admin') {
         alert('Bạn không có quyền truy cập trang này!');
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
         return false;
     }
     

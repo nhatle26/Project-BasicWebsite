@@ -106,7 +106,7 @@ function logout(e) {
         localStorage.removeItem('user');
         showToast('Đã đăng xuất thành công!', 'success');
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'home.html';
         }, 1000);
     }
 }
@@ -115,4 +115,4 @@ function logout(e) {
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
     checkAuth();
-});
+})

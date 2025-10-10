@@ -42,7 +42,7 @@ async function handleLogin() {
                 if (user.role === 'admin') {
                     window.location.href = 'admin.html';
                 } else {
-                    window.location.href = 'index.html';
+                    window.location.href = 'home.html';
                 }
             }, 1000);
         } else {
@@ -135,6 +135,6 @@ async function handleRegister() {
 document.addEventListener('DOMContentLoaded', () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && window.location.pathname.includes('login.html')) {
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
     }
 });

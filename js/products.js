@@ -177,7 +177,7 @@ async function loadProductDetail() {
     const productId = urlParams.get('id');
     
     if (!productId) {
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
         return;
     }
     

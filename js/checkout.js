@@ -97,7 +97,7 @@ async function placeOrder() {
             // Redirect to home page
             setTimeout(() => {
                 alert('Cảm ơn bạn đã đặt hàng!\n\nMã đơn hàng của bạn sẽ được gửi qua email/SMS.\nChúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!');
-                window.location.href = 'index.html';
+                window.location.href = 'home.html';
             }, 1500);
         } else {
             throw new Error('Failed to place order');
