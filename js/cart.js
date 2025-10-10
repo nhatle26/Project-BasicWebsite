@@ -116,14 +116,6 @@
                window.location.href = 'cart.html';
           }
 
-          // Tìm kiếm
-          function searchProducts() {
-               const query = document.getElementById('searchInput').value;
-               if (query.trim()) {
-                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-               }
-          }
-
           // Load trang
 document.addEventListener('DOMContentLoaded', function() {
     renderAllProducts();
@@ -192,5 +184,88 @@ function updateCartBadge() {
     }
 }
 
+function renderCart() {
+    const cart = window.cartUtils.getCart();
+    const container = document.getElementById('cartContent');
+
+    if (!container) return;
+
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 50px; color: #666;">
+                <div style="font-size: 70px;">🛒</div>
+                <p>Giỏ hàng của bạn đang trống</p>
+                <a href="home.html" class="btn btn-primary" style="text-decoration: none;">🛍 Tiếp tục mua sắm</a>
+            </div>
+        `;
+        return;
+    }
+
+    let total = 0;
+
+    container.innerHTML = `
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #f5f5f5;">
+                    <th style="padding: 10px;">Sản phẩm</th>
+                    <th style="padding: 10px;">Giá</th>
+                    <th style="padding: 10px;">Số lượng</th>
+                    <th style="padding: 10px;">Thành tiền</th>
+                    <th style="padding: 10px;">Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${cart.map((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    return `
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px;">${item.emoji} ${item.name}</td>
+                            <td style="padding: 10px;">${item.price.toLocaleString('vi-VN')}đ</td>
+                            <td style="padding: 10px;">
+                                <button onclick="updateQuantity(${index}, -1)">-</button>
+                                <span style="margin: 0 10px;">${item.quantity}</span>
+                                <button onclick="updateQuantity(${index}, 1)">+</button>
+                            </td>
+                            <td style="padding: 10px;">${itemTotal.toLocaleString('vi-VN')}đ</td>
+                            <td style="padding: 10px;">
+                                <button onclick="removeItem(${index})">❌</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('')}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 20px; text-align: right;">
+            <h3>Tổng cộng: ${total.toLocaleString('vi-VN')}đ</h3>
+            <a href="checkout.html" class="btn btn-primary" style="text-decoration: none;">💳 Thanh toán</a>
+        </div>
+    `;
+}
+function updateQuantity(index, change) {
+    const cart = window.cartUtils.getCart();
+    cart[index].quantity += change;
+
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+
+    window.cartUtils.saveCart(cart);
+    renderCart();
+    updateCartBadge();
+}
+
+function removeItem(index) {
+    const cart = window.cartUtils.getCart();
+    cart.splice(index, 1);
+    window.cartUtils.saveCart(cart);
+    renderCart();
+    updateCartBadge();
+}
+
 // Lắng nghe sự kiện cập nhật giỏ hàng
-window.addEventListener('cartUpdated', updateCartBadge);
+document.addEventListener('DOMContentLoaded', function() {
+    renderCart();
+    updateCartBadge();
+});
