@@ -1,112 +1,106 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Chi tiết sản phẩm - Cửa hàng hoa</title>
-     <link rel="stylesheet" href="../style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm - Flower Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-     <!-- HEADER -->
-     <header>
-          <nav>
-               <a href="home.html" class="logo">🌹 Flower Shop</a>
-               <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Tìm hoa, chậu, phụ kiện...">
-                    <button onclick="searchProducts()">🔍</button>
-               </div>
-               <div class="nav-menu">
-                    <a href="home.html">Trang chủ</a>
-                    <a href="search.html">Tìm kiếm</a>
-                    <a href="cart.html" class="cart-icon">
-                         🛒 Giỏ hàng
-                         <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+    <!-- Header -->
+    <header class="header-main">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="assets/icons/flower-logo.svg" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+                    <h1 class="shop-name">Flower Shop</h1>
+                </div>
+                
+                <div class="search-section">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <nav class="nav-section">
+                    <a href="home.html" class="nav-link">
+                        <i class="fas fa-home"></i> Trang chủ
                     </a>
-                    <a href="login.html">Đăng nhập</a>
-               </div>
-          </nav>
-     </header>
+                    <a href="cart.html" class="nav-link cart-link">
+                        <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                    <a href="login.html" class="nav-link" id="authLink">
+                        <i class="fas fa-user"></i> Đăng nhập
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-     <!-- MAIN CONTENT -->
-     <div class="container">
-          <div style="margin-bottom: 20px; font-size: 14px; color: #666;">
-               <a href="home.html" style="color: #d4284c; text-decoration: none;">🏠 Trang chủ</a> /
-               <a href="search.html" style="color: #d4284c; text-decoration: none;">🔍 Tìm kiếm</a> /
-               <span id="breadcrumbName">Sản phẩm</span>
-          </div>
+    <!-- Product Detail -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div id="productDetail" class="product-detail-content">
+                <!-- Product detail will be loaded here -->
+            </div>
+            
+            <div class="back-link">
+                <a href="home.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại trang chủ
+                </a>
+            </div>
+        </div>
+    </section>
 
-          <div class="product-wrapper">
-               <div class="success-message" id="successMessage">
-                    ✅ Đã thêm vào giỏ hàng thành công!
-               </div>
+    <!-- Related Products -->
+    <section class="related-products-section">
+        <div class="container">
+            <h3 class="section-title">Sản Phẩm Liên Quan</h3>
+            <div id="relatedProducts" class="products-grid">
+                <!-- Related products will be loaded here -->
+            </div>
+        </div>
+    </section>
 
-               <div class="product-container">
-                    <!-- Ảnh sản phẩm -->
-                    <div class="product-image-large" id="productImage">
-                         🌹
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Flower Shop</h4>
+                    <p>Cửa hàng hoa tươi uy tín</p>
+                    <p>Giao hàng toàn quốc</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Liên hệ</h4>
+                    <p><i class="fas fa-phone"></i> 0123.456.789</p>
+                    <p><i class="fas fa-envelope"></i> contact@flowershop.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Đà Nẵng, Việt Nam</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Theo dõi chúng tôi</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
                     </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Flower Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-                    <!-- Thông tin sản phẩm -->
-                    <div class="product-details">
-                         <div>
-                              <h1 id="productName">Tên sản phẩm</h1>
-                              <div class="product-rating">⭐⭐⭐⭐⭐ (150 đánh giá)</div>
-                              <div class="product-price-large" id="productPrice">0đ</div>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification"></div>
 
-                              <!-- Thông tin chi tiết -->
-                              <div class="product-info">
-                                   <div class="info-row">
-                                        <span class="info-label">Tình trạng:</span>
-                                        <span class="info-value" id="productStock">
-                                             <span class="stock-status in-stock">✅ Còn hàng</span>
-                                        </span>
-                                   </div>
-                                   <div class="info-row">
-                                        <span class="info-label">Danh mục:</span>
-                                        <span class="info-value" id="productCategory">-</span>
-                                   </div>
-                                   <div class="info-row">
-                                        <span class="info-label">Số lượng:</span>
-                                        <span class="info-value" id="productAvailable">-</span>
-                                   </div>
-                              </div>
-
-                              <!-- Mô tả -->
-                              <div
-                                   style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; line-height: 1.6; color: #555; font-size: 14px;">
-                                   <div style="font-weight: bold; color: #333; margin-bottom: 10px;">📝 Mô tả sản phẩm
-                                   </div>
-                                   <div id="productDescription">Mô tả sản phẩm sẽ được hiển thị ở đây...</div>
-                              </div>
-                         </div>
-
-                         <!-- Chọn số lượng -->
-                         <div class="quantity-section">
-                              <label class="quantity-label">Số lượng</label>
-                              <div class="quantity-control">
-                                   <button onclick="decreaseQuantity()">-</button>
-                                   <input type="number" id="quantity" value="1" min="1" max="100" readonly>
-                                   <button onclick="increaseQuantity()">+</button>
-                              </div>
-                         </div>
-
-                         <!-- Nút hành động -->
-                         <div class="action-buttons">
-                              <button class="btn btn-primary" onclick="addToCart()" style="width: 100%;">🛒 Thêm vào
-                                   giỏ</button>
-                              <button class="btn" style="background: #ffc107; color: #333; width: 100%;"
-                                   onclick="buyNow()">💳 Mua ngay</button>
-                         </div>
-
-                         <a href="search.html"
-                              style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #6c757d; color: white; text-decoration: none; border-radius: 5px; transition: background 0.2s;">←
-                              Quay lại</a>
-                    </div>
-               </div>
-          </div>
-     </div>
-
-     <script src="../js/cart.js"></script>
-     <script src="../js/products.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/products.js"></script>
 </body>
 </html>

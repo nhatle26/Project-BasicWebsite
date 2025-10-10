@@ -1,110 +1,118 @@
-// js/main.js - Điều hướng, navbar, hiển thị thông tin người dùng
+// API Base URL
+const API_URL = 'http://localhost:3000';
 
-// ===== LẤY THÔNG TIN USER HIỆN TẠI =====
-function getCurrentUser() {
-    const userJson = sessionStorage.getItem('currentUser');
-    return userJson ? JSON.parse(userJson) : null;
+// Toast Notification
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `toast-notification ${type} show`;
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
 }
 
-// ===== CẬP NHẬT NAVBAR =====
-function updateNavbar() {
-    const currentUser = getCurrentUser();
-    const loginLink = document.getElementById('loginLink');
-    const adminLink = document.getElementById('adminLink');
+// Format Currency
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    }).format(amount);
+}
 
-    if (!loginLink) return;
+// Get Cart from localStorage
+function getCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    return cart;
+}
 
-    if (currentUser) {
-        // Người dùng đã đăng nhập
-        loginLink.textContent = `👤 ${currentUser.name || currentUser.email}`;
-        loginLink.href = '#';
-        loginLink.onclick = function(e) {
-            e.preventDefault();
-            showUserMenu();
-        };
-
-        // Hiển thị link Admin nếu user là admin
-        if (adminLink && currentUser.isAdmin) {
-            adminLink.style.display = 'inline-block';
-        }
-    } else {
-        // Chưa đăng nhập
-        loginLink.textContent = 'Đăng nhập';
-        loginLink.href = 'login.html';
-        loginLink.onclick = null;
-
-        if (adminLink) {
-            adminLink.style.display = 'none';
-        }
-    }
-
-    // Cập nhật cart badge
+// Save Cart to localStorage
+function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
     updateCartBadge();
 }
 
-// ===== HIỂN THỊ MENU USER =====
-function showUserMenu() {
-    const choice = confirm('Bạn có muốn đăng xuất không?');
-    if (choice) {
-        logoutUser();
-    }
-}
-
-// ===== CẬP NHẬT BADGE GIỎ HÀNG =====
+// Update Cart Badge
 function updateCartBadge() {
-    const cartBadge = document.getElementById('cartBadge');
-    if (!cartBadge || !window.cartUtils) return;
+    const cart = getCart();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if (badge) {
+        badge.textContent = totalItems;
+    }
+}
 
-    const count = window.cartUtils.getCartCount();
+// Add to Cart
+function addToCart(productId, quantity = 1) {
+    fetch(`${API_URL}/products/${productId}`)
+        .then(res => res.json())
+        .then(product => {
+            const cart = getCart();
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: quantity
+                });
+            }
+            
+            saveCart(cart);
+            showToast(`Đã thêm "${product.name}" vào giỏ hàng!`, 'success');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('Có lỗi xảy ra!', 'error');
+        });
+}
+
+// Check Authentication
+function checkAuth() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const authLink = document.getElementById('authLink');
     
-    if (count > 0) {
-        cartBadge.textContent = count;
-        cartBadge.style.display = 'inline-block';
-    } else {
-        cartBadge.style.display = 'none';
+    if (authLink) {
+        if (user) {
+            authLink.innerHTML = `<i class="fas fa-sign-out-alt"></i> Đăng xuất`;
+            authLink.href = '#';
+            authLink.onclick = logout;
+            
+            // Show admin link if user is admin
+            if (user.role === 'admin') {
+                const adminLink = document.createElement('a');
+                adminLink.href = 'admin.html';
+                adminLink.className = 'nav-link';
+                adminLink.innerHTML = '<i class="fas fa-cog"></i> Quản lý';
+                authLink.parentNode.insertBefore(adminLink, authLink);
+            }
+        } else {
+            authLink.innerHTML = `<i class="fas fa-user"></i> Đăng nhập`;
+            authLink.href = 'login.html';
+            authLink.onclick = null;
+        }
     }
 }
 
-// ===== ĐĂNG XUẤT =====
-function logoutUser() {
-    sessionStorage.removeItem('currentUser');
-    alert('Đăng xuất thành công!');
-    window.location.href = 'index.html';
-}
-
-// ===== KIỂM TRA QUYỀN ADMIN =====
-function checkAdminAccess() {
-    const currentUser = getCurrentUser();
+// Logout
+function logout(e) {
+    if (e) e.preventDefault();
     
-    if (!currentUser) {
-        alert('⚠️ Bạn cần đăng nhập để truy cập trang này!');
-        window.location.href = 'login.html';
-        return false;
+    if (confirm('Bạn có chắc muốn đăng xuất?')) {
+        localStorage.removeItem('user');
+        showToast('Đã đăng xuất thành công!', 'success');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
     }
-
-    if (!currentUser.isAdmin) {
-        alert('⚠️ Bạn không có quyền truy cập trang này!');
-        window.location.href = 'index.html';
-        return false;
-    }
-
-    return true;
 }
 
-// ===== AUTO UPDATE KHI CART THAY ĐỔI =====
-window.addEventListener('cartUpdated', updateCartBadge);
-
-// ===== LOAD NAVBAR KHI TRANG TẢI =====
-document.addEventListener('DOMContentLoaded', function() {
-    updateNavbar();
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
+    checkAuth();
 });
-
-// ===== EXPORT FUNCTIONS =====
-window.mainUtils = {
-    getCurrentUser,
-    updateNavbar,
-    updateCartBadge,
-    logoutUser,
-    checkAdminAccess
-};
