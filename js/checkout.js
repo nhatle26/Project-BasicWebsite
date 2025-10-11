@@ -1,141 +1,114 @@
-// js/checkout.js - Xử lý thanh toán (POST order đến API)
-
-// ===== LƯU ĐỌN HÀNG VÀO LOCALSTORAGE =====
-// Trong thực tế, bạn sẽ POST đến API: fetch('http://localhost:3000/orders', {...})
-function saveOrder(orderData) {
-    let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+// Display Order Summary
+function displayOrderSummary() {
+    const cart = getCart();
     
-    // Tạo order với ID và timestamp
-    const newOrder = {
-        id: Date.now(),
-        ...orderData,
-        createdAt: new Date().toISOString(),
-        status: 'pending' // pending, processing, completed, cancelled
+    if (cart.length === 0) {
+        window.location.href = 'cart.html';
+        return;
+    }
+    
+    const orderItemsContainer = document.getElementById('orderItems');
+    
+    orderItemsContainer.innerHTML = cart.map(item => `
+        <div class="order-item">
+            <img src="${item.image}" alt="${item.name}" class="order-item-image"
+                 onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
+            <div class="order-item-info">
+                <p class="order-item-name">${item.name}</p>
+                <p class="order-item-quantity">x${item.quantity}</p>
+            </div>
+            <p class="order-item-price">${formatCurrency(item.price * item.quantity)}</p>
+        </div>
+    `).join('');
+    
+    // Calculate totals
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const total = subtotal + SHIPPING_FEE;
+    
+    document.getElementById('orderSubtotal').textContent = formatCurrency(subtotal);
+    document.getElementById('orderTotal').textContent = formatCurrency(total);
+}
+
+// Place Order
+async function placeOrder() {
+    // Get form data
+    const fullName = document.getElementById('fullName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const note = document.getElementById('note').value.trim();
+    const payment = document.querySelector('input[name="payment"]:checked').value;
+    
+    // Validate
+    if (!fullName || !phone || !address) {
+        showToast('Vui lòng điền đầy đủ thông tin bắt buộc!', 'error');
+        return;
+    }
+    
+    if (phone.length < 10) {
+        showToast('Số điện thoại không hợp lệ!', 'error');
+        return;
+    }
+    
+    const cart = getCart();
+    if (cart.length === 0) {
+        showToast('Giỏ hàng trống!', 'error');
+        return;
+    }
+    
+    // Calculate total
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const total = subtotal + SHIPPING_FEE;
+    
+    // Create order object
+    const order = {
+        customerName: fullName,
+        phone: phone,
+        email: email,
+        address: address,
+        note: note,
+        paymentMethod: payment,
+        items: cart,
+        subtotal: subtotal,
+        shippingFee: SHIPPING_FEE,
+        total: total,
+        status: 'pending',
+        createdAt: new Date().toISOString()
     };
     
-    orders.push(newOrder);
-    localStorage.setItem('orders', JSON.stringify(orders));
-    
-    return newOrder;
-}
-
-// ===== LẤY TẤT CẢ ĐƠN HÀNG =====
-function getAllOrders() {
-    return JSON.parse(localStorage.getItem('orders') || '[]');
-}
-
-// ===== LẤY ĐƠN HÀNG CỦA USER HIỆN TẠI =====
-function getUserOrders(userEmail) {
-    const allOrders = getAllOrders();
-    return allOrders.filter(order => order.email === userEmail);
-}
-
-// ===== LẤY ĐƠN HÀNG THEO ID =====
-function getOrderById(orderId) {
-    const orders = getAllOrders();
-    return orders.find(order => order.id === parseInt(orderId));
-}
-
-// ===== CẬP NHẬT TRẠNG THÁI ĐƠN HÀNG =====
-function updateOrderStatus(orderId, newStatus) {
-    const orders = getAllOrders();
-    const order = orders.find(o => o.id === parseInt(orderId));
-    
-    if (order) {
-        order.status = newStatus;
-        order.updatedAt = new Date().toISOString();
-        localStorage.setItem('orders', JSON.stringify(orders));
-        return true;
+    try {
+        // Send order to API
+        const response = await fetch(`${API_URL}/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        });
+        
+        if (response.ok) {
+            // Clear cart
+            localStorage.removeItem('cart');
+            updateCartBadge();
+            
+            // Show success message
+            showToast('Đặt hàng thành công!', 'success');
+            
+            // Redirect to home page
+            setTimeout(() => {
+                alert('Cảm ơn bạn đã đặt hàng!\n\nMã đơn hàng của bạn sẽ được gửi qua email/SMS.\nChúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!');
+                window.location.href = 'home.html';
+            }, 1500);
+        } else {
+            throw new Error('Failed to place order');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Có lỗi xảy ra khi đặt hàng!', 'error');
     }
-    return false;
 }
 
-// ===== XÓA ĐƠN HÀNG =====
-function deleteOrder(orderId) {
-    let orders = getAllOrders();
-    orders = orders.filter(o => o.id !== parseInt(orderId));
-    localStorage.setItem('orders', JSON.stringify(orders));
+// Initialize
+if (document.getElementById('orderItems')) {
+    displayOrderSummary();
 }
-
-// ===== VALIDATE THÔNG TIN THANH TOÁN =====
-function validateCheckoutForm(formData) {
-    const errors = [];
-    
-    // Kiểm tra họ tên
-    if (!formData.fullName || formData.fullName.trim().length < 3) {
-        errors.push('Họ tên phải có ít nhất 3 ký tự');
-    }
-    
-    // Kiểm tra email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email || !emailRegex.test(formData.email)) {
-        errors.push('Email không hợp lệ');
-    }
-    
-    // Kiểm tra số điện thoại
-    const phoneRegex = /^[0-9]{10,11}$/;
-    if (!formData.phone || !phoneRegex.test(formData.phone.replace(/[- ]/g, ''))) {
-        errors.push('Số điện thoại phải có 10-11 chữ số');
-    }
-    
-    // Kiểm tra địa chỉ
-    if (!formData.address || formData.address.trim().length < 5) {
-        errors.push('Địa chỉ không hợp lệ');
-    }
-    
-    // Kiểm tra thành phố
-    if (!formData.city || formData.city.trim().length < 2) {
-        errors.push('Vui lòng nhập thành phố/tỉnh');
-    }
-    
-    return errors;
-}
-
-// ===== FORMAT TRẠNG THÁI ĐƠN HÀNG =====
-function getOrderStatusLabel(status) {
-    const statusLabels = {
-        'pending': '⏳ Chờ xử lý',
-        'processing': '📦 Đang xử lý',
-        'shipping': '🚚 Đang giao hàng',
-        'completed': '✅ Hoàn thành',
-        'cancelled': '❌ Đã hủy'
-    };
-    return statusLabels[status] || status;
-}
-
-// ===== FORMAT PHƯƠNG THỨC THANH TOÁN =====
-function getPaymentMethodLabel(method) {
-    const methodLabels = {
-        'cod': '💵 Thanh toán khi nhận hàng (COD)',
-        'bank': '🏦 Chuyển khoản ngân hàng',
-        'card': '💳 Thẻ tín dụng/Ghi nợ',
-        'momo': '📱 Ví MoMo',
-        'zalopay': '💙 ZaloPay'
-    };
-    return methodLabels[method] || method;
-}
- // Thanh toán
-    const cart = cartUtils.getCart();  // ← Lấy giỏ hàng
-    // Xử lý thanh toán...
-
-// ===== TÍNH TỔNG DOANH THU =====
-function calculateTotalRevenue() {
-    const orders = getAllOrders();
-    return orders
-        .filter(order => order.status === 'completed')
-        .reduce((total, order) => total + order.total, 0);
-}
-
-// ===== EXPORT FUNCTIONS =====
-window.checkoutUtils = {
-    saveOrder,
-    getAllOrders,
-    getUserOrders,
-    getOrderById,
-    updateOrderStatus,
-    deleteOrder,
-    validateCheckoutForm,
-    getOrderStatusLabel,
-    getPaymentMethodLabel,
-    calculateTotalRevenue
-};
