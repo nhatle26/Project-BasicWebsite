@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán - Flower Shop</title>
     <link rel="stylesheet" href="../style/style.css">
 </head>
+
 <body>
     <!-- Phần đầu trang -->
     <header>
@@ -19,7 +21,7 @@
     <!-- Form thanh toán -->
     <main>
         <h2>Thanh Toán Đơn Hàng</h2>
-        
+
         <div class="checkout-container">
             <!-- Form thông tin giao hàng -->
             <div class="shipping-info">
@@ -27,20 +29,20 @@
                 <form>
                     <label>Họ và tên: *</label>
                     <input type="text" id="fullname" required>
-                    
+
                     <label>Số điện thoại: *</label>
                     <input type="tel" id="phone" required>
-                    
+
                     <label>Email:</label>
                     <input type="email" id="email">
-                    
+
                     <label>Địa chỉ giao hàng: *</label>
                     <textarea id="address" rows="3" required></textarea>
-                    
+
                     <label>Ghi chú:</label>
                     <textarea id="note" rows="2"></textarea>
                 </form>
-                
+
                 <!-- Phương thức thanh toán -->
                 <h3>Phương thức thanh toán</h3>
                 <label>
@@ -56,19 +58,19 @@
                     Ví điện tử MoMo
                 </label>
             </div>
-            
+
             <!-- Tóm tắt đơn hàng -->
             <div class="order-summary">
                 <h3>Đơn hàng của bạn</h3>
                 <div id="orderItems">
                     <!-- Danh sách sản phẩm -->
                 </div>
-                
+
                 <hr>
                 <p>Tạm tính: <span id="subtotal">0đ</span></p>
                 <p>Phí vận chuyển: <span>30,000đ</span></p>
                 <p><strong>Tổng cộng: <span id="total">0đ</span></strong></p>
-                
+
                 <button onclick="placeOrder()">Đặt hàng</button>
                 <a href="cart.html">Quay lại giỏ hàng</a>
             </div>
@@ -83,4 +85,5 @@
 
     <script src="checkout.js"></script>
 </body>
+
 </html>

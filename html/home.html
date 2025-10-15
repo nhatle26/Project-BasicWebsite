@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../style/style.css">
 </head>
+
 <body>
     <!-- Phần đầu trang -->
     <header>
         <h1> Flower Shop</h1>
-        
+
         <!-- Thanh tìm kiếm -->
         <div class="search">
             <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
             <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
-            <i ></i>
+            <i></i>
         </div>
-        
+
         <!-- Menu điều hướng -->
         <nav>
             <a href="home.html">Trang chủ</a>
@@ -44,7 +46,7 @@
                 <option value="Hoa Lan">Hoa Lan</option>
             </select>
         </label>
-        
+
         <label>Giá:
             <select id="priceFilter" onchange="filterProducts()">
                 <option value="">Tất cả</option>
@@ -53,7 +55,7 @@
                 <option value="200000-10000000000">Trên 200k</option>
             </select>
         </label>
-        
+
         <label>Sắp xếp:
             <select id="sortFilter" onchange="sortProducts()">
                 <option value="">Mặc định</option>
@@ -69,7 +71,7 @@
         <div id="productList" class="product-grid">
             <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
         </div>
-        
+
         <!-- Phân trang -->
         <div id="pagination"></div>
     </main>
@@ -82,4 +84,5 @@
 
     <script src="home.js"></script>
 </body>
+
 </html>

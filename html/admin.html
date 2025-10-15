@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý sản phẩm - Flower Shop</title>
     <link rel="stylesheet" href="../style/style.css">
 </head>
+
 <body>
     <!-- Phần đầu trang -->
     <header>
@@ -19,21 +21,21 @@
     <!-- Quản lý sản phẩm -->
     <main>
         <h2>Quản Lý Sản Phẩm</h2>
-        
+
         <button onclick="showAddForm()">+ Thêm sản phẩm mới</button>
-        
+
         <!-- Form thêm/sửa sản phẩm -->
         <div id="productForm" style="display: none;">
             <h3 id="formTitle">Thêm Sản Phẩm Mới</h3>
             <form>
                 <input type="hidden" id="productId">
-                
+
                 <label>Tên sản phẩm:</label>
                 <input type="text" id="productName" required>
-                
+
                 <label>Giá (VNĐ):</label>
                 <input type="number" id="productPrice" required>
-                
+
                 <label>Danh mục:</label>
                 <select id="productCategory">
                     <option value="Hoa Hồng">Hoa Hồng</option>
@@ -41,21 +43,21 @@
                     <option value="Hoa Ly">Hoa Ly</option>
                     <option value="Hoa Lan">Hoa Lan</option>
                 </select>
-                
+
                 <label>Mô tả:</label>
                 <textarea id="productDescription" rows="3"></textarea>
-                
+
                 <label>Link ảnh:</label>
                 <input type="text" id="productImage">
-                
+
                 <label>Số lượng trong kho:</label>
                 <input type="number" id="productStock">
-                
+
                 <button type="button" onclick="saveProduct()">Lưu</button>
                 <button type="button" onclick="cancelForm()">Hủy</button>
             </form>
         </div>
-        
+
         <!-- Bảng danh sách sản phẩm -->
         <table>
             <thead>
@@ -83,4 +85,5 @@
 
     <script src="admin.js"></script>
 </body>
+
 </html>
