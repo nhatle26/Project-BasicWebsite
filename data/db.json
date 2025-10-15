@@ -1,0 +1,112 @@
+{
+  "products": [
+    {
+      "name": "Hoa Hồng Đỏ",
+      "price": 139999,
+      "category": "Hoa Hồng",
+      "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn",
+      "image": "assets/images/rose-red.jpg",
+      "stock": 50,
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Hoa Hồng Trắng",
+      "price": 140000,
+      "category": "Hoa Hồng",
+      "description": "Bó hoa hồng trắng tinh khôi, thanh lịch và sang trọng",
+      "image": "assets/images/rose-white.jpg",
+      "stock": 45
+    },
+    {
+      "id": "3",
+      "name": "Hoa Tulip Vàng",
+      "price": 200000,
+      "category": "Hoa Tulip",
+      "description": "Bó tulip vàng rực rỡ, mang đến niềm vui và sự ấm áp",
+      "image": "assets/images/tulip-yellow.jpg",
+      "stock": 30
+    },
+    {
+      "id": "4",
+      "name": "Hoa Ly Trắng",
+      "price": 180000,
+      "category": "Hoa Ly",
+      "description": "Hoa ly trắng thanh khiết, thích hợp cho mọi dịp lễ",
+      "image": "assets/images/lily-white.jpg",
+      "stock": 35
+    },
+    {
+      "id": "5",
+      "name": "Hoa Cẩm Chướng",
+      "price": 120000,
+      "category": "Hoa Cẩm Chướng",
+      "description": "Bó cẩm chướng đa sắc, tươi vui và đầy màu sắc",
+      "image": "assets/images/carnation.jpg",
+      "stock": 60
+    },
+    {
+      "id": "6",
+      "name": "Hoa Lan Hồ Điệp",
+      "price": 350000,
+      "category": "Hoa Lan",
+      "description": "Chậu lan hồ điệp cao cấp, sang trọng và lâu tàn",
+      "image": "assets/images/orchid.jpg",
+      "stock": 20
+    },
+    {
+      "id": "7",
+      "name": "Hoa Hướng Dương",
+      "price": 160000,
+      "category": "Hoa Hướng Dương",
+      "description": "Bó hướng dương tươi sáng, mang đến năng lượng tích cực",
+      "image": "assets/images/sunflower.jpg",
+      "stock": 40
+    },
+    {
+      "id": "8",
+      "name": "Hoa Baby Mix",
+      "price": 90000,
+      "category": "Hoa Baby",
+      "description": "Bó baby nhỏ xinh, phù hợp làm quà tặng đơn giản",
+      "image": "assets/images/baby.jpg",
+      "stock": 70
+    },
+    {
+      "id": "0fb3",
+      "name": "Muy tá",
+      "price": 100000000,
+      "category": "Hoa Hồng",
+      "description": "Thứ có thể giúp bạn đi tới ước mơ của bạn dễ hơn",
+      "image": "https://vppthinhdatphat.com/wp-content/uploads/2021/08/duong-thanh-cong-gia-lai-4613.jpg",
+      "stock": 1
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin123",
+      "email": "admin@flowershop.com",
+      "role": "admin",
+      "fullname": "Quản Trị Viên"
+    },
+    {
+      "id": "2",
+      "username": "user01",
+      "password": "user123",
+      "email": "user01@gmail.com",
+      "role": "user",
+      "fullname": "Nguyễn Văn A"
+    },
+    {
+      "id": "4236",
+      "username": "Nhật",
+      "password": "ben123ben",
+      "email": "nhat@gmail.com",
+      "fullname": "Lê Minh Nhật",
+      "role": "user"
+    }
+  ],
+  "orders": []
+}

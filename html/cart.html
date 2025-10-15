@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng - Flower Shop</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+    <!-- Phần đầu trang -->
+    <header>
+        <h1> Flower Shop</h1>
+        <nav>
+            <a href="home.html">Trang chủ</a>
+            <a href="cart.html">Giỏ hàng</a>
+            <a href="login.html">Đăng nhập</a>
+        </nav>
+    </header>
+
+    <!-- Nội dung giỏ hàng -->
+    <main>
+        <h2>Giỏ Hàng Của Bạn</h2>
+        
+        <!-- Danh sách sản phẩm trong giỏ -->
+        <div id="cartItems">
+            <!-- Sản phẩm trong giỏ sẽ hiển thị ở đây -->
+        </div>
+        
+        <!-- Thông báo giỏ hàng trống -->
+        <div id="emptyCart" style="display: none;">
+            <p>Giỏ hàng của bạn đang trống</p>
+            <a href="home.html">Tiếp tục mua hàng</a>
+        </div>
+        
+        <!-- Tổng kết đơn hàng -->
+        <div id="cartSummary" class="summary">
+            <h3>Tóm tắt đơn hàng</h3>
+            <p>Tổng sản phẩm: <span id="totalItems">0</span></p>
+            <p>Tạm tính: <span id="subtotal">0đ</span></p>
+            <p>Phí vận chuyển: <span>30,000đ</span></p>
+            <hr>
+            <p><strong>Tổng cộng: <span id="total">0đ</span></strong></p>
+            
+            <button onclick="checkout()">Thanh toán</button>
+            <a href="home.html">Tiếp tục mua hàng</a>
+        </div>
+    </main>
+
+    <!-- Phần cuối trang -->
+    <footer>
+        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
+        <p> 0123.456.789 | contact@flowershop.com</p>
+    </footer>
+
+    <script src="cart.js"></script>
+</body>
+</html>
