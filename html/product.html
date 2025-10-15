@@ -4,103 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiết sản phẩm - Flower Shop</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header-main">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="assets/icons/flower-logo.svg" alt="Logo" class="logo-img" onerror="this.style.display='none'">
-                    <h1 class="shop-name">Flower Shop</h1>
-                </div>
-                
-                <div class="search-section">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm sản phẩm...">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                
-                <nav class="nav-section">
-                    <a href="home.html" class="nav-link">
-                        <i class="fas fa-home"></i> Trang chủ
-                    </a>
-                    <a href="cart.html" class="nav-link cart-link">
-                        <i class="fas fa-shopping-cart"></i> Giỏ hàng
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </a>
-                    <a href="login.html" class="nav-link" id="authLink">
-                        <i class="fas fa-user"></i> Đăng nhập
-                    </a>
-                </nav>
-            </div>
-        </div>
+    <!-- Phần đầu trang -->
+    <header>
+        <h1> Flower Shop</h1>
+        <nav>
+            <a href="home.html">Trang chủ</a>
+            <a href="cart.html">Giỏ hàng</a>
+            <a href="login.html">Đăng nhập</a>
+        </nav>
     </header>
 
-    <!-- Product Detail -->
-    <section class="product-detail-section">
-        <div class="container">
-            <div id="productDetail" class="product-detail-content">
-                <!-- Product detail will be loaded here -->
-            </div>
-            
-            <div class="back-link">
-                <a href="home.html" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Quay lại trang chủ
-                </a>
-            </div>
+    <!-- Chi tiết sản phẩm -->
+    <main>
+        <div id="productDetail" class="product-detail">
+            <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
         </div>
-    </section>
+        
+        <a href="home.html">← Quay lại trang chủ</a>
+        
+        <!-- Sản phẩm liên quan -->
+        <section class="related">
+            <h3>Sản Phẩm Liên Quan</h3>
+            <div id="relatedProducts" class="product-grid">
+                <!-- Sản phẩm liên quan -->
+            </div>
+        </section>
+    </main>
 
-    <!-- Related Products -->
-    <section class="related-products-section">
-        <div class="container">
-            <h3 class="section-title">Sản Phẩm Liên Quan</h3>
-            <div id="relatedProducts" class="products-grid">
-                <!-- Related products will be loaded here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Flower Shop</h4>
-                    <p>Cửa hàng hoa tươi uy tín</p>
-                    <p>Giao hàng toàn quốc</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên hệ</h4>
-                    <p><i class="fas fa-phone"></i> 0123.456.789</p>
-                    <p><i class="fas fa-envelope"></i> contact@flowershop.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Đà Nẵng, Việt Nam</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Theo dõi chúng tôi</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Flower Shop. All rights reserved.</p>
-            </div>
-        </div>
+    <!-- Phần cuối trang -->
+    <footer>
+        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
+        <p> 0123.456.789 | contact@flowershop.com</p>
     </footer>
-    <div id="toast" class="toast-notification"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/products.js"></script>
+    <script src="products.js"></script>
 </body>
 </html>

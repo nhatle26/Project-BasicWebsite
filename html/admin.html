@@ -4,153 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý sản phẩm - Flower Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header-main">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="assets/icons/flower-logo.svg" alt="Logo" class="logo-img" onerror="this.style.display='none'">
-                    <h1 class="shop-name">Flower Shop - Admin</h1>
-                </div>
-                
-                <nav class="nav-section">
-                    <a href="home.html" class="nav-link">
-                        <i class="fas fa-home"></i> Trang chủ
-                    </a>
-                    <a href="#" class="nav-link" id="authLink">
-                        <i class="fas fa-user"></i> <span id="adminName">Admin</span>
-                    </a>
-                </nav>
-            </div>
-        </div>
+    <!-- Phần đầu trang -->
+    <header>
+        <h1> Flower Shop - Admin</h1>
+        <nav>
+            <a href="home.html">Trang chủ</a>
+            <a href="#" id="adminName">Admin</a>
+        </nav>
     </header>
 
-    <!-- Admin Content -->
-    <section class="admin-section">
-        <div class="container">
-            <h2 class="section-title">Quản Lý Sản Phẩm</h2>
-            
-            <div class="admin-actions">
-                <button class="btn btn-success" onclick="showAddProductForm()">
-                    <i class="fas fa-plus"></i> Thêm sản phẩm mới
-                </button>
-            </div>
-
-            <!-- Add/Edit Product Form -->
-            <div id="productForm" class="product-form" style="display: none;">
-                <h4 id="formTitle">Thêm Sản Phẩm Mới</h4>
+    <!-- Quản lý sản phẩm -->
+    <main>
+        <h2>Quản Lý Sản Phẩm</h2>
+        
+        <button onclick="showAddForm()">+ Thêm sản phẩm mới</button>
+        
+        <!-- Form thêm/sửa sản phẩm -->
+        <div id="productForm" style="display: none;">
+            <h3 id="formTitle">Thêm Sản Phẩm Mới</h3>
+            <form>
                 <input type="hidden" id="productId">
                 
-                <div class="mb-3">
-                    <label class="form-label">Tên sản phẩm</label>
-                    <input type="text" class="form-control" id="productName">
-                </div>
+                <label>Tên sản phẩm:</label>
+                <input type="text" id="productName" required>
                 
-                <div class="mb-3">
-                    <label class="form-label">Giá (VNĐ)</label>
-                    <input type="number" class="form-control" id="productPrice">
-                </div>
+                <label>Giá (VNĐ):</label>
+                <input type="number" id="productPrice" required>
                 
-                <div class="mb-3">
-                    <label class="form-label">Danh mục</label>
-                    <select class="form-control" id="productCategory">
-                        <option value="Hoa Hồng">Hoa Hồng</option>
-                        <option value="Hoa Tulip">Hoa Tulip</option>
-                        <option value="Hoa Ly">Hoa Ly</option>
-                        <option value="Hoa Lan">Hoa Lan</option>
-                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
-                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
-                        <option value="Hoa Baby">Hoa Baby</option>
-                    </select>
-                </div>
+                <label>Danh mục:</label>
+                <select id="productCategory">
+                    <option value="Hoa Hồng">Hoa Hồng</option>
+                    <option value="Hoa Tulip">Hoa Tulip</option>
+                    <option value="Hoa Ly">Hoa Ly</option>
+                    <option value="Hoa Lan">Hoa Lan</option>
+                </select>
                 
-                <div class="mb-3">
-                    <label class="form-label">Mô tả</label>
-                    <textarea class="form-control" id="productDescription" rows="3"></textarea>
-                </div>
+                <label>Mô tả:</label>
+                <textarea id="productDescription" rows="3"></textarea>
                 
-                <div class="mb-3">
-                    <label class="form-label">Link ảnh</label>
-                    <input type="text" class="form-control" id="productImage" placeholder="assets/images/product.jpg">
-                </div>
+                <label>Link ảnh:</label>
+                <input type="text" id="productImage">
                 
-                <div class="mb-3">
-                    <label class="form-label">Số lượng trong kho</label>
-                    <input type="number" class="form-control" id="productStock">
-                </div>
+                <label>Số lượng trong kho:</label>
+                <input type="number" id="productStock">
                 
-                <div class="form-actions">
-                    <button class="btn btn-primary" onclick="saveProduct()">
-                        <i class="fas fa-save"></i> Lưu
-                    </button>
-                    <button class="btn btn-secondary" onclick="cancelProductForm()">
-                        <i class="fas fa-times"></i> Hủy
-                    </button>
-                </div>
-            </div>
-
-            <!-- Products Table -->
-            <div class="products-table">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Ảnh</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Danh mục</th>
-                            <th>Tồn kho</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody">
-                        <!-- Products will be loaded here -->
-                    </tbody>
-                </table>
-            </div>
+                <button type="button" onclick="saveProduct()">Lưu</button>
+                <button type="button" onclick="cancelForm()">Hủy</button>
+            </form>
         </div>
-    </section>
+        
+        <!-- Bảng danh sách sản phẩm -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ảnh</th>
+                    <th>Tên</th>
+                    <th>Giá</th>
+                    <th>Danh mục</th>
+                    <th>Kho</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="productTable">
+                <!-- Danh sách sản phẩm sẽ hiển thị ở đây -->
+            </tbody>
+        </table>
+    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Flower Shop</h4>
-                    <p>Cửa hàng hoa tươi uy tín</p>
-                    <p>Giao hàng toàn quốc</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên hệ</h4>
-                    <p><i class="fas fa-phone"></i> 0123.456.789</p>
-                    <p><i class="fas fa-envelope"></i> contact@flowershop.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Đà Nẵng, Việt Nam</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Theo dõi chúng tôi</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Flower Shop. All rights reserved.</p>
-            </div>
-        </div>
+    <!-- Phần cuối trang -->
+    <footer>
+        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
+        <p> 0123.456.789 | contact@flowershop.com</p>
     </footer>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast-notification"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/admin.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>
