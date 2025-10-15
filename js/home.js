@@ -5,28 +5,44 @@ let allProducts = []; // Biến lưu trữ tất cả sản phẩm
 const ITEMS_PER_PAGE = 8; // Số lượng sản phẩm trên mỗi trang
 let currentPage = 1;
 
-// Hàm tải dữ liệu sản phẩm từ db.json hoặc LocalStorage
+// home.js - trong hàm loadProducts()
+// home.js - trong hàm loadProducts()
+
 async function loadProducts() {
-    // 1. Kiểm tra LocalStorage
     const storedProducts = localStorage.getItem('products');
+    
+    // Nếu có dữ liệu trong LocalStorage, tải và hiển thị ngay
     if (storedProducts) {
         allProducts = JSON.parse(storedProducts);
-    } else {
-        // 2. Nếu chưa có, tải từ db.json (giả sử db.json được phục vụ qua fetch)
-        try {
-            const response = await fetch('../data/db.json'); // Điều chỉnh đường dẫn nếu cần
-            const data = await response.json();
-            allProducts = data.products;
-            // Lưu vào LocalStorage lần đầu
-            localStorage.setItem('products', JSON.stringify(allProducts));
-        } catch (error) {
-            console.error('Lỗi khi tải dữ liệu sản phẩm:', error);
-            // Có thể hiển thị thông báo lỗi trên giao diện
+        renderProducts(allProducts); 
+        return; 
+    }
+    
+    // Nếu LocalStorage trống, tiến hành fetch:
+    try {
+        // Sử dụng đường dẫn tuyệt đối từ gốc của Live Server
+        const response = await fetch('/data/db.json'); 
+        
+        // Hoặc, nếu đường dẫn trên không được, thử đường dẫn tương đối 2 cấp:
+        // const response = await fetch('../../data/db.json'); 
+
+        if (!response.ok) {
+            throw new Error(`Lỗi HTTP khi tải db.json! Status: ${response.status}`);
         }
+
+        const data = await response.json();
+        allProducts = data.products;
+        
+        // Lưu vào LocalStorage lần đầu
+        localStorage.setItem('products', JSON.stringify(allProducts));
+        
+    } catch (error) {
+        console.error('LỖI KHI TẢI DỮ LIỆU SẢN PHẨM. Vui lòng kiểm tra đường dẫn /data/db.json', error);
+        allProducts = []; 
     }
 
-    // Hiển thị sản phẩm sau khi tải
-    renderProducts(allProducts);
+    // Hiển thị sản phẩm sau khi tải (có thể là mảng rỗng nếu có lỗi)
+    renderProducts(allProducts); 
 }
 
 // Hàm hiển thị danh sách sản phẩm lên giao diện
