@@ -1,139 +1,157 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flower Shop - Cửa hàng hoa tươi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../style/style.css">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style/style.css" />
+  </head>
+  <body>
     <!-- Header -->
     <header class="header-main">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="assets/icons/flower-logo.svg" alt="Logo" class="logo-img" onerror="this.style.display='none'">
-                    <h1 class="shop-name">Flower Shop</h1>
-                </div>
-                
-                <div class="search-section">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm sản phẩm...">
-                    <button class="search-btn" onclick="searchProducts()">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                
-                <nav class="nav-section">
-                    <a href="home.html" class="nav-link active">
-                        <i class="fas fa-home"></i> Trang chủ
-                    </a>
-                    <a href="cart.html" class="nav-link cart-link">
-                        <i class="fas fa-shopping-cart"></i> Giỏ hàng
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </a>
-                    <a href="login.html" class="nav-link" id="authLink">
-                        <i class="fas fa-user"></i> Đăng nhập
-                    </a>
-                </nav>
-            </div>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo-section">
+            <img
+              src="assets/icons/flower-logo.svg"
+              alt="Logo"
+              class="logo-img"
+              onerror="this.style.display='none'"
+            />
+            <h1 class="shop-name">Flower Shop</h1>
+          </div>
+
+          <div class="search-section">
+            <input
+              type="text"
+              id="searchInput"
+              class="search-input"
+              placeholder="Tìm kiếm sản phẩm..."
+            />
+            <button class="search-btn" onclick="searchProducts()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+
+          <nav class="nav-section">
+            <a href="home.html" class="nav-link active">
+              <i class="fas fa-home"></i> Trang chủ
+            </a>
+            <a href="cart.html" class="nav-link cart-link">
+              <i class="fas fa-shopping-cart"></i> Giỏ hàng
+              <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="login.html" class="nav-link" id="authLink">
+              <i class="fas fa-user"></i> Đăng nhập
+            </a>
+          </nav>
         </div>
+      </div>
     </header>
 
     <!-- Banner -->
     <section class="banner-section">
-        <div class="container">
-            <div class="banner-content">
-                <h2> Chào mừng đến với Flower Shop </h2>
-                <p>Nơi cung cấp những bó hoa tươi đẹp nhất cho mọi dịp đặc biệt</p>
-                <p class="banner-subtitle">Giao hàng nhanh - Giá cả hợp lý - Hoa luôn tươi mới</p>
-            </div>
+      <div class="container">
+        <div class="banner-content">
+          <h2>Chào mừng đến với Flower Shop</h2>
+          <p>Nơi cung cấp những bó hoa tươi đẹp nhất cho mọi dịp đặc biệt</p>
+          <p class="banner-subtitle">
+            Giao hàng nhanh - Giá cả hợp lý - Hoa luôn tươi mới
+          </p>
         </div>
+      </div>
     </section>
 
     <!-- Filter & Sort -->
     <section class="filter-section">
-        <div class="container">
-            <div class="filter-controls">
-                <div class="filter-group">
-                    <label>Danh mục:</label>
-                    <select id="categoryFilter" onchange="filterProducts()">
-                        <option value="">Tất cả</option>
-                        <option value="Hoa Hồng">Hoa Hồng</option>
-                        <option value="Hoa Tulip">Hoa Tulip</option>
-                        <option value="Hoa Ly">Hoa Ly</option>
-                        <option value="Hoa Lan">Hoa Lan</option>
-                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
-                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label>Giá:</label>
-                    <select id="priceFilter" onchange="filterProducts()">
-                        <option value="">Tất cả</option>
-                        <option value="0-150000">Dưới 150k</option>
-                        <option value="150000-200000">150k - 200k</option>
-                        <option value="200000-999999">Trên 200k</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label>Sắp xếp:</label>
-                    <select id="sortFilter" onchange="sortProducts()">
-                        <option value="default">Mặc định</option>
-                        <option value="price-asc">Giá tăng dần</option>
-                        <option value="price-desc">Giá giảm dần</option>
-                        <option value="name-asc">Tên A-Z</option>
-                        <option value="name-desc">Tên Z-A</option>
-                    </select>
-                </div>
-            </div>
+      <div class="container">
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label>Danh mục:</label>
+            <select id="categoryFilter" onchange="filterProducts()">
+              <option value="">Tất cả</option>
+              <option value="Hoa Hồng">Hoa Hồng</option>
+              <option value="Hoa Tulip">Hoa Tulip</option>
+              <option value="Hoa Ly">Hoa Ly</option>
+              <option value="Hoa Lan">Hoa Lan</option>
+              <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+              <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Giá:</label>
+            <select id="priceFilter" onchange="filterProducts()">
+              <option value="">Tất cả</option>
+              <option value="0-150000">Dưới 150k</option>
+              <option value="150000-200000">150k - 200k</option>
+              <option value="200000-999999">Trên 200k</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Sắp xếp:</label>
+            <select id="sortFilter" onchange="sortProducts()">
+              <option value="default">Mặc định</option>
+              <option value="price-asc">Giá tăng dần</option>
+              <option value="price-desc">Giá giảm dần</option>
+              <option value="name-asc">Tên A-Z</option>
+              <option value="name-desc">Tên Z-A</option>
+            </select>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Products -->
     <section class="products-section">
-        <div class="container">
-            <h3 class="section-title">Danh Sách Sản Phẩm</h3>
-            <div id="productsContainer" class="products-grid">
-                <!-- Products will be loaded here -->
-            </div>
-            
-            <!-- Pagination -->
-            <div id="pagination" class="pagination-container"></div>
+      <div class="container">
+        <h3 class="section-title">Danh Sách Sản Phẩm</h3>
+        <div id="productsContainer" class="products-grid">
+          <!-- Products will be loaded here -->
         </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination-container"></div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Flower Shop</h4>
-                    <p>Cửa hàng hoa tươi uy tín</p>
-                    <p>Giao hàng toàn quốc</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Liên hệ</h4>
-                    <p><i class="fas fa-phone"></i> 0123.456.789</p>
-                    <p><i class="fas fa-envelope"></i> contact@flowershop.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Đà Nẵng, Việt Nam</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Theo dõi chúng tôi</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>Flower Shop</h4>
+            <p>Cửa hàng hoa tươi uy tín</p>
+            <p>Giao hàng toàn quốc</p>
+          </div>
+          <div class="footer-section">
+            <h4>Liên hệ</h4>
+            <p><i class="fas fa-phone"></i> 0123.456.789</p>
+            <p><i class="fas fa-envelope"></i> contact@flowershop.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Đà Nẵng, Việt Nam</p>
+          </div>
+          <div class="footer-section">
+            <h4>Theo dõi chúng tôi</h4>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Flower Shop. All rights reserved.</p>
-            </div>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Flower Shop. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Toast Notification -->
@@ -142,5 +160,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/products.js"></script>
-</body>
+  </body>
 </html>
