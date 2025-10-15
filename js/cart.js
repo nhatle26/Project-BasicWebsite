@@ -9,7 +9,8 @@ const totalElement = document.getElementById('total');
 
 const SHIPPING_FEE = 30000; // Phí vận chuyển cố định 30,000đ
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Hàm lấy giỏ hàng từ LocalStorage
 function getCart() {
     const cart = localStorage.getItem('cart');
@@ -17,13 +18,15 @@ function getCart() {
     return cart ? JSON.parse(cart) : [];
 }
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Hàm lưu giỏ hàng vào LocalStorage
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Hàm định dạng tiền tệ
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {
@@ -32,10 +35,12 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Hàm hiển thị giỏ hàng
 function renderCart() {
     const cart = getCart();
+    
     cartItemsElement.innerHTML = '';
 
     if (cart.length === 0) {
@@ -55,15 +60,16 @@ function renderCart() {
 
     cart.forEach((item) => {
         const itemTotal = item.price * item.quantity;
-
+        
         subtotal += itemTotal;
         totalItems += item.quantity;
 
         const cartItem = document.createElement('div');
+        
         cartItem.classList.add('cart-item');
         cartItem.setAttribute('data-id', item.id);
 
-        // ĐOẠN HTML ĐƯỢC CĂN CHỈNH RỘNG HƠN
+        // ĐOẠN HTML ĐƯỢC CĂN CHỈNH RỘNG RÃI
         cartItem.innerHTML = `
             <img 
                 src="${item.image}" 
@@ -93,6 +99,7 @@ function renderCart() {
                 <i class="fa-solid fa-trash"></i>
             </button>
         `;
+        
         cartItemsElement.appendChild(cartItem);
     });
 
@@ -104,10 +111,12 @@ function renderCart() {
     totalElement.textContent = formatCurrency(finalTotal);
 }
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Hàm cập nhật số lượng sản phẩm (tăng/giảm 1)
 function updateQuantity(productId, change) {
     let cart = getCart();
+    
     const itemIndex = cart.findIndex((item) => item.id === productId);
 
     if (itemIndex > -1) {
@@ -117,21 +126,25 @@ function updateQuantity(productId, change) {
         if (newQuantity < 1) {
             // Nếu số lượng giảm xuống 0, xóa sản phẩm
             removeItem(productId);
+            
             return;
         }
 
         if (newQuantity > item.stock) {
             alert(`Số lượng tối đa cho sản phẩm này là ${item.stock}.`);
+            
             return;
         }
 
         item.quantity = newQuantity;
+        
         saveCart(cart);
         renderCart(); // Render lại giỏ hàng
     }
 }
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Hàm xóa sản phẩm khỏi giỏ hàng
 function removeItem(productId) {
     let cart = getCart();
@@ -143,7 +156,8 @@ function removeItem(productId) {
     renderCart(); // Render lại giỏ hàng
 }
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Hàm chuyển hướng đến trang thanh toán
 function checkout() {
     if (getCart().length > 0) {
@@ -153,6 +167,7 @@ function checkout() {
     }
 }
 
-// ---------------------------------------------------------------------
+
+// -------------------------------------------------------------------
 // Tải giỏ hàng khi trang được load
 document.addEventListener('DOMContentLoaded', renderCart);
