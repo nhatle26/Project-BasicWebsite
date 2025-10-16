@@ -10,67 +10,121 @@
 
 <body>
   <header>
-    <h1>DaTuNha Shop - Trang quản trị</h1>
-    <nav>
-      <a href="home.html">Trang chủ</a>
-      <a href="#" id="adminName">Admin</a>
-    </nav>
+    <div class="header-nav">
+      <h1>DaTuNha Shop - Trang quản trị</h1>
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
+        <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
+        <nav>
+          <a href="home.html">Trang chủ</a>
+          <a href="admin.html" id="adminLink">Quản trị</a>
+          <a href="login.html" id="userLink">Đăng nhập</a>
+        </nav>
+      </div>
+    </div>
   </header>
 
   <main>
-    <h2>Quản Lý Sản Phẩm</h2>
-    <button onclick="showAddProductForm()">+ Thêm sản phẩm mới</button>
+    <!-- QUẢN LÝ SẢN PHẨM -->
+    <section id="productSection">
+      <h2>Quản Lý Sản Phẩm</h2>
+      <button onclick="showAddProductForm()">+ Thêm sản phẩm mới</button>
 
-    <!-- Form thêm / sửa -->
-    <div id="productForm" style="display:none; margin-top:20px;">
-      <h3 id="formTitle">Thêm Sản Phẩm</h3>
-      <form id="formProduct">
-        <input type="hidden" id="productId">
+      <!-- Form thêm / sửa -->
+      <div id="productForm" style="display:none; margin-top:20px;">
+        <h3 id="formTitle">Thêm Sản Phẩm</h3>
+        <form id="formProduct">
+          <input type="hidden" id="productId">
 
-        <label>Tên sản phẩm:</label>
-        <input type="text" id="productName" required>
+          <label>Tên sản phẩm:</label>
+          <input type="text" id="productName" required>
 
-        <label>Giá (VNĐ):</label>
-        <input type="number" id="productPrice" required>
+          <label>Giá (VNĐ):</label>
+          <input type="number" id="productPrice" required>
 
-        <label>Danh mục:</label>
-        <select id="productCategory">
-          <option value="Hoa Hồng">Hoa Hồng</option>
-          <option value="Hoa Tulip">Hoa Tulip</option>
-          <option value="Hoa Ly">Hoa Ly</option>
-          <option value="Hoa Lan">Hoa Lan</option>
-        </select>
+          <label>Danh mục:</label>
+          <select id="productCategory">
+            <option value="Hoa Hồng">Hoa Hồng</option>
+            <option value="Hoa Tulip">Hoa Tulip</option>
+            <option value="Hoa Ly">Hoa Ly</option>
+            <option value="Hoa Lan">Hoa Lan</option>
+          </select>
 
-        <label>Mô tả:</label>
-        <textarea id="productDescription" rows="3"></textarea>
+          <label>Mô tả:</label>
+          <textarea id="productDescription" rows="3"></textarea>
 
-        <label>Link ảnh:</label>
-        <input type="text" id="productImage">
+          <label>Link ảnh:</label>
+          <input type="text" id="productImage">
 
-        <label>Số lượng trong kho:</label>
-        <input type="number" id="productStock">
+          <label>Số lượng trong kho:</label>
+          <input type="number" id="productStock">
 
-        <div style="margin-top:10px;">
-          <button type="button" onclick="saveProduct()">💾 Lưu</button>
-          <button type="button" onclick="cancelProductForm()">❌ Hủy</button>
-        </div>
-      </form>
-    </div>
+          <div style="margin-top:10px;">
+            <button type="button" onclick="saveProduct()">💾 Lưu</button>
+            <button type="button" onclick="cancelProductForm()">❌ Hủy</button>
+          </div>
+        </form>
+      </div>
 
-    <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
-      <thead style="background:#eee;">
-        <tr>
-          <th>ID</th>
-          <th>Ảnh</th>
-          <th>Tên</th>
-          <th>Giá</th>
-          <th>Danh mục</th>
-          <th>Kho</th>
-          <th>Hành động</th>
-        </tr>
-      </thead>
-      <tbody id="productsTableBody"></tbody>
-    </table>
+      <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
+        <thead style="background:#eee;">
+          <tr>
+            <th>ID</th>
+            <th>Ảnh</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>Danh mục</th>
+            <th>Kho</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="productsTableBody"></tbody>
+      </table>
+    </section>
+
+    <hr style="margin:40px 0;">
+
+    <!-- QUẢN LÝ NGƯỜI DÙNG -->
+    <section id="userSection">
+      <h2>Quản Lý Người Dùng</h2>
+
+      <div id="userForm" style="display:none; margin-top:20px;">
+        <h3 id="userFormTitle">Thêm Người Dùng</h3>
+        <form id="formUser">
+          <input type="hidden" id="userId">
+
+          <label>Tên người dùng:</label>
+          <input type="text" id="userName" required>
+
+          <label>Email:</label>
+          <input type="email" id="userEmail" required>
+
+          <label>Vai trò:</label>
+          <select id="userRole">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          <div style="margin-top:10px;">
+            <button type="button" onclick="saveUser()">💾 Lưu</button>
+            <button type="button" onclick="cancelUserForm()">❌ Hủy</button>
+          </div>
+        </form>
+      </div>
+
+      <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
+        <thead style="background:#eee;">
+          <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Vai trò</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </section>
   </main>
 
   <footer style="margin-top:20px; text-align:center;">

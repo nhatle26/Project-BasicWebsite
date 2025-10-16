@@ -143,3 +143,76 @@ function formatCurrency(amount) {
     currency: 'VND',
   });
 }
+
+// ==================== 🧍 QUẢN LÝ NGƯỜI DÙNG ====================
+const USER_API = 'http://localhost:3000/users';
+let currentUserId = null;
+
+// Load danh sách user
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadUsers();
+});
+
+async function loadUsers() {
+  try {
+    const res = await fetch(USER_API);
+    const users = await res.json();
+    renderUsers(users);
+  } catch (err) {
+    console.error('❌ Lỗi tải danh sách người dùng:', err);
+  }
+}
+
+function renderUsers(users) {
+  const tbody = document.getElementById('usersTableBody');
+  tbody.innerHTML = '';
+
+  if (!users.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Không có người dùng nào.</td></tr>';
+    return;
+  }
+
+  users.forEach(u => {
+    const isAdmin = u.role === 'admin';
+    tbody.innerHTML += `
+      <tr>
+        <td>${u.id}</td>
+        <td>${u.fullname}</td>
+        <td>${u.username}</td>
+        <td>${u.email}</td>
+        <td>${u.role}</td>
+        <td>
+          ${isAdmin ? 
+            '<i>(Không thể sửa/xóa)</i>' :
+            `<button onclick="editUser(${u.id})">✏️ Sửa</button>
+             <button onclick="deleteUser(${u.id})">🗑️ Xóa</button>`
+          }
+        </td>
+      </tr>
+    `;
+  });
+}
+
+async function editUser(id) {
+  const res = await fetch(`${USER_API}/${id}`);
+  const user = await res.json();
+
+  const newRole = prompt(`Nhập vai trò mới cho ${user.username} (admin/user):`, user.role);
+  if (!newRole) return;
+
+  await fetch(`${USER_API}/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ role: newRole })
+  });
+
+  alert('✅ Cập nhật vai trò thành công.');
+  await loadUsers();
+}
+
+async function deleteUser(id) {
+  if (!confirm('🗑️ Bạn có chắc muốn xóa người dùng này không?')) return;
+  await fetch(`${USER_API}/${id}`, { method: 'DELETE' });
+  alert('✅ Đã xóa người dùng.');
+  await loadUsers();
+}
