@@ -24,6 +24,16 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.header-nav{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+}
+.search{
+    display: flex;
+    flex-direction: row;
+    margin: 0px 0px 0px 450px;
+}
 header h1 {
     margin-bottom: 15px;
     font-size: 28px;
@@ -33,12 +43,13 @@ header h1 {
 .search {
     display: flex;
     gap: 10px;
-    margin: 15px 0;
+    margin: 10px 0;
     max-width: 600px;
 }
 
 .search input {
     flex: 1;
+    width:100px;
     padding: 10px 15px;
     border: none;
     border-radius: 25px;
@@ -717,7 +728,6 @@ footer {
 footer p {
     margin: 8px 0;
 }
-
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
     .product-grid {
