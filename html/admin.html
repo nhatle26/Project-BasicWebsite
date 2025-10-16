@@ -1,90 +1,82 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>Quản lý sản phẩm - Flower Shop</title>
-    <link rel="stylesheet" href="../style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý sản phẩm - DaTuNha Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../style/style.css">
 </head>
 
 <body>
-    <!-- Phần đầu trang -->
-    <header>
-        <h1> Flower Shop - Admin</h1>
-        <nav>
-            <a href="home.html">Trang chủ</a>
-            <a href="#" id="adminName">Admin</a>
-        </nav>
-    </header>
+  <header>
+    <h1>DaTuNha Shop - Trang quản trị</h1>
+    <nav>
+      <a href="home.html">Trang chủ</a>
+      <a href="#" id="adminName">Admin</a>
+    </nav>
+  </header>
 
-    <!-- Quản lý sản phẩm -->
-    <main>
-        <h2>Quản Lý Sản Phẩm</h2>
+  <main>
+    <h2>Quản Lý Sản Phẩm</h2>
+    <button onclick="showAddProductForm()">+ Thêm sản phẩm mới</button>
 
-        <button onclick="showAddForm()">+ Thêm sản phẩm mới</button>
+    <!-- Form thêm / sửa -->
+    <div id="productForm" style="display:none; margin-top:20px;">
+      <h3 id="formTitle">Thêm Sản Phẩm</h3>
+      <form id="formProduct">
+        <input type="hidden" id="productId">
 
-        <!-- Form thêm/sửa sản phẩm -->
-        <div id="productForm" style="display: none;">
-            <h3 id="formTitle">Thêm Sản Phẩm Mới</h3>
-            <form>
-                <input type="hidden" id="productId">
+        <label>Tên sản phẩm:</label>
+        <input type="text" id="productName" required>
 
-                <label>Tên sản phẩm:</label>
-                <input type="text" id="productName" required>
+        <label>Giá (VNĐ):</label>
+        <input type="number" id="productPrice" required>
 
-                <label>Giá (VNĐ):</label>
-                <input type="number" id="productPrice" required>
+        <label>Danh mục:</label>
+        <select id="productCategory">
+          <option value="Hoa Hồng">Hoa Hồng</option>
+          <option value="Hoa Tulip">Hoa Tulip</option>
+          <option value="Hoa Ly">Hoa Ly</option>
+          <option value="Hoa Lan">Hoa Lan</option>
+        </select>
 
-                <label>Danh mục:</label>
-                <select id="productCategory">
-                    <option value="Hoa Hồng">Hoa Hồng</option>
-                    <option value="Hoa Tulip">Hoa Tulip</option>
-                    <option value="Hoa Ly">Hoa Ly</option>
-                    <option value="Hoa Lan">Hoa Lan</option>
-                </select>
+        <label>Mô tả:</label>
+        <textarea id="productDescription" rows="3"></textarea>
 
-                <label>Mô tả:</label>
-                <textarea id="productDescription" rows="3"></textarea>
+        <label>Link ảnh:</label>
+        <input type="text" id="productImage">
 
-                <label>Link ảnh:</label>
-                <input type="text" id="productImage">
+        <label>Số lượng trong kho:</label>
+        <input type="number" id="productStock">
 
-                <label>Số lượng trong kho:</label>
-                <input type="number" id="productStock">
-
-                <button type="button" onclick="saveProduct()">Lưu</button>
-                <button type="button" onclick="cancelForm()">Hủy</button>
-            </form>
+        <div style="margin-top:10px;">
+          <button type="button" onclick="saveProduct()">💾 Lưu</button>
+          <button type="button" onclick="cancelProductForm()">❌ Hủy</button>
         </div>
+      </form>
+    </div>
 
-        <!-- Bảng danh sách sản phẩm -->
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Ảnh</th>
-                    <th>Tên</th>
-                    <th>Giá</th>
-                    <th>Danh mục</th>
-                    <th>Kho</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody id="productTable">
-                <!-- Danh sách sản phẩm sẽ hiển thị ở đây -->
-            </tbody>
-        </table>
-    </main>
+    <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
+      <thead style="background:#eee;">
+        <tr>
+          <th>ID</th>
+          <th>Ảnh</th>
+          <th>Tên</th>
+          <th>Giá</th>
+          <th>Danh mục</th>
+          <th>Kho</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody id="productsTableBody"></tbody>
+    </table>
+  </main>
 
-    <!-- Phần cuối trang -->
-    <footer>
-        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
-        <p> 0123.456.789 | contact@flowershop.com</p>
-    </footer>
+  <footer style="margin-top:20px; text-align:center;">
+    <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
+  </footer>
 
-    <script src="../js/admin.js"></script>
+  <script src="../js/admin.js"></script>
 </body>
-
 </html>

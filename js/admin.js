@@ -1,202 +1,148 @@
-// Check Admin Access
-function checkAdminAccess() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    
-    if (!user || user.role !== 'admin') {
-        alert('Bạn không có quyền truy cập trang này!');
-        window.location.href = 'home.html';
-        return false;
-    }
-    
-    // Display admin name
-    const adminNameElement = document.getElementById('adminName');
-    if (adminNameElement) {
-        adminNameElement.textContent = user.fullname || user.username;
-    }
-    
-    return true;
-}
+// admin.js
+const JSON_PATH = '../data/db.json';
+let currentEditId = null;
 
-// Load All Products for Admin
-async function loadAdminProducts() {
-    try {
-        const response = await fetch(`${API_URL}/products`);
-        const products = await response.json();
-        displayAdminProducts(products);
-    } catch (error) {
-        console.error('Error:', error);
-        showToast('Không thể tải danh sách sản phẩm!', 'error');
-    }
-}
-
-// Display Admin Products
-function displayAdminProducts(products) {
-    const tbody = document.getElementById('productsTableBody');
-    
-    tbody.innerHTML = products.map(product => `
-        <tr>
-            <td>${product.id}</td>
-            <td>
-                <img src="${product.image}" alt="${product.name}" class="product-table-image"
-                     onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
-            </td>
-            <td>${product.name}</td>
-            <td>${formatCurrency(product.price)}</td>
-            <td>${product.category}</td>
-            <td>${product.stock}</td>
-            <td>
-                <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">
-                    <i class="fas fa-edit"></i> Sửa
-                </button>
-                <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">
-                    <i class="fas fa-trash"></i> Xóa
-                </button>
-            </td>
-        </tr>
-    `).join('');
-}
-
-// Show Add Product Form
+// 🧩 Hiển thị form thêm sản phẩm
 function showAddProductForm() {
-    document.getElementById('formTitle').textContent = 'Thêm Sản Phẩm Mới';
-    document.getElementById('productId').value = '';
-    document.getElementById('productName').value = '';
-    document.getElementById('productPrice').value = '';
-    document.getElementById('productCategory').value = 'Hoa Hồng';
-    document.getElementById('productDescription').value = '';
-    document.getElementById('productImage').value = '';
-    document.getElementById('productStock').value = '';
-    document.getElementById('productForm').style.display = 'block';
-    
-    // Scroll to form
-    document.getElementById('productForm').scrollIntoView({ behavior: 'smooth' });
+  currentEditId = null;
+  document.getElementById('formTitle').innerText = 'Thêm Sản Phẩm Mới';
+  document.getElementById('formProduct').reset();
+  document.getElementById('productForm').style.display = 'block';
 }
 
-// Edit Product
-async function editProduct(productId) {
-    try {
-        const response = await fetch(`${API_URL}/products/${productId}`);
-        const product = await response.json();
-        
-        document.getElementById('formTitle').textContent = 'Chỉnh Sửa Sản Phẩm';
-        document.getElementById('productId').value = product.id;
-        document.getElementById('productName').value = product.name;
-        document.getElementById('productPrice').value = product.price;
-        document.getElementById('productCategory').value = product.category;
-        document.getElementById('productDescription').value = product.description;
-        document.getElementById('productImage').value = product.image;
-        document.getElementById('productStock').value = product.stock;
-        document.getElementById('productForm').style.display = 'block';
-        
-        // Scroll to form
-        document.getElementById('productForm').scrollIntoView({ behavior: 'smooth' });
-    } catch (error) {
-        console.error('Error:', error);
-        showToast('Không thể tải thông tin sản phẩm!', 'error');
-    }
-}
-
-// Save Product (Add or Update)
-async function saveProduct() {
-    const productId = document.getElementById('productId').value;
-    const name = document.getElementById('productName').value.trim();
-    const price = parseInt(document.getElementById('productPrice').value);
-    const category = document.getElementById('productCategory').value;
-    const description = document.getElementById('productDescription').value.trim();
-    const image = document.getElementById('productImage').value.trim();
-    const stock = parseInt(document.getElementById('productStock').value);
-    
-    // Validate
-    if (!name || !price || !description || !image || !stock) {
-        showToast('Vui lòng điền đầy đủ thông tin!', 'error');
-        return;
-    }
-    
-    if (price <= 0) {
-        showToast('Giá sản phẩm phải lớn hơn 0!', 'error');
-        return;
-    }
-    
-    if (stock < 0) {
-        showToast('Số lượng tồn kho không hợp lệ!', 'error');
-        return;
-    }
-    
-    const productData = {
-        name: name,
-        price: price,
-        category: category,
-        description: description,
-        image: image,
-        stock: stock
-    };
-    
-    try {
-        let response;
-        if (productId) {
-            // Update existing product
-            response = await fetch(`${API_URL}/products/${productId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ ...productData, id: parseInt(productId) })
-            });
-        } else {
-            // Add new product
-            response = await fetch(`${API_URL}/products`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(productData)
-            });
-        }
-        
-        if (response.ok) {
-            showToast(productId ? 'Cập nhật sản phẩm thành công!' : 'Thêm sản phẩm thành công!', 'success');
-            cancelProductForm();
-            loadAdminProducts();
-        } else {
-            throw new Error('Failed to save product');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        showToast('Có lỗi xảy ra khi lưu sản phẩm!', 'error');
-    }
-}
-
-// Delete Product
-async function deleteProduct(productId) {
-    if (!confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-        return;
-    }
-    
-    try {
-        const response = await fetch(`${API_URL}/products/${productId}`, {
-            method: 'DELETE'
-        });
-        
-        if (response.ok) {
-            showToast('Xóa sản phẩm thành công!', 'success');
-            loadAdminProducts();
-        } else {
-            throw new Error('Failed to delete product');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        showToast('Có lỗi xảy ra khi xóa sản phẩm!', 'error');
-    }
-}
-
-// Cancel Product Form
+// 🧩 Ẩn form
 function cancelProductForm() {
-    document.getElementById('productForm').style.display = 'none';
+  document.getElementById('productForm').style.display = 'none';
+  currentEditId = null;
 }
 
-// Initialize
-if (document.getElementById('productsTableBody')) {
-    if (checkAdminAccess()) {
-        loadAdminProducts();
+// 🧩 Hiển thị danh sách sản phẩm
+document.addEventListener('DOMContentLoaded', async () => {
+  const tbody = document.getElementById('productsTableBody');
+  let products = JSON.parse(localStorage.getItem('products') || '[]');
+
+  // Nếu chưa có dữ liệu thì đọc từ db.json
+  if (!products.length) {
+    try {
+      const res = await fetch(JSON_PATH);
+      const data = await res.json();
+      products = data.products || [];
+      localStorage.setItem('products', JSON.stringify(products));
+    } catch (err) {
+      console.error('Lỗi khi tải dữ liệu:', err);
     }
+  }
+
+  renderProducts(products, tbody);
+});
+
+// 🧩 Hiển thị sản phẩm
+function renderProducts(products, tbody) {
+  tbody.innerHTML = '';
+  if (!products.length) {
+    tbody.innerHTML =
+      '<tr><td colspan="7" style="text-align:center;">Chưa có sản phẩm nào</td></tr>';
+    return;
+  }
+
+  products.forEach((p) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${p.id}</td>
+      <td><img src="${p.image || ''}" width="60" height="60" style="object-fit:cover; border-radius:5px;" onerror="this.src='https://via.placeholder.com/60?text=No+Img'"></td>
+      <td>${p.name}</td>
+      <td>${formatCurrency(p.price)}</td>
+      <td>${p.category}</td>
+      <td>${p.stock}</td>
+      <td>
+        <button onclick="editProduct(${p.id})">✏️ Sửa</button>
+        <button onclick="deleteProduct(${p.id})">🗑️ Xóa</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// 🧩 Sửa sản phẩm
+function editProduct(id) {
+  const products = JSON.parse(localStorage.getItem('products') || '[]');
+  const product = products.find((p) => p.id == id);
+  if (!product) return alert('Không tìm thấy sản phẩm');
+
+  currentEditId = id;
+  document.getElementById('formTitle').innerText = 'Chỉnh Sửa Sản Phẩm';
+  document.getElementById('productForm').style.display = 'block';
+
+  document.getElementById('productId').value = product.id;
+  document.getElementById('productName').value = product.name;
+  document.getElementById('productPrice').value = product.price;
+  document.getElementById('productCategory').value = product.category;
+  document.getElementById('productDescription').value = product.description || '';
+  document.getElementById('productImage').value = product.image || '';
+  document.getElementById('productStock').value = product.stock || '';
+}
+
+// 🧮 Lấy ID mới (max + 1)
+function getNextProductId(products) {
+  if (!products.length) return 1;
+  const maxId = Math.max(...products.map((p) => p.id || 0));
+  return maxId + 1;
+}
+
+// 🧩 Lưu sản phẩm (thêm mới hoặc cập nhật)
+function saveProduct() {
+  const name = document.getElementById('productName').value.trim();
+  const price = Number(document.getElementById('productPrice').value);
+  const category = document.getElementById('productCategory').value;
+  const description = document.getElementById('productDescription').value.trim();
+  const image = document.getElementById('productImage').value.trim();
+  const stock = Number(document.getElementById('productStock').value);
+
+  if (!name || !price) return alert('⚠️ Vui lòng nhập đầy đủ tên và giá.');
+
+  let products = JSON.parse(localStorage.getItem('products') || '[]');
+
+  if (currentEditId) {
+    // 🛠 Cập nhật
+    const idx = products.findIndex((p) => p.id == currentEditId);
+    if (idx >= 0) {
+      products[idx] = {
+        ...products[idx],
+        name,
+        price,
+        category,
+        description,
+        image,
+        stock,
+      };
+      alert('✅ Đã cập nhật sản phẩm.');
+    }
+  } else {
+    // ➕ Thêm mới
+    const newId = getNextProductId(products);
+    products.push({ id: newId, name, price, category, description, image, stock });
+    alert('✅ Đã thêm sản phẩm mới.');
+  }
+
+  localStorage.setItem('products', JSON.stringify(products));
+  document.getElementById('productForm').style.display = 'none';
+  renderProducts(products, document.getElementById('productsTableBody'));
+  currentEditId = null;
+}
+
+// 🗑 Xóa sản phẩm
+function deleteProduct(id) {
+  if (!confirm('🗑️ Bạn có chắc muốn xóa sản phẩm này không?')) return;
+  let products = JSON.parse(localStorage.getItem('products') || '[]');
+  products = products.filter((p) => p.id != id);
+  localStorage.setItem('products', JSON.stringify(products));
+  renderProducts(products, document.getElementById('productsTableBody'));
+}
+
+// 💰 Format tiền
+function formatCurrency(amount) {
+  return Number(amount).toLocaleString('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  });
 }

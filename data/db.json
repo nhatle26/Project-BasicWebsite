@@ -62,24 +62,6 @@
       "description": "Bó hướng dương tươi sáng, mang đến năng lượng tích cực",
       "image": "assets/images/sunflower.jpg",
       "stock": 40
-    },
-    {
-      "id": "8",
-      "name": "Hoa Baby Mix",
-      "price": 90000,
-      "category": "Hoa Baby",
-      "description": "Bó baby nhỏ xinh, phù hợp làm quà tặng đơn giản",
-      "image": "assets/images/baby.jpg",
-      "stock": 70
-    },
-    {
-      "id": "0fb3",
-      "name": "Muy tá",
-      "price": 100000000,
-      "category": "Hoa Hồng",
-      "description": "Thứ có thể giúp bạn đi tới ước mơ của bạn dễ hơn",
-      "image": "https://vppthinhdatphat.com/wp-content/uploads/2021/08/duong-thanh-cong-gia-lai-4613.jpg",
-      "stock": 1
     }
   ],
   "users": [
