@@ -67,7 +67,11 @@ header h1 {
 }
 
 .search button:hover {
+<<<<<<< HEAD
     background: white;
+=======
+    background: #f0f0f0;
+>>>>>>> 5a923a0b79f64d53da1180d0d3630d6a115c52be
 }
 
 /* Navigation */
