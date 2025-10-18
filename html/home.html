@@ -1,98 +1,116 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trang chủ - DaTuNha Shop</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../style/style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- Phần đầu trang -->
     <header>
-      <div class="header-nav">
-        <h1>DaTuNha Shop</h1>
-        <div class="search">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Tìm kiếm sản phẩm..."
-          />
-          <button
-            onclick="search()"
-            class="fa-solid fa-magnifying-glass"
-          ></button>
-          <nav>
-            <a href="home.html">Trang chủ</a>
-            <a href="cart.html">Giỏ hàng<span id="cartCount"></span></a>
-            <a href="login.html" id="userLink">Đăng nhập</a>
-          </nav>
+        <div class="header-nav">
+            <h1>🌸 DaTuNha Shop</h1>
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
+                <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
+                <nav>
+                    <a href="home.html"><i class="fas fa-home"></i> Trang chủ</a>
+                    <a href="cart.html"><i class="fas fa-shopping-cart"></i> Giỏ hàng<span id="cartCount"></span></a>
+                    <a href="#" id="userDisplayName" style="color: #4CAF50; font-weight: bold;">
+                        <i class="fas fa-user"></i> User
+                    </a>
+                    <a href="#" onclick="logout()" style="color: #f44336;">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
+                </nav>
+            </div>
         </div>
-      </div>
-
-      <!-- Thanh tìm kiếm -->
     </header>
 
     <!-- Banner chào mừng -->
     <section class="banner">
-      <h2>Chào mừng đến với DaTuNha Shop</h2>
-      <p>Nơi cung cấp những bó hoa tươi đẹp nhất</p>
+        <h2>Chào mừng đến với DaTuNha Shop</h2>
+        <p>Nơi cung cấp những bó hoa tươi đẹp nhất</p>
     </section>
 
     <!-- Bộ lọc sản phẩm -->
     <section class="filter">
-      <label
-        >Danh mục:
-        <select id="categoryFilter" onchange="filterProducts()">
-          <option value="">Tất cả</option>
-          <option value="Hoa Hồng">Hoa Hồng</option>
-          <option value="Hoa Tulip">Hoa Tulip</option>
-          <option value="Hoa Ly">Hoa Ly</option>
-          <option value="Hoa Lan">Hoa Lan</option>
-        </select>
-      </label>
+        <label>Danh mục:
+            <select id="categoryFilter" onchange="filterProducts()">
+                <option value="">Tất cả</option>
+                <option value="Hoa Hồng">Hoa Hồng</option>
+                <option value="Hoa Tulip">Hoa Tulip</option>
+                <option value="Hoa Ly">Hoa Ly</option>
+                <option value="Hoa Lan">Hoa Lan</option>
+            </select>
+        </label>
 
-      <label
-        >Giá:
-        <select id="priceFilter" onchange="filterProducts()">
-          <option value="">Tất cả</option>
-          <option value="0-150000">Dưới 150k</option>
-          <option value="150000-200000">150k - 200k</option>
-          <option value="200000-10000000000">Trên 200k</option>
-        </select>
-      </label>
+        <label>Giá:
+            <select id="priceFilter" onchange="filterProducts()">
+                <option value="">Tất cả</option>
+                <option value="0-150000">Dưới 150k</option>
+                <option value="150000-200000">150k - 200k</option>
+                <option value="200000-10000000000">Trên 200k</option>
+            </select>
+        </label>
 
-      <label
-        >Sắp xếp:
-        <select id="sortFilter" onchange="sortProducts()">
-          <option value="">Mặc định</option>
-          <option value="price-asc">Giá tăng dần</option>
-          <option value="price-desc">Giá giảm dần</option>
-        </select>
-      </label>
+        <label>Sắp xếp:
+            <select id="sortFilter" onchange="sortProducts()">
+                <option value="">Mặc định</option>
+                <option value="price-asc">Giá tăng dần</option>
+                <option value="price-desc">Giá giảm dần</option>
+            </select>
+        </label>
     </section>
 
     <!-- Danh sách sản phẩm -->
     <main>
-      <h3>Danh Sách Sản Phẩm</h3>
-      <div id="productList" class="product-grid">
-        <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-      </div>
+        <h3>Danh Sách Sản Phẩm</h3>
+        <div id="productList" class="product-grid">
+            <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+        </div>
 
-      <!-- Phân trang -->
-      <div id="pagination"></div>
+        <!-- Phân trang -->
+        <div id="pagination"></div>
     </main>
 
     <!-- Phần cuối trang -->
     <footer>
-      <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
-      <p>0123.456.789 | contact@DaTuNhashop.com</p>
+        <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
+        <p>📞 0123.456.789 | 📧 contact@DaTuNhashop.com</p>
     </footer>
 
     <script src="../js/home.js"></script>
-  </body>
+    <script>
+        // Kiểm tra đăng nhập và hiển thị tên user
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                // Chưa đăng nhập -> chuyển về trang login
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Hiển thị tên user
+            const userDisplayElement = document.getElementById('userDisplayName');
+            if (userDisplayElement) {
+                userDisplayElement.innerHTML = `<i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}`;
+            }
+        });
+        
+        // Hàm đăng xuất
+        function logout() {
+            if (confirm('Bạn có chắc muốn đăng xuất?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+
 </html>
