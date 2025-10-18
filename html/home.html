@@ -17,15 +17,8 @@
             <div class="search">
                 <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
                 <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
-                <nav>
-                    <a href="home.html"><i class="fas fa-home"></i> Trang chủ</a>
-                    <a href="cart.html"><i class="fas fa-shopping-cart"></i> Giỏ hàng<span id="cartCount"></span></a>
-                    <a href="#" id="userDisplayName" style="color: #4CAF50; font-weight: bold;">
-                        <i class="fas fa-user"></i> User
-                    </a>
-                    <a href="#" onclick="logout()" style="color: #f44336;">
-                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                    </a>
+                <nav id="mainNav">
+                    <!-- Navigation sẽ được tạo động bởi JavaScript -->
                 </nav>
             </div>
         </div>
@@ -46,6 +39,8 @@
                 <option value="Hoa Tulip">Hoa Tulip</option>
                 <option value="Hoa Ly">Hoa Ly</option>
                 <option value="Hoa Lan">Hoa Lan</option>
+                <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
             </select>
         </label>
 
@@ -81,36 +76,10 @@
     <!-- Phần cuối trang -->
     <footer>
         <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
-        <p>📞 0123.456.789 | 📧 contact@DaTuNhashop.com</p>
+        <p> 0123.456.789 | contact@DaTuNhashop.com</p>
     </footer>
 
     <script src="../js/home.js"></script>
-    <script>
-        // Kiểm tra đăng nhập và hiển thị tên user
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            
-            if (!currentUser) {
-                // Chưa đăng nhập -> chuyển về trang login
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            // Hiển thị tên user
-            const userDisplayElement = document.getElementById('userDisplayName');
-            if (userDisplayElement) {
-                userDisplayElement.innerHTML = `<i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}`;
-            }
-        });
-        
-        // Hàm đăng xuất
-        function logout() {
-            if (confirm('Bạn có chắc muốn đăng xuất?')) {
-                localStorage.removeItem('currentUser');
-                window.location.href = 'login.html';
-            }
-        }
-    </script>
 </body>
 
 </html>
