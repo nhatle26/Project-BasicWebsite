@@ -1,171 +1,139 @@
-<<<<<<< HEAD
-// JavaScript nội tuyến
+function initDemoUsers() {
+  const defaultUsers = [
+    {
+      id: "1",
+      username: "admin",
+      password: "admin123",
+      fullname: "Quản Trị Viên",
+      email: "admin@flowershop.com",
+      role: "admin"
+    },
+    {
+      id: "2",
+      username: "user01",
+      password: "user123",
+      fullname: "Người Dùng Demo",
+      email: "user01@gmail.com",
+      role: "user"
+    },
+    {
+      id: "4236",
+      username: "Nhật",
+      password: "ben123ben",
+      fullname: "Lê Minh Nhật",
+      email: "nhat@gmail.com",
+      role: "user"
+    }
+  ];
 
-function toggleForm(formId) {
-  const login = document.getElementById("loginForm");
-  const register = document.getElementById("registerForm");
+  const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Xoá class active khỏi cả hai
-  login.classList.remove("active");
-  register.classList.remove("active");
-
-  // Thêm class active cho form cần hiển thị
-  document.getElementById(formId).classList.add("active");
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const linkToRegister = document.getElementById("linkToRegister");
-  const linkToLogin = document.getElementById("linkToLogin");
-
-  linkToRegister.addEventListener("click", function (e) {
-    e.preventDefault();
-    toggleForm("registerForm");
+  defaultUsers.forEach(def => {
+    const exists = users.some(u => u.username === def.username);
+    if (!exists) {
+      users.push(def);
+    }
   });
 
-  linkToLogin.addEventListener("click", function (e) {
-    e.preventDefault();
-    toggleForm("loginForm");
-  });
-});
-=======
-// Show Register Form
-function showRegisterForm() {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('registerForm').style.display = 'block';
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
-// Show Login Form
-function showLoginForm() {
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
+initDemoUsers();
+
+function showRegister() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("registerForm").style.display = "block";
 }
 
-// Handle Login
-async function handleLogin() {
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value.trim();
-    
-    if (!username || !password) {
-        showToast('Vui lòng nhập đầy đủ thông tin!', 'error');
-        return;
-    }
-    
-    try {
-        const response = await fetch(`${API_URL}/users?username=${username}&password=${password}`);
-        const users = await response.json();
-        
-        if (users.length > 0) {
-            const user = users[0];
-            // Save user to localStorage (remove password)
-            const userInfo = {
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                fullname: user.fullname,
-                role: user.role
-            };
-            localStorage.setItem('user', JSON.stringify(userInfo));
-            
-            showToast('Đăng nhập thành công!', 'success');
-            
-            setTimeout(() => {
-                if (user.role === 'admin') {
-                    window.location.href = 'admin.html';
-                } else {
-                    window.location.href = 'home.html';
-                }
-            }, 1000);
-        } else {
-            showToast('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        showToast('Có lỗi xảy ra!', 'error');
-    }
+function showLogin() {
+  document.getElementById("registerForm").style.display = "none";
+  document.getElementById("loginForm").style.display = "block";
 }
 
-// Handle Register
-async function handleRegister() {
-    const fullname = document.getElementById('registerFullname').value.trim();
-    const username = document.getElementById('registerUsername').value.trim();
-    const email = document.getElementById('registerEmail').value.trim();
-    const password = document.getElementById('registerPassword').value.trim();
-    const confirmPassword = document.getElementById('registerConfirmPassword').value.trim();
-    
-    // Validate
-    if (!fullname || !username || !email || !password || !confirmPassword) {
-        showToast('Vui lòng điền đầy đủ thông tin!', 'error');
-        return;
-    }
-    
-    if (username.length < 4) {
-        showToast('Tên đăng nhập phải có ít nhất 4 ký tự!', 'error');
-        return;
-    }
-    
-    if (password.length < 6) {
-        showToast('Mật khẩu phải có ít nhất 6 ký tự!', 'error');
-        return;
-    }
-    
-    if (password !== confirmPassword) {
-        showToast('Mật khẩu xác nhận không khớp!', 'error');
-        return;
-    }
-    
-    // Check email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showToast('Email không hợp lệ!', 'error');
-        return;
-    }
-    
-    try {
-        // Check if username exists
-        const checkUsername = await fetch(`${API_URL}/users?username=${username}`);
-        const existingUsers = await checkUsername.json();
-        
-        if (existingUsers.length > 0) {
-            showToast('Tên đăng nhập đã tồn tại!', 'error');
-            return;
-        }
-        
-        // Create new user
-        const newUser = {
-            username: username,
-            password: password,
-            email: email,
-            fullname: fullname,
-            role: 'user'
-        };
-        
-        const response = await fetch(`${API_URL}/users`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
-        });
-        
-        if (response.ok) {
-            showToast('Đăng ký thành công! Vui lòng đăng nhập.', 'success');
-            setTimeout(() => {
-                showLoginForm();
-            }, 1500);
-        } else {
-            throw new Error('Failed to register');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        showToast('Có lỗi xảy ra khi đăng ký!', 'error');
-    }
+function register() {
+  const fullname = document.getElementById("fullname").value.trim();
+  const username = document.getElementById("newUsername").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("newPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if (!fullname || !username || !email || !password || !confirmPassword) {
+    alert("Vui lòng nhập đầy đủ các trường!");
+    return;
+  }
+  if (password !== confirmPassword) {
+    alert("Mật khẩu xác nhận không khớp!");
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  if (users.some(u => u.username === username)) {
+    alert("Tên đăng nhập đã tồn tại!");
+    return;
+  }
+  if (users.some(u => u.email === email)) {
+    alert("Email đã được dùng!");
+    return;
+  }
+
+  const newUser = {
+    id: Date.now().toString(),
+    fullname: fullname,
+    username: username,
+    email: email,
+    password: password,
+    role: "user"
+  };
+
+  users.push(newUser);
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Đăng ký thành công! Mời bạn đăng nhập.");
+  showLogin();
 }
 
-// Check if already logged in
-document.addEventListener('DOMContentLoaded', () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && window.location.pathname.includes('login.html')) {
-        window.location.href = 'home.html';
+function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!username || !password) {
+    alert("Vui lòng nhập tên đăng nhập và mật khẩu!");
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    alert(`Chào mừng ${user.fullname}!`);
+    if (user.role === "admin") {
+      window.location.href = "admin.html";
+    } else {
+      window.location.href = "home.html";
     }
-});
->>>>>>> main
+  } else {
+    alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+  }
+}
+
+function logout() {
+  localStorage.removeItem("currentUser");
+  alert("Bạn đã đăng xuất!");
+  window.location.href = "login.html";
+}
+
+function requireLogin() {
+  const cu = localStorage.getItem("currentUser");
+  if (!cu) {
+    window.location.href = "login.html";
+  }
+}
+
+window.showRegister = showRegister;
+window.showLogin = showLogin;
+window.register = register;
+window.login = login;
+window.logout = logout;
+window.requireLogin = requireLogin;

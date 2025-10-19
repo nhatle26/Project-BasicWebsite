@@ -1,45 +1,64 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi tiết sản phẩm - Flower Shop</title>
-    <link rel="stylesheet" href="../style/style.css">
-</head>
-<body>
-    <!-- Phần đầu trang -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <title>Chi tiết sản phẩm - DaTuNha Shop</title>
+    <link rel="stylesheet" href="../style/style.css" />
+  </head>
+
+  <body>
     <header>
-        <h1> Flower Shop</h1>
-        <nav>
+      <div class="header-nav">
+        <h1>DaTuNha Shop</h1>
+        <div class="search">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Tìm kiếm sản phẩm..."
+          />
+          <button
+            onclick="search()"
+            class="fa-solid fa-magnifying-glass"
+          ></button>
+          <nav>
             <a href="home.html">Trang chủ</a>
-            <a href="cart.html">Giỏ hàng</a>
-            <a href="login.html">Đăng nhập</a>
-        </nav>
+            <a href="cart.html">Giỏ hàng<span id="cartCount"></span></a>
+            <a href="login.html" id="userLink">Đăng nhập</a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Thanh tìm kiếm -->
     </header>
 
     <!-- Chi tiết sản phẩm -->
     <main>
-        <div id="productDetail" class="product-detail">
-            <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
+      <div id="productDetail" class="product-detail">
+        <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
+      </div>
+
+      <a href="home.html">← Quay lại trang chủ</a>
+
+      <!-- Sản phẩm liên quan -->
+      <section class="related">
+        <h3>Sản Phẩm Liên Quan</h3>
+        <div id="relatedProducts" class="product-grid">
+          <!-- Sản phẩm liên quan -->
         </div>
-        
-        <a href="home.html">← Quay lại trang chủ</a>
-        
-        <!-- Sản phẩm liên quan -->
-        <section class="related">
-            <h3>Sản Phẩm Liên Quan</h3>
-            <div id="relatedProducts" class="product-grid">
-                <!-- Sản phẩm liên quan -->
-            </div>
-        </section>
+      </section>
     </main>
 
     <!-- Phần cuối trang -->
     <footer>
-        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
-        <p> 0123.456.789 | contact@flowershop.com</p>
+      <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
+      <p>0123.456.789 | contact@DaTuNhashop.com</p>
     </footer>
 
-    <script src="products.js"></script>
-</body>
+    <script src="../js/products.js"></script>
+  </body>
 </html>

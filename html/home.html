@@ -1,85 +1,99 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ - Flower Shop</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../style/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trang chủ - DaTuNha Shop</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../style/style.css" />
 </head>
 <body>
-    <!-- Phần đầu trang -->
-    <header>
-        <h1> Flower Shop</h1>
-        
-        <!-- Thanh tìm kiếm -->
-        <div class="search">
-            <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
-            <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
-            <i ></i>
-        </div>
-        
-        <!-- Menu điều hướng -->
+  <header>
+    <div class="header-nav">
+      <h1>DaTuNha Shop</h1>
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
+        <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
         <nav>
-            <a href="home.html">Trang chủ</a>
-            <a href="cart.html">Giỏ hàng<span id="cartCount"></span></a>
-            <a href="login.html" id="userLink">Đăng nhập</a>
+          <a href="home.html">Trang chủ</a>
+          <a href="cart.html">Giỏ hàng<span id="cartCount"></span></a>
+          <a href="#" id="userLink">Đăng nhập</a>
         </nav>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <!-- Banner chào mừng -->
-    <section class="banner">
-        <h2>Chào mừng đến với Flower Shop</h2>
-        <p>Nơi cung cấp những bó hoa tươi đẹp nhất</p>
-    </section>
+  <section class="banner">
+    <h2>Chào mừng đến với DaTuNha Shop</h2>
+    <p>Nơi cung cấp những bó hoa tươi đẹp nhất</p>
+  </section>
 
-    <!-- Bộ lọc sản phẩm -->
-    <section class="filter">
-        <label>Danh mục:
-            <select id="categoryFilter" onchange="filterProducts()">
-                <option value="">Tất cả</option>
-                <option value="Hoa Hồng">Hoa Hồng</option>
-                <option value="Hoa Tulip">Hoa Tulip</option>
-                <option value="Hoa Ly">Hoa Ly</option>
-                <option value="Hoa Lan">Hoa Lan</option>
-            </select>
-        </label>
-        
-        <label>Giá:
-            <select id="priceFilter" onchange="filterProducts()">
-                <option value="">Tất cả</option>
-                <option value="0-150000">Dưới 150k</option>
-                <option value="150000-200000">150k - 200k</option>
-                <option value="200000-10000000000">Trên 200k</option>
-            </select>
-        </label>
-        
-        <label>Sắp xếp:
-            <select id="sortFilter" onchange="sortProducts()">
-                <option value="">Mặc định</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
-            </select>
-        </label>
-    </section>
+  <section class="filter">
+    <label>
+      Danh mục:
+      <select id="categoryFilter" onchange="filterProducts()">
+        <option value="">Tất cả</option>
+        <option value="Hoa Hồng">Hoa Hồng</option>
+        <option value="Hoa Tulip">Hoa Tulip</option>
+        <option value="Hoa Ly">Hoa Ly</option>
+        <option value="Hoa Lan">Hoa Lan</option>
+      </select>
+    </label>
 
-    <!-- Danh sách sản phẩm -->
-    <main>
-        <h3>Danh Sách Sản Phẩm</h3>
-        <div id="productList" class="product-grid">
-            <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-        </div>
-        
-        <!-- Phân trang -->
-        <div id="pagination"></div>
-    </main>
+    <label>
+      Giá:
+      <select id="priceFilter" onchange="filterProducts()">
+        <option value="">Tất cả</option>
+        <option value="0-150000">Dưới 150k</option>
+        <option value="150000-200000">150k - 200k</option>
+        <option value="200000-10000000000">Trên 200k</option>
+      </select>
+    </label>
 
-    <!-- Phần cuối trang -->
-    <footer>
-        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
-        <p>0123.456.789 | contact@flowershop.com</p>
-    </footer>
+    <label>
+      Sắp xếp:
+      <select id="sortFilter" onchange="sortProducts()">
+        <option value="">Mặc định</option>
+        <option value="price-asc">Giá tăng dần</option>
+        <option value="price-desc">Giá giảm dần</option>
+      </select>
+    </label>
+  </section>
 
-    <script src="home.js"></script>
+  <main>
+    <h3>Danh Sách Sản Phẩm</h3>
+    <div id="productList" class="product-grid"></div>
+    <div id="pagination"></div>
+  </main>
+
+  <footer>
+    <p>© 2025 DaTuNha Shop - Giao hoa toàn quốc</p>
+    <p>0123.456.789 | contact@DaTuNhashop.com</p>
+  </footer>
+
+  <!-- Kiểm tra quyền + hiển thị tên user -->
+  <script src="../js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cu = JSON.parse(localStorage.getItem("currentUser"));
+      if (!cu) {
+        window.location.href = "login.html";
+        return;
+      } else {
+        if (cu.role === "admin.html") {
+          window.location.href = "admin.html";
+          return;
+        }
+      }
+      // nếu là user bình thường, hiển thị tên
+      const userLink = document.getElementById("userLink");
+      if (userLink) {
+        userLink.textContent = cu.fullname;
+        userLink.href = "#"; // hoặc bạn đặt menu, logout …
+      }
+    });
+  </script>
+  <script src="../js/home.js"></script>
 </body>
 </html>
