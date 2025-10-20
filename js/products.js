@@ -40,8 +40,9 @@ function renderProductDetail(p) {
                 </p>
 
                 <div class="action-buttons">
-                    <button class="add-cart-btn" ${p.stock <= 0 ? 'disabled' : ''}>
-                        <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+                    <button onclick="addToCart('${p.id}')" ${p.stock <= 0 ? 'disabled' : ''} 
+                            style="${p.stock <= 0 ? 'background: #ccc; cursor: not-allowed;' : ''}">
+                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
                     </button>
                 </div>
             </div>
