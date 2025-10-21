@@ -42,87 +42,6 @@ async function loadProducts() {
     }
 }
 
-// Dữ liệu sản phẩm mặc định (backup)
-function loadDefaultProducts() {
-    allProducts = [
-        {
-            id: "1",
-            name: "Hoa Hồng Đỏ",
-            price: 139999,
-            category: "Hoa Hồng",
-            description: "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn",
-            image: "assets/images/rose-red.jpg",
-            stock: 50
-        },
-        {
-            id: "2",
-            name: "Hoa Hồng Trắng",
-            price: 140000,
-            category: "Hoa Hồng",
-            description: "Bó hoa hồng trắng tinh khôi, thanh lịch và sang trọng",
-            image: "assets/images/rose-white.jpg",
-            stock: 45
-        },
-        {
-            id: "3",
-            name: "Hoa Tulip Vàng",
-            price: 200000,
-            category: "Hoa Tulip",
-            description: "Bó tulip vàng rực rỡ, mang đến niềm vui và sự ấm áp",
-            image: "assets/images/tulip-yellow.jpg",
-            stock: 30
-        },
-        {
-            id: "4",
-            name: "Hoa Ly Trắng",
-            price: 180000,
-            category: "Hoa Ly",
-            description: "Hoa ly trắng thanh khiết, thích hợp cho mọi dịp lễ",
-            image: "assets/images/lily-white.jpg",
-            stock: 35
-        },
-        {
-            id: "5",
-            name: "Hoa Cẩm Chướng",
-            price: 120000,
-            category: "Hoa Cẩm Chướng",
-            description: "Bó cẩm chướng đa sắc, tươi vui và đầy màu sắc",
-            image: "assets/images/carnation.jpg",
-            stock: 60
-        },
-        {
-            id: "6",
-            name: "Hoa Lan Hồ Điệp",
-            price: 350000,
-            category: "Hoa Lan",
-            description: "Chậu lan hồ điệp cao cấp, sang trọng và lâu tàn",
-            image: "assets/images/orchid.jpg",
-            stock: 20
-        },
-        {
-            id: "7",
-            name: "Hoa Hướng Dương",
-            price: 160000,
-            category: "Hoa Hướng Dương",
-            description: "Bó hướng dương tươi sáng, mang đến năng lượng tích cực",
-            image: "assets/images/sunflower.jpg",
-            stock: 40
-        },
-        {
-            id: "8",
-            name: "Hoa Baby Mix",
-            price: 90000,
-            category: "Hoa Hồng",
-            description: "Bó hoa baby nhỏ xinh, đáng yêu",
-            image: "assets/images/baby.jpg",
-            stock: 70
-        }
-    ];
-    
-    filteredProducts = [...allProducts];
-    renderProducts(filteredProducts);
-}
-
 // Hiển thị danh sách sản phẩm lên giao diện
 function renderProducts(productsToRender) {
     if (!productListElement) return;
@@ -158,12 +77,8 @@ function renderProducts(productsToRender) {
     updateCartCountDisplay();
 }
 
-// Xem chi tiết sản phẩm (yêu cầu đăng nhập)
+// Xem chi tiết sản phẩm
 function viewProductDetail(productId) {
-    if (!isLoggedIn()) {
-        requireLogin();
-        return;
-    }
     window.location.href = `product.html?id=${productId}`;
 }
 
@@ -393,25 +308,29 @@ document.addEventListener('DOMContentLoaded', () => {
         let navHTML = `
             <a href="home.html"><i class="fas fa-home"></i> Trang chủ</a>
             <a href="#" onclick="viewCart(); return false;"><i class="fas fa-shopping-cart"></i> Giỏ hàng<span id="cartCount"></span></a>
-            <a href="#" id="userDisplayName">
-                <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
-            </a>
+        `;
+        
+        // Hiển thị tên user hoặc link Admin nếu là admin
+        if (currentUser.role === 'admin') {
+            navHTML += `
+                <a href="admin.html" id="userDisplayName">
+                    <i class="fas fa-user-shield"></i> Quản trị
+                </a>
+            `;
+        } else {
+            navHTML += `
+                <a href="#" id="userDisplayName">
+                    <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
+                </a>
+            `;
+        }
+        
+        // Thêm nút đăng xuất (chung cho tất cả)
+        navHTML += `
             <a href="#" onclick="logout(); return false;" style="color: #f44336;">
                 <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </a>
         `;
-        
-        // Thêm link Admin nếu user có role admin
-        // if (currentUser.role === 'admin') {
-        //             navHTML += `
-        //     <a href="admin.html" id="userDisplayName">
-        //         <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
-        //     </a>
-        //     <a href="#" onclick="logout(); return false;" style="color: #f44336;">
-        //         <i class="fas fa-sign-out-alt"></i> Đăng xuất
-        //     </a>
-        // `;
-        // }
         
         navElement.innerHTML = navHTML;
     } else {

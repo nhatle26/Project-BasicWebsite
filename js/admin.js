@@ -178,9 +178,8 @@ function renderUsers(users) {
       <tr>
         <td>${u.id}</td>
         <td>${u.fullname}</td>
-        <td>${u.username}</td>
-        <td>${u.email}</td>
         <td>${u.role}</td>
+        <td>${u.email}</td>
         <td>
           ${isAdmin ? 
             '<i>(Không thể sửa/xóa)</i>' :

@@ -112,6 +112,7 @@ nav a[href*="home"] {
 }
 
 nav a[href*="cart"] {
+    font-weight: bold;
     text-decoration-color: white;
     text-underline-offset: 3px;
 }
@@ -123,9 +124,8 @@ nav a#adminName {
 }
 
 nav a[onclick*="logout"] {
-    color: #ff4444;
     font-weight: bold;
-    text-decoration-color: #ff4444;
+    text-decoration-color: white;
     text-underline-offset: 3px;
 }
 
