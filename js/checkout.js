@@ -23,6 +23,23 @@ function formatCurrency(amount) {
 }
 
 // -------------------------------------------------------------------
+// Hàm toggle hiển thị form thanh toán
+function togglePaymentDetails() {
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    
+    // Ẩn tất cả các form chi tiết
+    document.getElementById('bankingDetails').style.display = 'none';
+    document.getElementById('momoDetails').style.display = 'none';
+    
+    // Hiển thị form tương ứng
+    if (paymentMethod === 'banking') {
+        document.getElementById('bankingDetails').style.display = 'block';
+    } else if (paymentMethod === 'momo') {
+        document.getElementById('momoDetails').style.display = 'block';
+    }
+}
+
+// -------------------------------------------------------------------
 // Hàm hiển thị tóm tắt đơn hàng
 function renderOrderSummary() {
     const cart = getCart();
@@ -97,11 +114,50 @@ function placeOrder() {
         return;
     }
 
+    // 3. Kiểm tra thông tin thanh toán theo từng phương thức
+    let paymentInfo = {};
+    
+    if (paymentMethod === 'momo') {
+        const customerMomoPhone = document.getElementById('customerMomoPhone').value.trim();
+        const customerMomoName = document.getElementById('customerMomoName').value.trim();
+        
+        if (!customerMomoPhone || !customerMomoName) {
+            alert('Vui lòng nhập đầy đủ thông tin MoMo (Số điện thoại và Tên tài khoản)!');
+            return;
+        }
+        
+        paymentInfo.customerMomoPhone = customerMomoPhone;
+        paymentInfo.customerMomoName = customerMomoName;
+        
+        const momoProof = document.getElementById('momoProof').files[0];
+        if (momoProof) {
+            paymentInfo.momoProofName = momoProof.name;
+        }
+    } else if (paymentMethod === 'banking') {
+        const customerBankName = document.getElementById('customerBankName').value.trim();
+        const customerBankAccount = document.getElementById('customerBankAccount').value.trim();
+        const customerBankAccountName = document.getElementById('customerBankAccountName').value.trim();
+        
+        if (!customerBankName || !customerBankAccount || !customerBankAccountName) {
+            alert('Vui lòng nhập đầy đủ thông tin ngân hàng (Tên ngân hàng, Số tài khoản, Tên chủ tài khoản)!');
+            return;
+        }
+        
+        paymentInfo.customerBankName = customerBankName;
+        paymentInfo.customerBankAccount = customerBankAccount;
+        paymentInfo.customerBankAccountName = customerBankAccountName;
+        
+        const bankingProof = document.getElementById('bankingProof').files[0];
+        if (bankingProof) {
+            paymentInfo.bankingProofName = bankingProof.name;
+        }
+    }
+
     const cart = getCart();
     const subtotalValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const totalValue = subtotalValue + SHIPPING_FEE;
     
-    // 3. Tạo đối tượng đơn hàng
+    // 4. Tạo đối tượng đơn hàng
     const newOrder = {
         id: Date.now().toString(), // Tạo ID đơn hàng bằng timestamp
         customer: { fullname, phone, email, address, note },
@@ -110,17 +166,28 @@ function placeOrder() {
         shippingFee: SHIPPING_FEE,
         total: totalValue,
         payment: paymentMethod,
+        paymentInfo: paymentInfo,
         date: new Date().toLocaleDateString('vi-VN'),
         status: 'Đang chờ xác nhận' // Trạng thái đơn hàng
     };
 
-    // 4. Lưu đơn hàng
+    // 5. Lưu đơn hàng
     saveOrder(newOrder);
 
-    // 5. Xóa giỏ hàng và thông báo thành công
+    // 6. Xóa giỏ hàng và thông báo thành công
     localStorage.removeItem('cart');
 
-    alert(`Đặt hàng thành công! Tổng cộng: ${formatCurrency(totalValue)}. Đơn hàng của bạn đang chờ xác nhận.`);
+    let successMessage = `Đặt hàng thành công! Tổng cộng: ${formatCurrency(totalValue)}`;
+    
+    if (paymentMethod === 'banking') {
+        successMessage += '\n\nVui lòng chuyển khoản theo thông tin đã cung cấp với nội dung: HOADON ' + newOrder.id;
+    } else if (paymentMethod === 'momo') {
+        successMessage += '\n\nVui lòng thanh toán qua MoMo theo thông tin đã cung cấp với nội dung: HOADON ' + newOrder.id;
+    }
+    
+    successMessage += '\n\nĐơn hàng của bạn đang chờ xác nhận.';
+    
+    alert(successMessage);
     
     // Chuyển hướng về trang chủ
     window.location.href = 'home.html'; 
