@@ -906,12 +906,15 @@ tbody td[colspan] {
 footer {
     background: #2d3748;
     color: white;
-    text-align: center;
-    padding: 30px 20px;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 110px;
 }
 
 footer p {
-    margin: 8px 0;
+    margin: 20px;
 }
 
 /* === RESPONSIVE === */
