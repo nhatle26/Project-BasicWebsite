@@ -17,7 +17,6 @@
         <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
         <nav>
           <a href="home.html">Trang chủ</a>
-          <a href="admin.html" id="adminLink">Quản trị</a>
           <a href="login.html" id="logOut">Đăng xuất</a>
         </nav>
       </div>
@@ -25,7 +24,13 @@
   </header>
 
   <main>
-    <!-- QUẢN LÝ SẢN PHẨM -->
+    <!-- 🔘 Nút chuyển giữa hai phần -->
+    <div class="switch-buttons">
+      <button id="btnProduct" class="active" onclick="showSection('product')">📦 Quản lý sản phẩm</button>
+      <button id="btnUser" onclick="showSection('user')">👤 Quản lý người dùng</button>
+    </div>
+
+    <!-- ====================== QUẢN LÝ SẢN PHẨM ====================== -->
     <section id="productSection">
       <h2>Quản Lý Sản Phẩm</h2>
       <button onclick="showAddProductForm()">+ Thêm sản phẩm mới</button>
@@ -82,12 +87,10 @@
       </table>
     </section>
 
-    <hr style="margin:40px 0;">
-
-    <!-- QUẢN LÝ NGƯỜI DÙNG -->
-    <section id="userSection">
+    <!-- ====================== QUẢN LÝ NGƯỜI DÙNG ====================== -->
+    <section id="userSection" style="display:none;">
       <h2>Quản Lý Người Dùng</h2>
-<div id="userForm" style="display:none; margin-top:20px;">
+      <div id="userForm" style="display:none; margin-top:20px;">
         <h3 id="userFormTitle">Thêm Người Dùng</h3>
         <form id="formUser">
           <input type="hidden" id="userId">
@@ -131,5 +134,6 @@
   </footer>
 
   <script src="../js/admin.js"></script>
+
 </body>
 </html>

@@ -184,8 +184,8 @@ function renderUsers(users) {
         <td>
           ${isAdmin ? 
             '<i>(Không thể sửa/xóa)</i>' :
-`<button onclick="editUser(${u.id})">✏️ Sửa</button>
-             <button onclick="deleteUser(${u.id})">🗑️ Xóa</button>`
+            `<button onclick="editUser(${u.id})">✏️ Sửa</button>
+            <button onclick="deleteUser(${u.id})">🗑️ Xóa</button>`
           }
         </td>
       </tr>
@@ -216,3 +216,21 @@ async function deleteUser(id) {
   alert('✅ Đã xóa người dùng.');
   await loadUsers();
 }
+function showSection(section) {
+      const product = document.getElementById('productSection');
+      const user = document.getElementById('userSection');
+      const btnProduct = document.getElementById('btnProduct');
+      const btnUser = document.getElementById('btnUser');
+
+      if (section === 'product') {
+        product.style.display = 'block';
+        user.style.display = 'none';
+        btnProduct.classList.add('active');
+        btnUser.classList.remove('active');
+      } else {
+        product.style.display = 'none';
+        user.style.display = 'block';
+        btnProduct.classList.remove('active');
+        btnUser.classList.add('active');
+      }
+    }

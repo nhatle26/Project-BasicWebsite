@@ -89,15 +89,6 @@
       "email": "user01@gmail.com",
       "role": "user",
       "fullname": "Nguyễn Văn A"
-    },
-    {
-      "id": "4236",
-      "username": "Nhật",
-      "password": "ben123ben",
-      "email": "nhat@gmail.com",
-      "fullname": "Lê Minh Nhật",
-      "role": "user"
     }
-  ],
-  "orders": []
+  ]
 }
