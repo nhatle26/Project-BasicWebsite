@@ -252,3 +252,15 @@ function showSection(section) {
     btnUser.classList.add('active');
   }
 }
+// ==================== 🚪 ĐĂNG XUẤT ====================
+function logout() {
+  if (confirm("Bạn có chắc muốn đăng xuất không?")) {
+    // Xóa thông tin đăng nhập khỏi localStorage
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("token"); // nếu có dùng token
+
+    alert("✅ Đã đăng xuất thành công!");
+    // Quay lại trang đăng nhập
+    window.location.href = "../pages/login.html"; // Đường dẫn đến trang đăng nhập
+  }
+}
