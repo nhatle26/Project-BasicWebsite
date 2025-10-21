@@ -71,15 +71,6 @@
       "description": "",
       "image": "assets/images/baby.jpg",
       "stock": 70
-    },
-    {
-      "id": 9,
-      "name": "Muy tá",
-      "price": 1000000000000000000,
-      "category": "Hoa Hồng",
-      "description": "",
-      "image": "https://vppthinhdatphat.com/wp-content/uploads/2021/08/duong-thanh-cong-gia-lai-4613.jpg",
-      "stock": 1
     }
   ],
   "users": [
@@ -98,14 +89,6 @@
       "email": "user01@gmail.com",
       "role": "user",
       "fullname": "Nguyễn Văn A"
-    },
-    {
-      "id": "3",
-      "username": "leminhnhat1326",
-      "fullname": "Lê Minh Nhật",
-      "email": "leminhnhat1326@gmail.com",
-      "password": "ben123ben",
-      "role": "user"
     },
     {
       "id": "4",
