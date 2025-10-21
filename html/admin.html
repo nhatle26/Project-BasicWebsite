@@ -12,10 +12,15 @@
 <body>
     <!-- Phần đầu trang -->
     <header>
-        <h1> Flower Shop - Admin</h1>
+        <h1>🔧 Flower Shop - Admin Panel</h1>
         <nav>
-            <a href="home.html">Trang chủ</a>
-            <a href="#" id="adminName">Admin</a>
+            <a href="home.html"><i class="fas fa-home"></i> Trang chủ</a>
+            <a href="#" id="adminName" style="color: #4CAF50; font-weight: bold;">
+                <i class="fas fa-user-shield"></i> Admin
+            </a>
+            <a href="#" onclick="logoutAdmin()" style="color: #f44336;">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </a>
         </nav>
     </header>
 
@@ -80,11 +85,43 @@
 
     <!-- Phần cuối trang -->
     <footer>
-        <p>© 2025 DaTuNha Shop - Giao hoa toàn quốc</p>
-        <p> 0123.456.789 | contact@DaTuNhashop.com</p>
+        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
+        <p>0123.456.789 | 📧 contact@flowershop.com</p>
     </footer>
 
     <script src="../js/admin.js"></script>
+    <script>
+        // Kiểm tra quyền admin và hiển thị tên
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                alert('Vui lòng đăng nhập!');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            if (currentUser.role !== 'admin') {
+                alert('Bạn không có quyền truy cập trang này!');
+                window.location.href = 'home.html';
+                return;
+            }
+            
+            // Hiển thị tên admin
+            const adminNameElement = document.getElementById('adminName');
+            if (adminNameElement) {
+                adminNameElement.innerHTML = `<i class="fas fa-user-shield"></i> ${currentUser.fullname || currentUser.username}`;
+            }
+        });
+        
+        // Hàm đăng xuất
+        function logoutAdmin() {
+            if (confirm('Bạn có chắc muốn đăng xuất?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
 </body>
 
 </html>

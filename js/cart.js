@@ -7,10 +7,9 @@ const totalItemsElement = document.getElementById('totalItems');
 const subtotalElement = document.getElementById('subtotal');
 const totalElement = document.getElementById('total');
 
-const SHIPPING_FEE = 30000; // Phí vận chuyển cố định 30,000đ
+const SHIPPING_FEE = 50000; // Phí vận chuyển cố định 30,000đ
 
 
-// -------------------------------------------------------------------
 // Hàm lấy giỏ hàng từ LocalStorage
 function getCart() {
     const cart = localStorage.getItem('cart');
@@ -111,8 +110,6 @@ function renderCart() {
     totalElement.textContent = formatCurrency(finalTotal);
 }
 
-
-// -------------------------------------------------------------------
 // Hàm cập nhật số lượng sản phẩm (tăng/giảm 1)
 function updateQuantity(productId, change) {
     let cart = getCart();
