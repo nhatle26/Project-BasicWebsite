@@ -148,11 +148,12 @@ function formatCurrency(amount) {
 const USER_API = 'http://localhost:3000/users';
 let currentUserId = null;
 
-// Load danh sách user
+// Khi tải trang xong → load danh sách người dùng
 document.addEventListener('DOMContentLoaded', async () => {
   await loadUsers();
 });
 
+// Hàm tải danh sách người dùng
 async function loadUsers() {
   try {
     const res = await fetch(USER_API);
@@ -163,6 +164,7 @@ async function loadUsers() {
   }
 }
 
+// Hiển thị danh sách người dùng ra bảng HTML
 function renderUsers(users) {
   const tbody = document.getElementById('usersTableBody');
   tbody.innerHTML = '';
@@ -173,7 +175,6 @@ function renderUsers(users) {
   }
 
   users.forEach(u => {
-    const isAdmin = u.role === 'admin';
     tbody.innerHTML += `
       <tr>
         <td>${u.id}</td>
@@ -181,55 +182,73 @@ function renderUsers(users) {
         <td>${u.role}</td>
         <td>${u.email}</td>
         <td>
-          ${isAdmin ? 
-            '<i>(Không thể sửa/xóa)</i>' :
-            `<button onclick="editUser(${u.id})">✏️ Sửa</button>
-            <button onclick="deleteUser(${u.id})">🗑️ Xóa</button>`
-          }
+          <button onclick="editUser(${u.id})">✏️ Sửa</button>
+          <button onclick="deleteUser(${u.id})">🗑️ Xóa</button>
         </td>
       </tr>
     `;
   });
 }
 
+// ✅ Cập nhật: Cho phép sửa email (tài khoản), mật khẩu, vai trò
 async function editUser(id) {
-  const res = await fetch(`${USER_API}/${id}`);
-  const user = await res.json();
+  try {
+    const res = await fetch(`${USER_API}/${id}`);
+    const user = await res.json();
 
-  const newRole = prompt(`Nhập vai trò mới cho ${user.username} (admin/user):`, user.role);
-  if (!newRole) return;
+    // Hiển thị prompt cho từng trường
+    const newEmail = prompt(`📧 Nhập email mới cho người dùng (hiện tại: ${user.email}):`, user.email);
+    if (!newEmail) return;
 
-  await fetch(`${USER_API}/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ role: newRole })
-  });
+    const newPassword = prompt(`🔐 Nhập mật khẩu mới cho người dùng (hiện tại: ${user.password}):`, user.password);
+    if (!newPassword) return;
 
-  alert('✅ Cập nhật vai trò thành công.');
-  await loadUsers();
+    const newRole = prompt(`⚙️ Nhập vai trò mới (admin/user):`, user.role);
+    if (!newRole) return;
+
+    // Cập nhật dữ liệu người dùng
+    await fetch(`${USER_API}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: newEmail,
+        password: newPassword,
+        role: newRole
+      })
+    });
+
+    alert('✅ Đã cập nhật thông tin người dùng.');
+    await loadUsers();
+
+  } catch (err) {
+    console.error('❌ Lỗi khi sửa người dùng:', err);
+  }
 }
 
+// Xóa người dùng
 async function deleteUser(id) {
   if (!confirm('🗑️ Bạn có chắc muốn xóa người dùng này không?')) return;
   await fetch(`${USER_API}/${id}`, { method: 'DELETE' });
   alert('✅ Đã xóa người dùng.');
   await loadUsers();
 }
-function showSection(section) {
-      const product = document.getElementById('productSection');
-      const user = document.getElementById('userSection');
-      const btnProduct = document.getElementById('btnProduct');
-      const btnUser = document.getElementById('btnUser');
 
-      if (section === 'product') {
-        product.style.display = 'block';
-        user.style.display = 'none';
-        btnProduct.classList.add('active');
-        btnUser.classList.remove('active');
-      } else {
-        product.style.display = 'none';
-        user.style.display = 'block';
-        btnProduct.classList.remove('active');
-        btnUser.classList.add('active');
-      }
-    }
+// Chuyển đổi giữa 2 phần quản lý: sản phẩm ↔ người dùng
+function showSection(section) {
+  const product = document.getElementById('productSection');
+  const user = document.getElementById('userSection');
+  const btnProduct = document.getElementById('btnProduct');
+  const btnUser = document.getElementById('btnUser');
+
+  if (section === 'product') {
+    product.style.display = 'block';
+    user.style.display = 'none';
+    btnProduct.classList.add('active');
+    btnUser.classList.remove('active');
+  } else {
+    product.style.display = 'none';
+    user.style.display = 'block';
+    btnProduct.classList.remove('active');
+    btnUser.classList.add('active');
+  }
+}

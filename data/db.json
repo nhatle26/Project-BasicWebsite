@@ -73,7 +73,7 @@
       "stock": 70
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Muy tá",
       "price": 1000000000000000000,
       "category": "Hoa Hồng",
@@ -101,7 +101,7 @@
     },
     {
       "id": "3",
-      "username": "leminhnhat1326",
+      "username": "11111",
       "fullname": "Lê Minh Nhật",
       "email": "leminhnhat1326@gmail.com",
       "password": "ben123ben",
