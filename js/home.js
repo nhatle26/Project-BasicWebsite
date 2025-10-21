@@ -22,7 +22,7 @@ function requireLogin() {
 async function loadProducts() {
     try {
         // Fetch trực tiếp file db.json
-        const response = await fetch('../db.json');
+        const response = await fetch('/data/db.json');
         
         if (!response.ok) {
             throw new Error('Không thể tải dữ liệu sản phẩm');
@@ -36,9 +36,8 @@ async function loadProducts() {
     } catch (error) {
         console.error('Lỗi khi tải sản phẩm:', error);
         
-        // Nếu không load được file, dùng dữ liệu hardcode
-        console.warn('Không thể tải db.json, sử dụng dữ liệu mặc định...');
-        loadDefaultProducts();
+        // Hiển thị lỗi cho người dùng
+        productListElement.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #f44336;">Không thể tải dữ liệu. Vui lòng kiểm tra file db.json!</p>';
     }
 }
 
