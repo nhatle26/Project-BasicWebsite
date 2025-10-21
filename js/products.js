@@ -5,11 +5,14 @@ const productId = params.get("id");
 const productDetail = document.getElementById("productDetail");
 const relatedContainer = document.getElementById("relatedProducts");
 
-// --- 1️⃣ Lấy chi tiết sản phẩm từ LocalStorage ---
-function loadProductDetail() {
+// --- 1️⃣ Lấy chi tiết sản phẩm từ db.json ---
+async function loadProductDetail() {
     try {
-        // Đọc từ localStorage thay vì fetch API
-        const products = JSON.parse(localStorage.getItem('products')) || [];
+        // Fetch từ db.json thay vì localStorage
+        const response = await fetch('/data/db.json');
+        const data = await response.json();
+        const products = data.products || [];
+        
         const product = products.find(p => p.id === productId);
 
         if (!product) {
@@ -97,9 +100,10 @@ async function loadRelatedProducts(category, currentId) {
   if (!relatedContainer) return;
 
   try {
-    // Gọi API để lấy toàn bộ sản phẩm từ JSON Server
-    const res = await fetch('http://localhost:3000/products');
-    const products = await res.json();
+// Gọi db.json thay vì JSON Server
+    const res = await fetch('/data/db.json');
+    const data = await res.json();
+    const products = data.products || [];
 
     // Lọc sản phẩm cùng category, khác ID hiện tại
     const relatedProducts = products.filter(
