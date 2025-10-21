@@ -2,78 +2,82 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>Đăng nhập - Flower Shop</title>
-    <link rel="stylesheet" href="../style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập - Flower Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../style/style.css">
 </head>
 
 <body>
-    <!-- Phần đầu trang -->
-    <header>
-        <h1> Flower Shop</h1>
-        <nav>
-            <a href="home.html">Trang chủ</a>
-        </nav>
-    </header>
+  <!-- Header -->
+  <header>
+    <h1><i class="fa-solid fa-spa"></i> Flower Shop</h1>
+    <nav>
+      <a href="home.html"><i class="fa-solid fa-house"></i> Trang chủ</a>
+    </nav>
+  </header>
 
-    <!-- Phần nội dung chính -->
-    <main>
-        <div class="container">
-            <!-- Form đăng nhập -->
-            <div id="loginForm">
-                <h2>Đăng Nhập</h2>
-                <form>
-                    <label>Tài khoản:</label>
-                    <input type="text" id="username" placeholder="Nhập tên đăng nhập">
+  <!-- Main -->
+  <main>
+    <div class="container">
+      <!-- Form đăng nhập -->
+      <div id="loginForm">
+        <h2>Đăng Nhập</h2>
+        <form onsubmit="event.preventDefault(); login();">
+          <label for="username">Email:</label>
+          <input type="text" id="username" placeholder="Email">
 
-                    <label>Mật khẩu:</label>
-                    <input type="password" id="password" placeholder="Nhập mật khẩu">
+          <label for="password">Mật khẩu:</label>
+          <input type="password" id="password" placeholder="Nhập mật khẩu">
 
-                    <button type="button" onclick="login()">Đăng nhập</button>
-                </form>
+          <button type="submit">Đăng nhập</button>
+        </form>
 
-                <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký ngay</a></p>
+        <p>Chưa có tài khoản?
+          <a href="#" onclick="showRegister()">Đăng ký ngay</a>
+        </p>
 
-                <div class="demo">
-                    <p><strong>Tài khoản demo:</strong></p>
-                    <p>Admin: admin / admin123</p>
-                    <p>User: user01 / user123</p>
-                </div>
-            </div>
-
-            <!-- Form đăng ký -->
-            <div id="registerForm" style="display: none;">
-                <h2>Đăng Ký</h2>
-                <form>
-                    <label>Họ và tên:</label>
-                    <input type="text" id="fullname" placeholder="Nhập họ và tên">
-
-                    <label>Email:</label>
-                    <input type="email" id="email" placeholder="Nhập email">
-
-                    <label>Mật khẩu:</label>
-                    <input type="password" id="newPassword" placeholder="Nhập mật khẩu">
-
-                    <label>Xác nhận mật khẩu:</label>
-                    <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu">
-
-                    <button type="button" onclick="register()">Đăng ký</button>
-                </form>
-
-                <p>Đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
-            </div>
+        <div class="demo">
+          <p><strong>Tài khoản demo:</strong></p>
+          <p>Admin: admin / admin123</p>
+          <p>User: user01 / user123</p>
         </div>
-    </main>
+      </div>
 
-    <!-- Phần cuối trang -->
-    <footer>
-        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
-        <p> 0123.456.789 | contact@flowershop.com</p>
-    </footer>
+      <!-- Form đăng ký -->
+      <div id="registerForm" style="display: none;">
+        <h2>Đăng Ký</h2>
+        <form onsubmit="event.preventDefault(); register();">
+          <label for="fullname">Họ và tên:</label>
+          <input type="text" id="fullname" placeholder="Nhập họ và tên">
 
-    <script src="../js/auth.js"></script>
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Nhập email">
+
+          <label for="newPassword">Mật khẩu:</label>
+          <input type="password" id="newPassword" placeholder="Nhập mật khẩu">
+
+          <label for="confirmPassword">Xác nhận mật khẩu:</label>
+          <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu">
+
+          <button type="submit">Đăng ký</button>
+        </form>
+
+        <p>Đã có tài khoản?
+          <a href="#" onclick="showLogin()">Đăng nhập</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
+    <p>📞 0123.456.789 | ✉️ contact@flowershop.com</p>
+  </footer>
+
+  <!-- Gọi JS xử lý -->
+  <script src="../js/auth.js"></script>
 </body>
-
 </html>
