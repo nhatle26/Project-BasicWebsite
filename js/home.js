@@ -158,12 +158,8 @@ function renderProducts(productsToRender) {
     updateCartCountDisplay();
 }
 
-// Xem chi tiết sản phẩm (yêu cầu đăng nhập)
+// Xem chi tiết sản phẩm
 function viewProductDetail(productId) {
-    if (!isLoggedIn()) {
-        requireLogin();
-        return;
-    }
     window.location.href = `product.html?id=${productId}`;
 }
 
@@ -393,25 +389,29 @@ document.addEventListener('DOMContentLoaded', () => {
         let navHTML = `
             <a href="home.html"><i class="fas fa-home"></i> Trang chủ</a>
             <a href="#" onclick="viewCart(); return false;"><i class="fas fa-shopping-cart"></i> Giỏ hàng<span id="cartCount"></span></a>
-            <a href="#" id="userDisplayName">
-                <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
-            </a>
+        `;
+        
+        // Hiển thị tên user hoặc link Admin nếu là admin
+        if (currentUser.role === 'admin') {
+            navHTML += `
+                <a href="admin.html" id="userDisplayName">
+                    <i class="fas fa-user-shield"></i> Quản trị
+                </a>
+            `;
+        } else {
+            navHTML += `
+                <a href="#" id="userDisplayName">
+                    <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
+                </a>
+            `;
+        }
+        
+        // Thêm nút đăng xuất (chung cho tất cả)
+        navHTML += `
             <a href="#" onclick="logout(); return false;" style="color: #f44336;">
                 <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </a>
         `;
-        
-        // Thêm link Admin nếu user có role admin
-        // if (currentUser.role === 'admin') {
-        //             navHTML += `
-        //     <a href="admin.html" id="userDisplayName">
-        //         <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
-        //     </a>
-        //     <a href="#" onclick="logout(); return false;" style="color: #f44336;">
-        //         <i class="fas fa-sign-out-alt"></i> Đăng xuất
-        //     </a>
-        // `;
-        // }
         
         navElement.innerHTML = navHTML;
     } else {
