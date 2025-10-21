@@ -402,16 +402,16 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         // Thêm link Admin nếu user có role admin
-        if (currentUser.role === 'admin') {
-                    navHTML += `
-            <a href="admin.html" id="userDisplayName">
-                <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
-            </a>
-            <a href="#" onclick="logout(); return false;" style="color: #f44336;">
-                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-            </a>
-        `;
-        }
+        // if (currentUser.role === 'admin') {
+        //             navHTML += `
+        //     <a href="admin.html" id="userDisplayName">
+        //         <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
+        //     </a>
+        //     <a href="#" onclick="logout(); return false;" style="color: #f44336;">
+        //         <i class="fas fa-sign-out-alt"></i> Đăng xuất
+        //     </a>
+        // `;
+        // }
         
         navElement.innerHTML = navHTML;
     } else {
