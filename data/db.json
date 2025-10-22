@@ -89,6 +89,14 @@
       "email": "user01@gmail.com",
       "role": "user",
       "fullname": "Nguyễn Văn A"
+    },
+    {
+      "id": "4",
+      "username": "minhnhatle218",
+      "fullname": "Lê Minh Nhật",
+      "email": "minhnhatle218@gmail.com",
+      "password": "ben123ben",
+      "role": "user"
     }
   ]
 }

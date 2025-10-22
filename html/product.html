@@ -14,7 +14,7 @@
   <body>
     <header>
       <div class="header-nav">
-        <h1>DaTuNha Shop</h1>
+        <h1><i class="fa-solid fa-spa"></i> DaTuNha Shop</h1>
         <div class="search">
           <input
             type="text"
@@ -28,7 +28,7 @@
           <nav>
             <a href="home.html">Trang chủ</a>
             <a href="cart.html">Giỏ hàng<span id="cartCount"></span></a>
-            <a href="login.html" id="logOut">Đăng xuất</a>
+            <a href="#" onclick="logout(); return false;" id="logOut">Đăng xuất</a>
           </nav>
         </div>
       </div>
@@ -41,8 +41,6 @@
       <div id="productDetail" class="product-detail">
         <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
       </div>
-
-      <a href="home.html">← Quay lại trang chủ</a>
 
       <!-- Sản phẩm liên quan -->
       <section class="related">

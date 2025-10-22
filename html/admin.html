@@ -11,13 +11,13 @@
 <body>
   <header>
     <div class="header-nav">
-      <h1>DaTuNha Shop - Trang quản trị</h1>
+      <h1><i class="fa-solid fa-spa"></i> DaTuNha Shop - Trang quản trị viên</h1>
       <div class="search">
         <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
         <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
         <nav>
           <a href="home.html">Trang chủ</a>
-          <a href="login.html" id="logOut">Đăng xuất</a>
+          <a href="#" onclick="logout(); return false;" id="logOut">Đăng xuất</a>
         </nav>
       </div>
     </div>
@@ -72,7 +72,7 @@
       </div>
 
       <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
-        <thead style="background:#eee;">
+        <thead style="background:#1beb04;">
           <tr>
             <th>ID</th>
             <th>Ảnh</th>
@@ -115,12 +115,12 @@
       </div>
 
       <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
-        <thead style="background:#eee;">
+        <thead style="background:#0951ae;">
           <tr>
             <th>ID</th>
             <th>Tên</th>
-            <th>Email</th>
             <th>Vai trò</th>
+            <th>Email</th>
             <th>Hành động</th>
           </tr>
         </thead>
