@@ -2,20 +2,20 @@
 
 // Hiển thị form đăng ký
 function showRegister() {
-    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('loginForm').style.display    = 'none';
     document.getElementById('registerForm').style.display = 'block';
 }
 
 // Hiển thị form đăng nhập
 function showLogin() {
     document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('loginForm').style.display    = 'block';
 }
 
 // Hàm hiển thị thông báo toast
 function showToast(message, type = 'info') {
     const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
+    toast.className   = `toast toast-${type}`;
     toast.textContent = message;
     toast.style.cssText = `
         position: fixed;
@@ -41,15 +41,15 @@ function showToast(message, type = 'info') {
 // Thêm CSS animation cho toast
 if (!document.getElementById('toast-styles')) {
     const style = document.createElement('style');
-    style.id = 'toast-styles';
+    style.id       = 'toast-styles';
     style.textContent = `
         @keyframes slideIn {
             from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            to   { transform: translateX(0); opacity: 1; }
         }
         @keyframes slideOut {
             from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(400px); opacity: 0; }
+            to   { transform: translateX(400px); opacity: 0; }
         }
     `;
     document.head.appendChild(style);
@@ -57,28 +57,21 @@ if (!document.getElementById('toast-styles')) {
 
 // Lấy danh sách users từ localStorage hoặc db.json
 async function getUsers() {
-    // Ưu tiên lấy từ localStorage trước
     let users = localStorage.getItem('users');
-    
     if (users) {
         return JSON.parse(users);
     }
-    
-    // Nếu chưa có trong localStorage, load từ db.json
     try {
         const response = await fetch('../db.json');
         if (response.ok) {
             const data = await response.json();
             users = data.users || [];
-            // Lưu vào localStorage để sử dụng sau
             localStorage.setItem('users', JSON.stringify(users));
             return users;
         }
     } catch (error) {
         console.error('Không thể load db.json:', error);
     }
-    
-    // Nếu không load được, trả về array users mặc định
     return [
         {
             id: "1",
@@ -115,29 +108,23 @@ async function login() {
     }
     
     try {
-        // Lấy danh sách users
         const users = await getUsers();
-        
-        // Tìm user khớp với username và password
-        const user = users.find(u => u.username === username && u.password === password);
+        const user  = users.find(u => u.username === username && u.password === password);
         
         if (user) {
-            // Lưu thông tin user đang đăng nhập (không lưu password)
             const userSession = {
-                id: user.id,
-                username: user.username,
-                fullname: user.fullname,
-                email: user.email,
-                role: user.role
+                id       : user.id,
+                username : user.username,
+                fullname : user.fullname,
+                email    : user.email,
+                role     : user.role
             };
             localStorage.setItem('currentUser', JSON.stringify(userSession));
             
             showToast('Đăng nhập thành công!', 'success');
             
             setTimeout(() => {
-                // Kiểm tra xem có URL cần quay lại không
                 const returnUrl = localStorage.getItem('returnUrl');
-                
                 if (returnUrl) {
                     localStorage.removeItem('returnUrl');
                     window.location.href = returnUrl;
@@ -156,35 +143,26 @@ async function login() {
     }
 }
 
-// Xử lý đăng ký
+// Xử lý đăng ký (chỉnh sửa)
 async function register() {
-    const fullname = document.getElementById('fullname').value.trim();
-    const username = document.getElementById('newUsername').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('newPassword').value.trim();
+    const fullname        = document.getElementById('fullname').value.trim();
+    const email           = document.getElementById('email').value.trim();
+    const password        = document.getElementById('newPassword').value.trim();
     const confirmPassword = document.getElementById('confirmPassword').value.trim();
     
     // Validate
-    if (!fullname || !username || !email || !password || !confirmPassword) {
+    if (!fullname || !email || !password || !confirmPassword) {
         showToast('Vui lòng điền đầy đủ thông tin!', 'error');
         return;
     }
-    
-    if (username.length < 4) {
-        showToast('Tên đăng nhập phải có ít nhất 4 ký tự!', 'error');
-        return;
-    }
-    
     if (password.length < 6) {
         showToast('Mật khẩu phải có ít nhất 6 ký tự!', 'error');
         return;
     }
-    
     if (password !== confirmPassword) {
         showToast('Mật khẩu xác nhận không khớp!', 'error');
         return;
     }
-    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         showToast('Email không hợp lệ!', 'error');
@@ -192,46 +170,45 @@ async function register() {
     }
     
     try {
-        // Lấy danh sách users hiện tại
         const users = await getUsers();
-        
-        // Kiểm tra username đã tồn tại chưa
-        if (users.find(u => u.username === username)) {
-            showToast('Tên đăng nhập đã tồn tại!', 'error');
-            return;
-        }
-        
-        // Kiểm tra email đã tồn tại chưa
         if (users.find(u => u.email === email)) {
             showToast('Email đã được sử dụng!', 'error');
             return;
         }
         
-        // Tạo user mới
         const newUser = {
-            id: Date.now().toString(), // ID duy nhất dựa trên timestamp
-            username: username,
+            id      : Date.now().toString(),
+            username: email,            // sử dụng email làm username nếu bạn không nhập username riêng
             password: password,
             fullname: fullname,
-            email: email,
-            role: 'user' // Mặc định là user thường
+            email   : email,
+            role    : 'user'
         };
         
-        // Thêm user mới vào danh sách
         users.push(newUser);
-        
-        // Lưu lại vào localStorage
         saveUsers(users);
+        
+        // Gửi email xác nhận qua EmailJS
+        const templateParams = {
+            user_name : fullname,
+            user_email: email
+        };
+        
+        emailjs.send('service_yd4bsba', 'template_1vhr4u8', templateParams)
+            .then(function(response) {
+                console.log('✅ Email gửi thành công:', response.status, response.text);
+            })
+            .catch(function(error) {
+                console.error('❌ Lỗi gửi email:', error);
+            });
         
         showToast('Đăng ký thành công! Vui lòng đăng nhập.', 'success');
         
-        // Reset form và chuyển về form đăng nhập
         setTimeout(() => {
-            document.getElementById('fullname').value = '';
-            document.getElementById('newUsername').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
+            document.getElementById('fullname').value       = '';
+            document.getElementById('email').value          = '';
+            document.getElementById('newPassword').value    = '';
+            document.getElementById('confirmPassword').value= '';
             showLogin();
         }, 1500);
         
@@ -243,28 +220,25 @@ async function register() {
 
 // Khởi tạo khi trang load
 document.addEventListener('DOMContentLoaded', async () => {
-    // Kiểm tra nếu đã đăng nhập rồi thì chuyển về trang chủ
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser) {
         window.location.href = 'home.html';
         return;
     }
     
-    // Kiểm tra xem có yêu cầu hiển thị form đăng ký không
     const showRegisterFlag = localStorage.getItem('showRegister');
     if (showRegisterFlag === 'true') {
         showRegister();
         localStorage.removeItem('showRegister');
     }
     
-    // Load users từ db.json vào localStorage lần đầu
     await getUsers();
 });
 
 // Xử lý Enter key
 document.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        const loginForm = document.getElementById('loginForm');
+        const loginForm    = document.getElementById('loginForm');
         const registerForm = document.getElementById('registerForm');
         
         if (loginForm && loginForm.style.display !== 'none') {
