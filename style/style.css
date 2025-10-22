@@ -709,6 +709,29 @@ table img {
 }
 
 /* === ADMIN === */
+ /* 💠 Style cho nút chuyển tab */
+    .switch-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .switch-buttons button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .switch-buttons button:hover {
+      background-color: #45a049;
+    }
+    .switch-buttons button.active {
+      background-color: #2e7d32;
+    }
+
 /* Khung chính form thêm/sửa sản phẩm */
 #productForm {
   background: #ffffff;
@@ -719,6 +742,7 @@ table img {
   max-width: 700px;
   border-top: 5px solid #18801f;
   transition: all 0.3s ease;
+  box-sizing: border-box; /* Đảm bảo padding không phá layout */
 }
 
 /* Tiêu đề form */
@@ -752,8 +776,8 @@ table img {
   outline: none;
   font-size: 15px;
   transition: 0.2s;
-  box-sizing: border-box;
   background: #fdfdfd;
+  box-sizing: border-box;
 }
 
 #productForm input:focus,
@@ -764,8 +788,15 @@ table img {
 }
 
 /* Nút hành động trong form */
-#productForm button {
+#productForm .form-actions {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 18px;
+}
+
+#productForm .form-actions button {
   padding: 10px 18px;
   border: none;
   border-radius: 6px;
@@ -775,29 +806,28 @@ table img {
 }
 
 /* Nút Lưu / Thêm */
-#productForm button[type="button"]:first-child {
+#productForm .form-actions .saveBtn {
   background: linear-gradient(135deg, #18801f, #51d2f2);
   color: white;
 }
 
-#productForm button[type="button"]:first-child:hover {
+#productForm .form-actions .saveBtn:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
 }
 
 /* Nút Hủy */
-#productForm button[type="button"]:last-child {
+#productForm .form-actions .cancelBtn {
   background: #f04747;
   color: white;
-  margin-left: 10px;
 }
 
-#productForm button[type="button"]:last-child:hover {
+#productForm .form-actions .cancelBtn:hover {
   background: #d12d2d;
 }
 
 /* Bảng sản phẩm (admin) */
-table {
+#productTable {
   width: 100%;
   margin-top: 30px;
   border-collapse: collapse;
@@ -807,24 +837,24 @@ table {
   box-shadow: 0 3px 10px rgba(24, 128, 31, 0.1);
 }
 
-thead {
+#productTable thead {
   background: linear-gradient(135deg, #18801f, #51d2f2);
   color: white;
 }
 
-th,
-td {
+#productTable th,
+#productTable td {
   padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
 }
 
-tbody tr:hover {
+#productTable tbody tr:hover {
   background: #f8fff9;
 }
 
 /* Ảnh sản phẩm nhỏ trong bảng */
-table img {
+#productTable img {
   width: 60px;
   height: 60px;
   object-fit: cover;
@@ -833,7 +863,7 @@ table img {
 }
 
 /* Nút sửa và xóa */
-tbody td button {
+#productTable tbody td button {
   border: none;
   padding: 7px 12px;
   border-radius: 5px;
@@ -843,31 +873,32 @@ tbody td button {
   transition: all 0.2s ease;
 }
 
-tbody td button:first-child {
+#productTable tbody td button.editBtn {
   background: #51d2f2;
   color: white;
 }
 
-tbody td button:first-child:hover {
+#productTable tbody td button.editBtn:hover {
   background: #2bbce2;
 }
 
-tbody td button:last-child {
+#productTable tbody td button.deleteBtn {
   background: #f04747;
   color: white;
 }
 
-tbody td button:last-child:hover {
+#productTable tbody td button.deleteBtn:hover {
   background: #d12d2d;
 }
 
 /* Khi không có sản phẩm */
-tbody td[colspan] {
+#productTable tbody td[colspan] {
   text-align: center;
   color: #777;
   padding: 25px;
   font-style: italic;
 }
+
 
 /* === LOGIN/REGISTER === */
 .container {
@@ -937,15 +968,17 @@ tbody td[colspan] {
 
 /* === FOOTER === */
 footer {
-  background: #2d3748;
-  color: white;
-  text-align: center;
-  padding: 30px 20px;
-  margin-top: 50px;
+    background: #2d3748;
+    color: white;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 110px;
 }
 
 footer p {
-  margin: 8px 0;
+    margin: 20px;
 }
 
 /* === RESPONSIVE === */

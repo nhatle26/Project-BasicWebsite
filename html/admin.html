@@ -1,127 +1,139 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>Quản lý sản phẩm - Flower Shop</title>
-    <link rel="stylesheet" href="../style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý sản phẩm - DaTuNha Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../style/style.css">
 </head>
 
 <body>
-    <!-- Phần đầu trang -->
-    <header>
-        <h1>🔧 Flower Shop - Admin Panel</h1>
+  <header>
+    <div class="header-nav">
+      <h1>DaTuNha Shop - Trang quản trị</h1>
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
+        <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
         <nav>
-            <a href="home.html"><i class="fas fa-home"></i> Trang chủ</a>
-            <a href="#" id="adminName" style="color: #4CAF50; font-weight: bold;">
-                <i class="fas fa-user-shield"></i> Admin
-            </a>
-            <a href="#" onclick="logoutAdmin()" style="color: #f44336;">
-                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-            </a>
+          <a href="home.html">Trang chủ</a>
+          <a href="login.html" id="logOut">Đăng xuất</a>
         </nav>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <!-- Quản lý sản phẩm -->
-    <main>
-        <h2>Quản Lý Sản Phẩm</h2>
+  <main>
+    <!-- 🔘 Nút chuyển giữa hai phần -->
+    <div class="switch-buttons">
+      <button id="btnProduct" class="active" onclick="showSection('product')">📦 Quản lý sản phẩm</button>
+      <button id="btnUser" onclick="showSection('user')">👤 Quản lý người dùng</button>
+    </div>
 
-        <button onclick="showAddForm()">+ Thêm sản phẩm mới</button>
+    <!-- ====================== QUẢN LÝ SẢN PHẨM ====================== -->
+    <section id="productSection">
+      <h2>Quản Lý Sản Phẩm</h2>
+      <button onclick="showAddProductForm()">+ Thêm sản phẩm mới</button>
 
-        <!-- Form thêm/sửa sản phẩm -->
-        <div id="productForm" style="display: none;">
-            <h3 id="formTitle">Thêm Sản Phẩm Mới</h3>
-            <form>
-                <input type="hidden" id="productId">
+      <!-- Form thêm / sửa -->
+      <div id="productForm" style="display:none; margin-top:20px;">
+        <h3 id="formTitle">Thêm Sản Phẩm</h3>
+        <form id="formProduct">
+          <input type="hidden" id="productId">
 
-                <label>Tên sản phẩm:</label>
-                <input type="text" id="productName" required>
+          <label>Tên sản phẩm:</label>
+          <input type="text" id="productName" required>
 
-                <label>Giá (VNĐ):</label>
-                <input type="number" id="productPrice" required>
+          <label>Giá (VNĐ):</label>
+          <input type="number" id="productPrice" required>
 
-                <label>Danh mục:</label>
-                <select id="productCategory">
-                    <option value="Hoa Hồng">Hoa Hồng</option>
-                    <option value="Hoa Tulip">Hoa Tulip</option>
-                    <option value="Hoa Ly">Hoa Ly</option>
-                    <option value="Hoa Lan">Hoa Lan</option>
-                </select>
+          <label>Danh mục:</label>
+          <select id="productCategory">
+            <option value="Hoa Hồng">Hoa Hồng</option>
+            <option value="Hoa Tulip">Hoa Tulip</option>
+            <option value="Hoa Ly">Hoa Ly</option>
+            <option value="Hoa Lan">Hoa Lan</option>
+          </select>
 
-                <label>Mô tả:</label>
-                <textarea id="productDescription" rows="3"></textarea>
+          <label>Mô tả:</label>
+          <textarea id="productDescription" rows="3"></textarea>
 
-                <label>Link ảnh:</label>
-                <input type="text" id="productImage">
+          <label>Link ảnh:</label>
+          <input type="text" id="productImage">
 
-                <label>Số lượng trong kho:</label>
-                <input type="number" id="productStock">
+          <label>Số lượng trong kho:</label>
+          <input type="number" id="productStock">
 
-                <button type="button" onclick="saveProduct()">Lưu</button>
-                <button type="button" onclick="cancelForm()">Hủy</button>
-            </form>
-        </div>
+          <div style="margin-top:10px;">
+            <button type="button" onclick="saveProduct()">💾 Lưu</button>
+            <button type="button" onclick="cancelProductForm()">❌ Hủy</button>
+          </div>
+        </form>
+      </div>
 
-        <!-- Bảng danh sách sản phẩm -->
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Ảnh</th>
-                    <th>Tên</th>
-                    <th>Giá</th>
-                    <th>Danh mục</th>
-                    <th>Kho</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody id="productTable">
-                <!-- Danh sách sản phẩm sẽ hiển thị ở đây -->
-            </tbody>
-        </table>
-    </main>
+      <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
+        <thead style="background:#eee;">
+          <tr>
+            <th>ID</th>
+            <th>Ảnh</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>Danh mục</th>
+            <th>Kho</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="productsTableBody"></tbody>
+      </table>
+    </section>
 
-    <!-- Phần cuối trang -->
-    <footer>
-        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
-        <p>0123.456.789 | 📧 contact@flowershop.com</p>
-    </footer>
+    <!-- ====================== QUẢN LÝ NGƯỜI DÙNG ====================== -->
+    <section id="userSection" style="display:none;">
+      <h2>Quản Lý Người Dùng</h2>
+      <div id="userForm" style="display:none; margin-top:20px;">
+        <h3 id="userFormTitle">Thêm Người Dùng</h3>
+        <form id="formUser">
+          <input type="hidden" id="userId">
 
-    <script src="../js/admin.js"></script>
-    <script>
-        // Kiểm tra quyền admin và hiển thị tên
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            
-            if (!currentUser) {
-                alert('Vui lòng đăng nhập!');
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            if (currentUser.role !== 'admin') {
-                alert('Bạn không có quyền truy cập trang này!');
-                window.location.href = 'home.html';
-                return;
-            }
-            
-            // Hiển thị tên admin
-            const adminNameElement = document.getElementById('adminName');
-            if (adminNameElement) {
-                adminNameElement.innerHTML = `<i class="fas fa-user-shield"></i> ${currentUser.fullname || currentUser.username}`;
-            }
-        });
-        
-        // Hàm đăng xuất
-        function logoutAdmin() {
-            if (confirm('Bạn có chắc muốn đăng xuất?')) {
-                localStorage.removeItem('currentUser');
-                window.location.href = 'login.html';
-            }
-        }
-    </script>
+          <label>Tên người dùng:</label>
+          <input type="text" id="userName" required>
+
+          <label>Email:</label>
+          <input type="email" id="userEmail" required>
+
+          <label>Vai trò:</label>
+          <select id="userRole">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          <div style="margin-top:10px;">
+            <button type="button" onclick="saveUser()">💾 Lưu</button>
+            <button type="button" onclick="cancelUserForm()">❌ Hủy</button>
+          </div>
+        </form>
+      </div>
+
+      <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
+        <thead style="background:#eee;">
+          <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Vai trò</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer style="margin-top:20px; text-align:center;">
+    <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
+  </footer>
+
+  <script src="../js/admin.js"></script>
+
 </body>
-
 </html>

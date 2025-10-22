@@ -40,8 +40,9 @@ function renderProductDetail(p) {
                 </p>
 
                 <div class="action-buttons">
-                    <button class="add-cart-btn" ${p.stock <= 0 ? 'disabled' : ''}>
-                        <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+                    <button onclick="addToCart('${p.id}')" ${p.stock <= 0 ? 'disabled' : ''} 
+                            style="${p.stock <= 0 ? 'background: #ccc; cursor: not-allowed;' : ''}">
+                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
                     </button>
                 </div>
             </div>
@@ -91,27 +92,46 @@ function addToCart(product) {
 }
 
 // --- 5️⃣ Sản phẩm liên quan ---
-function loadRelatedProducts(category, currentId) {
-    const products = JSON.parse(localStorage.getItem('products')) || [];
-    const relatedProducts = products.filter(p => p.category === category && p.id !== currentId);
+async function loadRelatedProducts(category, currentId) {
+  const relatedContainer = document.getElementById('relatedContainer');
+  if (!relatedContainer) return;
 
+  try {
+    // Gọi API để lấy toàn bộ sản phẩm từ JSON Server
+    const res = await fetch('http://localhost:3000/products');
+    const products = await res.json();
+
+    // Lọc sản phẩm cùng category, khác ID hiện tại
+    const relatedProducts = products.filter(
+      p => p.category === category && p.id !== currentId
+    );
+
+    // Nếu không có sản phẩm liên quan
     if (relatedProducts.length === 0) {
-        relatedContainer.innerHTML = '<p style="text-align: center; color: #999;">Không có sản phẩm liên quan</p>';
-        return;
+      relatedContainer.innerHTML = `
+        <p style="text-align:center; color:#999;">Không có sản phẩm liên quan</p>`;
+      return;
     }
 
+    // Hiển thị tối đa 4 sản phẩm
     relatedContainer.innerHTML = relatedProducts
-        .slice(0, 4) // Chỉ lấy 4 sản phẩm
-        .map(p => `
-            <div class="product-card">
-                <img src="${p.image}" alt="${p.name}" 
-                     onerror="this.src='https://via.placeholder.com/300?text=No+Image'">
-                <h4>${p.name}</h4>
-                <p>${formatCurrency(p.price)}</p>
-                <a href="product.html?id=${p.id}" class="btn-view">Xem chi tiết</a>
-            </div>
-        `)
-        .join("");
+      .slice(0, 4)
+      .map(p => `
+        <div class="product-card">
+          <img src="${p.image || 'https://via.placeholder.com/300?text=No+Image'}"
+               alt="${p.name}"
+               onerror="this.src='https://via.placeholder.com/300?text=No+Image'">
+          <h4>${p.name}</h4>
+          <p>${formatCurrency(p.price)}</p>
+          <a href="product.html?id=${p.id}" class="btn-view">Xem chi tiết</a>
+        </div>
+      `)
+      .join('');
+  } catch (err) {
+    console.error('❌ Lỗi khi tải sản phẩm liên quan:', err);
+    relatedContainer.innerHTML = `
+      <p style="text-align:center; color:red;">Không thể tải sản phẩm liên quan.</p>`;
+  }
 }
 
 // --- Gọi hàm chính ---

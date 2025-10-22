@@ -15,7 +15,7 @@ function requireLogin() {
     alert('Vui lòng đăng nhập để thực hiện chức năng này!');
     // Lưu URL hiện tại để quay lại sau khi đăng nhập
     localStorage.setItem('returnUrl', window.location.href);
-    window.location.href = 'login.html';
+    window.location.href = 'home.html';
 }
 
 // Tải sản phẩm từ file db.json
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (currentUser) {
         // Đã đăng nhập - hiển thị đầy đủ menu
-        navElement.innerHTML = `
+        let navHTML = `
             <a href="home.html"><i class="fas fa-home"></i> Trang chủ</a>
             <a href="#" onclick="viewCart(); return false;"><i class="fas fa-shopping-cart"></i> Giỏ hàng<span id="cartCount"></span></a>
             <a href="#" id="userDisplayName">
@@ -400,6 +400,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </a>
         `;
+        
+        // Thêm link Admin nếu user có role admin
+        if (currentUser.role === 'admin') {
+                    navHTML += `
+            <a href="admin.html" id="userDisplayName">
+                <i class="fas fa-user"></i> ${currentUser.fullname || currentUser.username}
+            </a>
+            <a href="#" onclick="logout(); return false;" style="color: #f44336;">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </a>
+        `;
+        }
+        
+        navElement.innerHTML = navHTML;
     } else {
         // Chưa đăng nhập - chỉ hiển thị nút đăng nhập/đăng ký
         navElement.innerHTML = `

@@ -44,22 +44,76 @@
                     <textarea id="note" rows="2"></textarea>
                 </form>
 
-                <!-- Phương thức thanh toán -->
+               <!-- Phương thức thanh toán -->
                 <h3>Phương thức thanh toán</h3>
                 <label>
-                    <input type="radio" name="payment" value="cod" checked>
+                    <input type="radio" name="payment" value="cod" checked onchange="togglePaymentDetails()">
                     Thanh toán khi nhận hàng (COD)
                 </label>
                 <label>
-                    <input type="radio" name="payment" value="banking">
+                    <input type="radio" name="payment" value="banking" onchange="togglePaymentDetails()">
                     Chuyển khoản ngân hàng
                 </label>
                 <label>
-                    <input type="radio" name="payment" value="momo">
+                    <input type="radio" name="payment" value="momo" onchange="togglePaymentDetails()">
                     Ví điện tử MoMo
                 </label>
-            </div>
 
+                <!-- Form chi tiết chuyển khoản ngân hàng -->
+                <div id="bankingDetails" class="payment-details" style="display: none;">
+                    <div class="payment-info-box">
+                        <h4>Thông tin tài khoản nhận tiền</h4>
+                        <p><strong>Ngân hàng:</strong> Vietcombank</p>
+                        <p><strong>Số tài khoản:</strong> 0123456789</p>
+                        <p><strong>Chủ tài khoản:</strong> CONG TY FLOWER SHOP</p>
+                        <p><strong>Nội dung CK:</strong> <span id="bankTransferContent">HOADON [Mã đơn hàng]</span></p>
+                    </div>
+                    
+                    <h4>Thông tin tài khoản của bạn</h4>
+                    <label>Tên ngân hàng: *</label>
+                    <input type="text" id="customerBankName" placeholder="VD: Vietcombank, Techcombank, BIDV..." required>
+                    
+                    <label>Số tài khoản: *</label>
+                    <input type="text" id="customerBankAccount" placeholder="Nhập số tài khoản ngân hàng" required>
+                    
+                    <label>Tên chủ tài khoản: *</label>
+                    <input type="text" id="customerBankAccountName" placeholder="Nhập tên chủ tài khoản" required>
+                    
+                    <label>Upload ảnh xác nhận chuyển khoản (không bắt buộc):</label>
+                    <input type="file" id="bankingProof" accept="image/*">
+                    
+                    <p style="color: #d32f2f; margin-top: 15px;">
+                        <i class="fas fa-exclamation-circle"></i> 
+                        Vui lòng chuyển khoản với nội dung chính xác để đơn hàng được xử lý nhanh chóng
+                    </p>
+                </div>
+
+                <!-- Form chi tiết MoMo -->
+                <div id="momoDetails" class="payment-details" style="display: none;">
+                    <div class="payment-info-box">
+                        <h4>Thông tin tài khoản MoMo nhận tiền</h4>
+                        <p><strong>Số điện thoại MoMo:</strong> 0987654321</p>
+                        <p><strong>Tên tài khoản:</strong> FLOWER SHOP</p>
+                        <p><strong>Nội dung:</strong> <span id="momoTransferContent">HOADON [Mã đơn hàng]</span></p>
+                    </div>
+                    
+                    <h4>Thông tin MoMo của bạn</h4>
+                    <label>Số điện thoại MoMo của bạn: *</label>
+                    <input type="tel" id="customerMomoPhone" placeholder="Nhập số điện thoại MoMo của bạn" required>
+                    
+                    <label>Tên tài khoản MoMo: *</label>
+                    <input type="text" id="customerMomoName" placeholder="Nhập tên tài khoản MoMo" required>
+                    
+                    <label>Upload ảnh xác nhận thanh toán (không bắt buộc):</label>
+                    <input type="file" id="momoProof" accept="image/*">
+                    
+                    <p style="color: #d32f2f; margin-top: 15px;">
+                        <i class="fas fa-exclamation-circle"></i> 
+                        Vui lòng thanh toán với nội dung chính xác
+                    </p>
+                </div>
+            </div>
+            
             <!-- Tóm tắt đơn hàng -->
             <div class="order-summary">
                 <h3>Đơn hàng của bạn</h3>
