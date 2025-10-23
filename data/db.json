@@ -2,11 +2,11 @@
   "products": [
     {
       "name": "Hoa Hồng Đỏ",
-      "price": 139999,
+      "price": 120000,
       "category": "Hoa Hồng",
       "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn",
       "image": "assets/images/rose-red.jpg",
-      "stock": 49,
+      "stock": 40,
       "id": "1"
     },
     {

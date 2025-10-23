@@ -342,13 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Hàm đăng xuất
-function logout() {
-    if (confirm('Bạn có chắc muốn đăng xuất?')) {
-        localStorage.removeItem('currentUser');
-        window.location.reload(); // Tải lại trang để cập nhật nav
-    }
-}
  // Chuyển đến trang đăng ký
 function showRegisterFirst() {
     localStorage.setItem('showRegister', 'true');

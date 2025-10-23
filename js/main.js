@@ -98,17 +98,19 @@ function checkAuth() {
     }
 }
 
-// Logout
-function logout(e) {
-    if (e) e.preventDefault();
+// ==================== 🚪 ĐĂNG XUẤT (DÙNG CHUNG CHO TẤT CẢ TRANG) ====================
+function logout() {
+  if (confirm("Bạn có chắc muốn đăng xuất không?")) {
+    // Xóa TẤT CẢ thông tin đăng nhập
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     
-    if (confirm('Bạn có chắc muốn đăng xuất?')) {
-        localStorage.removeItem('user');
-        showToast('Đã đăng xuất thành công!', 'success');
-        setTimeout(() => {
-            window.location.href = 'home.html';
-        }, 1000);
-    }
+    alert("✅ Đã đăng xuất thành công!");
+    
+    // Chuyển về trang đăng nhập (đường dẫn ĐÚNG)
+    window.location.href = "login.html";
+  }
 }
 
 // Initialize

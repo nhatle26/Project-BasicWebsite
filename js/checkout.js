@@ -1,19 +1,15 @@
-// checkout.js
-
 const orderItemsContainer = document.getElementById('orderItems');
 const subtotalElement = document.getElementById('subtotal');
 const totalElement = document.getElementById('total');
 
 const SHIPPING_FEE = 30000;
 
-// -------------------------------------------------------------------
 // Hàm lấy giỏ hàng từ LocalStorage
 function getCart() {
     const cart = localStorage.getItem('cart');
     return cart ? JSON.parse(cart) : [];
 }
 
-// -------------------------------------------------------------------
 // Hàm định dạng tiền tệ
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {

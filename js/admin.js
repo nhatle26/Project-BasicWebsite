@@ -51,8 +51,8 @@ function renderProducts(products, tbody) {
       <td>${p.category}</td>
       <td>${p.stock}</td>
       <td>
-        <button onclick="editProduct(${p.id})">✏️ Sửa</button>
-        <button onclick="deleteProduct(${p.id})">🗑️ Xóa</button>
+        <button onclick="editProduct(${p.id})">Sửa</button>
+        <button onclick="deleteProduct(${p.id})">Xóa</button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -71,10 +71,10 @@ function getFormData() {
   };
 }
 
-// 🧩 Lưu sản phẩm
+// Lưu sản phẩm
 async function saveProduct() {
   const product = getFormData();
-  if (!product.name || !product.price) return alert('⚠️ Vui lòng nhập đầy đủ tên và giá.');
+  if (!product.name || !product.price) return alert('Vui lòng nhập đầy đủ tên và giá.');
 
   try {
     if (currentEditId) {
@@ -86,7 +86,7 @@ async function saveProduct() {
       });
       alert('Đã cập nhật sản phẩm.');
     } else {
-      // ➕ Thêm sản phẩm mới
+      
 // Lấy danh sách sản phẩm hiện tại để tính ID kế tiếp
       const res = await fetch(API_URL);
       const products = await res.json();
@@ -101,13 +101,13 @@ async function saveProduct() {
         body: JSON.stringify(newProduct)
       });
 
-      alert('✅ Đã thêm sản phẩm mới.');
+      alert('Đã thêm sản phẩm mới.');
     }
 
     cancelProductForm();
     await loadProducts();
   } catch (err) {
-    console.error('❌ Lỗi khi lưu:', err);
+    console.error('Lỗi khi lưu:', err);
   }
 }
 
@@ -130,9 +130,9 @@ async function editProduct(id) {
 
 // Xóa sản phẩm
 async function deleteProduct(id) {
-  if (!confirm('🗑️ Bạn có chắc muốn xóa sản phẩm này không?')) return;
+  if (!confirm(' Bạn có chắc muốn xóa sản phẩm này không?')) return;
   await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-  alert('🗑️ Đã xóa sản phẩm.');
+  alert(' Đã xóa sản phẩm.');
   await loadProducts();
 }
 
@@ -144,7 +144,7 @@ function formatCurrency(amount) {
   });
 }
 
-// ==================== 🧍 QUẢN LÝ NGƯỜI DÙNG ====================
+// ==================== QUẢN LÝ NGƯỜI DÙNG ====================
 const USER_API = 'http://localhost:3000/users';
 let currentUserId = null;
 
@@ -160,7 +160,7 @@ async function loadUsers() {
     const users = await res.json();
     renderUsers(users);
   } catch (err) {
-    console.error('❌ Lỗi tải danh sách người dùng:', err);
+    console.error('Lỗi tải danh sách người dùng:', err);
   }
 }
 
@@ -190,20 +190,20 @@ function renderUsers(users) {
   });
 }
 
-// ✅ Cập nhật: Cho phép sửa email (tài khoản), mật khẩu, vai trò
+// Cập nhật: Cho phép sửa email (tài khoản), mật khẩu, vai trò
 async function editUser(id) {
   try {
     const res = await fetch(`${USER_API}/${id}`);
     const user = await res.json();
 
     // Hiển thị prompt cho từng trường
-    const newEmail = prompt(`📧 Nhập email mới cho người dùng (hiện tại: ${user.email}):`, user.email);
+    const newEmail = prompt(` Nhập email mới cho người dùng (hiện tại: ${user.email}):`, user.email);
     if (!newEmail) return;
 
-    const newPassword = prompt(`🔐 Nhập mật khẩu mới cho người dùng (hiện tại: ${user.password}):`, user.password);
+    const newPassword = prompt(` Nhập mật khẩu mới cho người dùng (hiện tại: ${user.password}):`, user.password);
     if (!newPassword) return;
 
-    const newRole = prompt(`⚙️ Nhập vai trò mới (admin/user):`, user.role);
+    const newRole = prompt(` Nhập vai trò mới (admin/user):`, user.role);
     if (!newRole) return;
 
     // Cập nhật dữ liệu người dùng
@@ -217,19 +217,19 @@ async function editUser(id) {
       })
     });
 
-    alert('✅ Đã cập nhật thông tin người dùng.');
+    alert('Đã cập nhật thông tin người dùng.');
     await loadUsers();
 
   } catch (err) {
-    console.error('❌ Lỗi khi sửa người dùng:', err);
+    console.error('Lỗi khi sửa người dùng:', err);
   }
 }
 
 // Xóa người dùng
 async function deleteUser(id) {
-  if (!confirm('🗑️ Bạn có chắc muốn xóa người dùng này không?')) return;
+  if (!confirm(' Bạn có chắc muốn xóa người dùng này không?')) return;
   await fetch(`${USER_API}/${id}`, { method: 'DELETE' });
-  alert('✅ Đã xóa người dùng.');
+  alert(' Đã xóa người dùng.');
   await loadUsers();
 }
 
@@ -252,15 +252,4 @@ function showSection(section) {
     btnUser.classList.add('active');
   }
 }
-// ==================== 🚪 ĐĂNG XUẤT ====================
-function logout() {
-  if (confirm("Bạn có chắc muốn đăng xuất không?")) {
-    // Xóa thông tin đăng nhập khỏi localStorage
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("token"); // nếu có dùng token
 
-    alert("✅ Đã đăng xuất thành công!");
-    // Quay lại trang đăng nhập
-    window.location.href = "../pages/login.html"; // Đường dẫn đến trang đăng nhập
-  }
-}

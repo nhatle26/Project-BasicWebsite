@@ -1,6 +1,3 @@
-// === auth.js ===
-// Cần có JSON Server: npx json-server --watch db.json --port 3000
-
 function showRegister() {
   document.getElementById("loginForm").style.display = "none";
   document.getElementById("registerForm").style.display = "block";

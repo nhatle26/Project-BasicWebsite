@@ -1,5 +1,3 @@
-// cart.js
-
 const cartItemsElement = document.getElementById('cartItems');
 const emptyCartElement = document.getElementById('emptyCart');
 const cartSummaryElement = document.getElementById('cartSummary');
@@ -7,8 +5,7 @@ const totalItemsElement = document.getElementById('totalItems');
 const subtotalElement = document.getElementById('subtotal');
 const totalElement = document.getElementById('total');
 
-const SHIPPING_FEE = 50000; // Phí vận chuyển cố định 30,000đ
-
+const SHIPPING_FEE = 50000; // Phí vận chuyển cố định 50,000đ
 
 // Hàm lấy giỏ hàng từ LocalStorage
 function getCart() {
@@ -17,15 +14,11 @@ function getCart() {
     return cart ? JSON.parse(cart) : [];
 }
 
-
-// -------------------------------------------------------------------
 // Hàm lưu giỏ hàng vào LocalStorage
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-
-// -------------------------------------------------------------------
 // Hàm định dạng tiền tệ
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {
@@ -34,8 +27,6 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-
-// -------------------------------------------------------------------
 // Hàm hiển thị giỏ hàng
 function renderCart() {
     const cart = getCart();
@@ -140,8 +131,6 @@ function updateQuantity(productId, change) {
     }
 }
 
-
-// -------------------------------------------------------------------
 // Hàm xóa sản phẩm khỏi giỏ hàng
 function removeItem(productId) {
     let cart = getCart();
@@ -153,8 +142,6 @@ function removeItem(productId) {
     renderCart(); // Render lại giỏ hàng
 }
 
-
-// -------------------------------------------------------------------
 // Hàm chuyển hướng đến trang thanh toán
 function checkout() {
     if (getCart().length > 0) {
@@ -164,7 +151,5 @@ function checkout() {
     }
 }
 
-
-// -------------------------------------------------------------------
 // Tải giỏ hàng khi trang được load
 document.addEventListener('DOMContentLoaded', renderCart);
