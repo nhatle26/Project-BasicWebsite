@@ -28,14 +28,10 @@
             <div class="shipping-info">
                 <h3>Thông tin giao hàng</h3>
                 <form>
-                    <label>Họ và tên: *</label>
-                    <input type="text" id="fullname" required>
+                    <label>Họ và tên: </label>
 
                     <label>Số điện thoại: *</label>
                     <input type="tel" id="phone" required>
-
-                    <label>Email:</label>
-                    <input type="email" id="email">
 
                     <label>Địa chỉ giao hàng: *</label>
                     <textarea id="address" rows="3" required></textarea>
@@ -61,13 +57,6 @@
 
                 <!-- Form chi tiết chuyển khoản ngân hàng -->
                 <div id="bankingDetails" class="payment-details" style="display: none;">
-                    <div class="payment-info-box">
-                        <h4>Thông tin tài khoản nhận tiền</h4>
-                        <p><strong>Ngân hàng:</strong> Vietcombank</p>
-                        <p><strong>Số tài khoản:</strong> 0123456789</p>
-                        <p><strong>Chủ tài khoản:</strong> CONG TY DaTuNha SHOP</p>
-                        <p><strong>Nội dung CK:</strong> <span id="bankTransferContent">HOADON [Mã đơn hàng]</span></p>
-                    </div>
 
                     <h4>Thông tin tài khoản của bạn</h4>
                     <label>Tên ngân hàng: *</label>
@@ -91,12 +80,6 @@
 
                 <!-- Form chi tiết MoMo -->
                 <div id="momoDetails" class="payment-details" style="display: none;">
-                    <div class="payment-info-box">
-                        <h4>Thông tin tài khoản MoMo nhận tiền</h4>
-                        <p><strong>Số điện thoại MoMo:</strong> 0987654321</p>
-                        <p><strong>Tên tài khoản:</strong> DaTuNha SHOP</p>
-                        <p><strong>Nội dung:</strong> <span id="momoTransferContent">HOADON [Mã đơn hàng]</span></p>
-                    </div>
 
                     <h4>Thông tin MoMo của bạn</h4>
                     <label>Số điện thoại MoMo của bạn: *</label>
