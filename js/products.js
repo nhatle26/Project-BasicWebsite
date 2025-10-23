@@ -132,7 +132,7 @@ async function loadRelatedProducts(category, currentId) {
       `)
       .join('');
   } catch (err) {
-    console.error('❌ Lỗi khi tải sản phẩm liên quan:', err);
+    console.error('Lỗi khi tải sản phẩm liên quan:', err);
     relatedContainer.innerHTML = `
       <p style="text-align:center; color:red;">Không thể tải sản phẩm liên quan.</p>`;
   }
