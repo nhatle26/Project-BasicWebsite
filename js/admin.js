@@ -252,3 +252,24 @@ function showSection(section) {
     btnUser.classList.add('active');
   }
 }
+function logout() {
+  if (confirm("Bạn có chắc muốn đăng xuất không?")) {
+    // Xóa TẤT CẢ thông tin đăng nhập
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    
+    alert(" Đã đăng xuất thành công!");
+    
+    // Chuyển về trang đăng nhập (đường dẫn ĐÚNG)
+    window.location.href = "login.html";
+  }
+}
+
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartBadge();
+    checkAuth();
+})
+

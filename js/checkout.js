@@ -95,7 +95,7 @@ function placeOrder() {
     // 1. Lấy thông tin khách hàng
     const fullname = document.getElementById('fullname').value.trim();
     const phone = document.getElementById('phone').value.trim();
-    const email = document.getElementById('email').value.trim();
+    // const email = document.getElementById('email').value.trim();
     const address = document.getElementById('address').value.trim();
     const note = document.getElementById('note').value.trim();
     const paymentMethod = document.querySelector('input[name="payment"]:checked').value;

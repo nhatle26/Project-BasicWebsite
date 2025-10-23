@@ -97,14 +97,6 @@
       "email": "minhnhatle218@gmail.com",
       "password": "ben123ben",
       "role": "user"
-    },
-    {
-      "id": 5,
-      "username": "tu.ngo27",
-      "fullname": "Ngô Minh Tú",
-      "email": "tu.ngo27@gmail.com",
-      "password": "123",
-      "role": "user"
     }
   ]
 }

@@ -106,7 +106,7 @@ function logout() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     
-    alert("✅ Đã đăng xuất thành công!");
+    alert(" Đã đăng xuất thành công!");
     
     // Chuyển về trang đăng nhập (đường dẫn ĐÚNG)
     window.location.href = "login.html";
