@@ -78,7 +78,7 @@ async function saveProduct() {
 
   try {
     if (currentEditId) {
-      // 🛠️ Cập nhật sản phẩm cũ
+      // Cập nhật sản phẩm cũ
       await fetch(`${API_URL}/${currentEditId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -182,8 +182,8 @@ function renderUsers(users) {
         <td>${u.role}</td>
         <td>${u.email}</td>
         <td>
-          <button onclick="editUser(${u.id})">✏️ Sửa</button>
-          <button onclick="deleteUser(${u.id})">🗑️ Xóa</button>
+          <button onclick="editUser(${u.id})">Sửa</button>
+          <button onclick="deleteUser(${u.id})">Xóa</button>
         </td>
       </tr>
     `;
@@ -266,10 +266,8 @@ function logout() {
   }
 }
 
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
     checkAuth();
 })
-
