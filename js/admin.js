@@ -28,7 +28,7 @@ async function loadProducts() {
     const products = await res.json();
     renderProducts(products, tbody);
   } catch (err) {
-    console.error('❌ Lỗi tải sản phẩm:', err);
+    console.error('Lỗi tải sản phẩm:', err);
     tbody.innerHTML = `<tr><td colspan="7">Không thể tải dữ liệu từ server.</td></tr>`;
   }
 }
@@ -84,7 +84,7 @@ async function saveProduct() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(product)
       });
-      alert('✅ Đã cập nhật sản phẩm.');
+      alert('Đã cập nhật sản phẩm.');
     } else {
       // ➕ Thêm sản phẩm mới
 // Lấy danh sách sản phẩm hiện tại để tính ID kế tiếp
