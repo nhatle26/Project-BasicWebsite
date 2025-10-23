@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <title>Thanh toán - Flower Shop</title>
     <link rel="stylesheet" href="../style/style.css">
 </head>
-
 <body>
     <!-- Phần đầu trang -->
     <header id="head-checkout">
@@ -18,11 +16,9 @@
             <a href="cart.html">Giỏ hàng</a>
         </nav>
     </header>
-
     <!-- Form thanh toán -->
     <main>
         <h2>Thanh Toán Đơn Hàng</h2>
-
         <div class="checkout-container">
             <!-- Form thông tin giao hàng -->
             <div class="shipping-info">
@@ -39,7 +35,6 @@
                     <label>Ghi chú:</label>
                     <textarea id="note" rows="2"></textarea>
                 </form>
-
                 <!-- Phương thức thanh toán -->
                 <h3>Phương thức thanh toán</h3>
                 <label>
@@ -54,57 +49,41 @@
                     <input type="radio" name="payment" value="momo" onchange="togglePaymentDetails()">
                     Ví điện tử MoMo
                 </label>
-
                 <!-- Form chi tiết chuyển khoản ngân hàng -->
                 <div id="bankingDetails" class="payment-details" style="display: none;">
-
                     <h4>Thông tin tài khoản của bạn</h4>
                     <label>Tên ngân hàng: *</label>
-                    <input type="text" id="customerBankName" placeholder="VD: Vietcombank, Techcombank, BIDV..."
-                        required>
-
+                    <input type="text" id="customerBankName" placeholder="VD: Vietcombank, Techcombank, BIDV..." required>
                     <label>Số tài khoản: *</label>
                     <input type="text" id="customerBankAccount" placeholder="Nhập số tài khoản ngân hàng" required>
-
                     <label>Tên chủ tài khoản: *</label>
                     <input type="text" id="customerBankAccountName" placeholder="Nhập tên chủ tài khoản" required>
-
                     <label>Upload ảnh xác nhận chuyển khoản (không bắt buộc):</label>
                     <input type="file" id="bankingProof" accept="image/*">
-
                     <p style="color: #d32f2f; margin-top: 15px;">
                         <i class="fas fa-exclamation-circle"></i>
                         Vui lòng chuyển khoản với nội dung chính xác để đơn hàng được xử lý nhanh chóng
                     </p>
                 </div>
-
                 <!-- Form chi tiết MoMo -->
                 <div id="momoDetails" class="payment-details" style="display: none;">
-
                     <h4>Thông tin MoMo của bạn</h4>
                     <label>Số điện thoại MoMo của bạn: *</label>
                     <input type="tel" id="customerMomoPhone" placeholder="Nhập số điện thoại MoMo của bạn" required>
-
                     <label>Tên tài khoản MoMo: *</label>
                     <input type="text" id="customerMomoName" placeholder="Nhập tên tài khoản MoMo" required>
-
                     <label>Upload ảnh xác nhận thanh toán (không bắt buộc):</label>
                     <input type="file" id="momoProof" accept="image/*">
-
                     <p style="color: #d32f2f; margin-top: 15px;">
                         <i class="fas fa-exclamation-circle"></i>
                         Vui lòng thanh toán với nội dung chính xác
                     </p>
                 </div>
             </div>
-
             <!-- Tóm tắt đơn hàng -->
             <div class="order-summary">
                 <h3>Đơn hàng của bạn</h3>
-                <div id="orderItems">
-                    <!-- Danh sách sản phẩm -->
-                </div>
-
+                <div id="orderItems"></div>
                 <hr>
                 <p>Tạm tính: <span id="subtotal">0đ</span></p>
                 <p>Phí vận chuyển: <span>30,000đ</span></p>
@@ -116,7 +95,6 @@
         </div>
     </main>
 
-    <!-- Phần cuối trang -->
     <footer>
         <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
         <p> 0123.456.789 | contact@flowershop.com</p>
@@ -124,5 +102,4 @@
 
     <script src="../js/checkout.js"></script>
 </body>
-
 </html>

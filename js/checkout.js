@@ -18,7 +18,6 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// -------------------------------------------------------------------
 // Hàm toggle hiển thị form thanh toán
 function togglePaymentDetails() {
     const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
@@ -35,7 +34,6 @@ function togglePaymentDetails() {
     }
 }
 
-// -------------------------------------------------------------------
 // Hàm hiển thị tóm tắt đơn hàng
 function renderOrderSummary() {
     const cart = getCart();
@@ -80,7 +78,6 @@ function renderOrderSummary() {
     totalElement.textContent = formatCurrency(finalTotal);
 }
 
-// -------------------------------------------------------------------
 // Hàm lưu đơn hàng vào LocalStorage
 function saveOrder(order) {
     // Lấy danh sách đơn hàng đã có
@@ -93,7 +90,6 @@ function saveOrder(order) {
     localStorage.setItem('orders', JSON.stringify(existingOrders));
 }
 
-// -------------------------------------------------------------------
 // Hàm xử lý đặt hàng (gọi từ nút "Đặt hàng")
 function placeOrder() {
     // 1. Lấy thông tin khách hàng

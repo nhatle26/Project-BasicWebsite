@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../style/style.css" />
 </head>
-
 <body>
     <!-- Phần đầu trang -->
     <header>
@@ -23,13 +21,11 @@
             </div>
         </div>
     </header>
-
     <!-- Banner chào mừng -->
     <section class="banner">
         <h2>Chào mừng đến với DaTuNha Shop</h2>
         <p>Nơi cung cấp những bó hoa tươi đẹp nhất</p>
     </section>
-
     <!-- Bộ lọc sản phẩm -->
     <section class="filter">
         <label>Danh mục:
@@ -43,7 +39,6 @@
                 <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
             </select>
         </label>
-
         <label>Giá:
             <select id="priceFilter" onchange="filterProducts()">
                 <option value="">Tất cả</option>
@@ -52,7 +47,6 @@
                 <option value="200000-10000000000">Trên 200k</option>
             </select>
         </label>
-
         <label>Sắp xếp:
             <select id="sortFilter" onchange="sortProducts()">
                 <option value="">Mặc định</option>
@@ -61,19 +55,14 @@
             </select>
         </label>
     </section>
-
     <!-- Danh sách sản phẩm -->
     <main>
         <h3>Danh Sách Sản Phẩm</h3>
         <div id="productList" class="product-grid">
             <!-- Sản phẩm sẽ được thêm vào đây bằng JavaScript -->
         </div>
-
-        <!-- Phân trang -->
-        <div id="pagination"></div>
     </main>
 
-    <!-- Phần cuối trang -->
     <footer>
         <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
         <p> 0123.456.789 | contact@DaTuNhashop.com</p>
@@ -82,5 +71,4 @@
     <script src="../js/main.js"></script>
     <script src="../js/home.js"></script>
 </body>
-
 </html>

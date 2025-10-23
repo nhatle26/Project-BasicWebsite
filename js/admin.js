@@ -86,7 +86,7 @@ async function saveProduct() {
       });
       alert('Đã cập nhật sản phẩm.');
     } else {
-      
+
 // Lấy danh sách sản phẩm hiện tại để tính ID kế tiếp
       const res = await fetch(API_URL);
       const products = await res.json();
@@ -252,4 +252,3 @@ function showSection(section) {
     btnUser.classList.add('active');
   }
 }
-

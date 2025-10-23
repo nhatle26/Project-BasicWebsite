@@ -98,7 +98,7 @@ function checkAuth() {
     }
 }
 
-// ==================== 🚪 ĐĂNG XUẤT (DÙNG CHUNG CHO TẤT CẢ TRANG) ====================
+// =========== ĐĂNG XUẤT (DÙNG CHUNG CHO TẤT CẢ TRANG) ===========
 function logout() {
   if (confirm("Bạn có chắc muốn đăng xuất không?")) {
     // Xóa TẤT CẢ thông tin đăng nhập

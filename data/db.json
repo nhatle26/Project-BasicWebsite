@@ -5,8 +5,8 @@
       "price": 120000,
       "category": "Hoa Hồng",
       "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn",
-      "image": "assets/images/rose-red.jpg",
-      "stock": 40,
+      "image": "../assets/images/rose-red.jpg",
+      "stock": 49,
       "id": "1"
     },
     {
@@ -15,7 +15,7 @@
       "price": 140000,
       "category": "Hoa Hồng",
       "description": "Bó hoa hồng trắng tinh khôi, thanh lịch và sang trọng",
-      "image": "assets/images/rose-white.jpg",
+      "image": "../assets/images/rose-white.jpg",
       "stock": 45
     },
     {
@@ -24,7 +24,7 @@
       "price": 200000,
       "category": "Hoa Tulip",
       "description": "Bó tulip vàng rực rỡ, mang đến niềm vui và sự ấm áp",
-      "image": "assets/images/tulip-yellow.jpg",
+      "image": "../assets/images/tulip-yellow.jpg",
       "stock": 30
     },
     {
@@ -33,7 +33,7 @@
       "price": 180000,
       "category": "Hoa Ly",
       "description": "Hoa ly trắng thanh khiết, thích hợp cho mọi dịp lễ",
-      "image": "assets/images/lily-white.jpg",
+      "image": "../assets/images/lily-white.jpg",
       "stock": 35
     },
     {
@@ -42,7 +42,7 @@
       "price": 120000,
       "category": "Hoa Cẩm Chướng",
       "description": "Bó cẩm chướng đa sắc, tươi vui và đầy màu sắc",
-      "image": "assets/images/carnation.jpg",
+      "image": "../assets/images/carnation.jpg",
       "stock": 60
     },
     {
@@ -51,7 +51,7 @@
       "price": 350000,
       "category": "Hoa Lan",
       "description": "Chậu lan hồ điệp cao cấp, sang trọng và lâu tàn",
-      "image": "assets/images/orchid.jpg",
+      "image": "../assets/images/orchid.jpg",
       "stock": 20
     },
     {
@@ -60,7 +60,7 @@
       "price": 160000,
       "category": "Hoa Hướng Dương",
       "description": "Bó hướng dương tươi sáng, mang đến năng lượng tích cực",
-      "image": "assets/images/sunflower.jpg",
+      "image": "../assets/images/sunflower.jpg",
       "stock": 40
     },
     {
@@ -69,7 +69,7 @@
       "price": 90000,
       "category": "Hoa Hồng",
       "description": "",
-      "image": "assets/images/baby.jpg",
+      "image": "../assets/images/baby.jpeg",
       "stock": 70
     }
   ],
@@ -96,6 +96,14 @@
       "fullname": "Lê Minh Nhật",
       "email": "minhnhatle218@gmail.com",
       "password": "ben123ben",
+      "role": "user"
+    },
+    {
+      "id": 5,
+      "username": "tu.ngo27",
+      "fullname": "Ngô Minh Tú",
+      "email": "tu.ngo27@gmail.com",
+      "password": "123",
       "role": "user"
     }
   ]

@@ -945,31 +945,6 @@ table img {
   text-align: left;
 }
 
-/* === PAGINATION === */
-#pagination {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 40px 0;
-}
-
-#pagination button {
-  padding: 10px 15px;
-  min-width: 40px;
-  background: white;
-  border: 2px solid #00c8ff;
-}
-
-#pagination button.active {
-  background: #545454;
-  color: white;
-}
-
-#pagination button:hover:not(:disabled) {
-  background: #2eff17;
-  color: white;
-}
-
 /* === FOOTER === */
 footer {
     background: #2d3748;

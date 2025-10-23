@@ -1,4 +1,4 @@
-// home.js - Trang chủ với fetch data từ db.json (không cần JSON Server)
+// Trang chủ với fetch data từ db.json (không cần JSON Server)
 
 const productListElement = document.getElementById('productList');
 let allProducts = []; // Biến lưu trữ tất cả sản phẩm
@@ -90,7 +90,6 @@ function formatCurrency(amount) {
 }
 
 // ============= CHỨC NĂNG GIỎ HÀNG =============
-
 // Lấy giỏ hàng từ LocalStorage
 function getCart() {
     const cart = localStorage.getItem('cart');
@@ -172,7 +171,6 @@ function viewCart() {
 }
 
 // ============= CHỨC NĂNG TÌM KIẾM =============
-
 function search() {
     const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
 
@@ -207,7 +205,6 @@ function search() {
 }
 
 // ============= CHỨC NĂNG LỌC SẢN PHẨM =============
-
 function filterProducts() {
     const categoryFilter = document.getElementById('categoryFilter').value;
     const priceFilter = document.getElementById('priceFilter').value;
@@ -239,7 +236,6 @@ function filterProducts() {
 }
 
 // ============= CHỨC NĂNG SẮP XẾP SẢN PHẨM =============
-
 function sortProducts() {
     const sortFilter = document.getElementById('sortFilter').value;
     applySorting(sortFilter);
@@ -278,9 +274,6 @@ function updateProductTitle() {
         mainTitle.textContent = title;
     }
 }
-
-// ============= KHỞI TẠO =============
-
 // Tải sản phẩm khi trang được load
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();

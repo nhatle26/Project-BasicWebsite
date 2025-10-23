@@ -5,7 +5,7 @@ const productId = params.get("id");
 const productDetail = document.getElementById("productDetail");
 const relatedContainer = document.getElementById("relatedProducts");
 
-// --- 1️⃣ Lấy chi tiết sản phẩm từ db.json ---
+// ---  Lấy chi tiết sản phẩm từ db.json ---
 async function loadProductDetail() {
     try {
         // Fetch từ db.json thay vì localStorage
@@ -22,11 +22,11 @@ async function loadProductDetail() {
         renderProductDetail(product);
         loadRelatedProducts(product.category, product.id);
     } catch (err) {
-        productDetail.innerHTML = `<p class="error">❌ ${err.message}</p>`;
+        productDetail.innerHTML = `<p class="error"> ${err.message}</p>`;
     }
 }
 
-// --- 2️⃣ Hiển thị chi tiết sản phẩm ---
+// --- Hiển thị chi tiết sản phẩm ---
 function renderProductDetail(p) {
     productDetail.innerHTML = `
         <div class="detail-container">
@@ -58,7 +58,7 @@ function renderProductDetail(p) {
     }
 }
 
-// --- 3️⃣ Định dạng tiền tệ ---
+// ---  Định dạng tiền tệ ---
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -66,7 +66,7 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// --- 4️⃣ Thêm sản phẩm vào giỏ hàng ---
+// --- Thêm sản phẩm vào giỏ hàng ---
 function addToCart(product) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existing = cart.find(item => item.id === product.id);
@@ -94,7 +94,7 @@ function addToCart(product) {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// --- 5️⃣ Sản phẩm liên quan ---
+// --- Sản phẩm liên quan ---
 async function loadRelatedProducts(category, currentId) {
   const relatedContainer = document.getElementById('relatedContainer');
   if (!relatedContainer) return;
