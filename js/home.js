@@ -121,7 +121,7 @@ function addToCart(productId) {
         return;
     }
 
-    const product = allProducts.find((p) => p.id == productId); // Dùng == vì có thể là string hoặc number
+    const product = allProducts.find((p) => p.id == productId);
     let cart = getCart();
 
     if (!product) {
