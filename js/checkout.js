@@ -1,16 +1,13 @@
-const orderItemsContainer = document.getElementById('orderItems');
-const subtotalElement = document.getElementById('subtotal');
-const totalElement = document.getElementById('total');
-
+// ------------------- CẤU HÌNH -------------------
+const API_URL = "http://localhost:3000/orders";
 const SHIPPING_FEE = 30000;
 
-// Hàm lấy giỏ hàng từ LocalStorage
+// ------------------- HÀM TIỆN ÍCH -------------------
 function getCart() {
     const cart = localStorage.getItem('cart');
     return cart ? JSON.parse(cart) : [];
 }
 
-// Hàm định dạng tiền tệ
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -18,172 +15,119 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// Hàm toggle hiển thị form thanh toán
-function togglePaymentDetails() {
-    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-    
-    // Ẩn tất cả các form chi tiết
-    document.getElementById('bankingDetails').style.display = 'none';
-    document.getElementById('momoDetails').style.display = 'none';
-    
-    // Hiển thị form tương ứng
-    if (paymentMethod === 'banking') {
-        document.getElementById('bankingDetails').style.display = 'block';
-    } else if (paymentMethod === 'momo') {
-        document.getElementById('momoDetails').style.display = 'block';
-    }
-}
-
-// Hàm hiển thị tóm tắt đơn hàng
+// ------------------- HIỂN THỊ TÓM TẮT ĐƠN HÀNG -------------------
 function renderOrderSummary() {
+    const orderItemsContainer = document.getElementById('orderItems');
+    const subtotalElement = document.getElementById('subtotal');
+    const totalElement = document.getElementById('total');
+
     const cart = getCart();
 
     if (cart.length === 0) {
-        // Chuyển hướng nếu giỏ hàng trống
-        alert('Giỏ hàng trống! Bạn sẽ được chuyển về trang giỏ hàng.');
+        alert('Giỏ hàng trống! Quay lại trang giỏ hàng.');
         window.location.href = 'cart.html';
         return;
     }
 
-    // 1. Hiển thị danh sách sản phẩm
     let subtotal = 0;
-
     orderItemsContainer.innerHTML = cart.map(item => {
-        const itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
-
+        const totalItem = item.price * item.quantity;
+        subtotal += totalItem;
         return `
             <div class="order-item">
-                <img 
-                    src="${item.image}" 
-                    alt="${item.name}" 
-                    class="order-item-img"
-                    onerror="this.src='https://via.placeholder.com/60/text=No+Image'" 
-                >
-                <div class="order-item-info">
-                    <p class="order-item-name">${item.name}</p>
-                    <p class="order-item-quantity">x${item.quantity}</p>
+                <img src="${item.image}" alt="${item.name}" width="60">
+                <div>
+                    <p>${item.name}</p>
+                    <p>x${item.quantity}</p>
                 </div>
-                <p class="order-item-price">
-                    ${formatCurrency(itemTotal)}
-                </p>
+                <p>${formatCurrency(totalItem)}</p>
             </div>
         `;
     }).join('');
 
-    // 2. Tính toán và hiển thị tổng tiền
-    const finalTotal = subtotal + SHIPPING_FEE;
-
     subtotalElement.textContent = formatCurrency(subtotal);
-    totalElement.textContent = formatCurrency(finalTotal);
+    totalElement.textContent = formatCurrency(subtotal + SHIPPING_FEE);
 }
 
-// Hàm lưu đơn hàng vào LocalStorage
-function saveOrder(order) {
-    // Lấy danh sách đơn hàng đã có
-    const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-    
-    // Thêm đơn hàng mới vào đầu danh sách
-    existingOrders.unshift(order); 
-    
-    // Lưu lại vào LocalStorage
-    localStorage.setItem('orders', JSON.stringify(existingOrders));
+// ------------------- CHUYỂN ĐỔI PHƯƠNG THỨC THANH TOÁN -------------------
+function togglePaymentDetails() {
+    const method = document.querySelector('input[name="payment"]:checked').value;
+
+    document.getElementById('bankingDetails').style.display = 'none';
+    document.getElementById('momoDetails').style.display = 'none';
+
+    if (method === 'banking') {
+        document.getElementById('bankingDetails').style.display = 'block';
+    } else if (method === 'momo') {
+        document.getElementById('momoDetails').style.display = 'block';
+    }
 }
 
-// Hàm xử lý đặt hàng (gọi từ nút "Đặt hàng")
+// ------------------- XỬ LÝ ĐẶT HÀNG -------------------
 function placeOrder() {
-    // 1. Lấy thông tin khách hàng
     const fullname = document.getElementById('fullname').value.trim();
+    const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
-    // const email = document.getElementById('email').value.trim();
     const address = document.getElementById('address').value.trim();
     const note = document.getElementById('note').value.trim();
     const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
 
-    // 2. Kiểm tra các trường bắt buộc
     if (!fullname || !phone || !address) {
-        alert('Vui lòng điền đầy đủ các thông tin bắt buộc (Họ tên, SĐT, Địa chỉ).');
+        alert('Vui lòng nhập đầy đủ Họ tên, SĐT và Địa chỉ.');
         return;
     }
 
-    // 3. Kiểm tra thông tin thanh toán theo từng phương thức
+    // Lấy thông tin thanh toán tùy phương thức
     let paymentInfo = {};
-    
-    if (paymentMethod === 'momo') {
-        const customerMomoPhone = document.getElementById('customerMomoPhone').value.trim();
-        const customerMomoName = document.getElementById('customerMomoName').value.trim();
-        
-        if (!customerMomoPhone || !customerMomoName) {
-            alert('Vui lòng nhập đầy đủ thông tin MoMo (Số điện thoại và Tên tài khoản)!');
-            return;
-        }
-        
-        paymentInfo.customerMomoPhone = customerMomoPhone;
-        paymentInfo.customerMomoName = customerMomoName;
-        
-        const momoProof = document.getElementById('momoProof').files[0];
-        if (momoProof) {
-            paymentInfo.momoProofName = momoProof.name;
-        }
-    } else if (paymentMethod === 'banking') {
-        const customerBankName = document.getElementById('customerBankName').value.trim();
-        const customerBankAccount = document.getElementById('customerBankAccount').value.trim();
-        const customerBankAccountName = document.getElementById('customerBankAccountName').value.trim();
-        
-        if (!customerBankName || !customerBankAccount || !customerBankAccountName) {
-            alert('Vui lòng nhập đầy đủ thông tin ngân hàng (Tên ngân hàng, Số tài khoản, Tên chủ tài khoản)!');
-            return;
-        }
-        
-        paymentInfo.customerBankName = customerBankName;
-        paymentInfo.customerBankAccount = customerBankAccount;
-        paymentInfo.customerBankAccountName = customerBankAccountName;
-        
-        const bankingProof = document.getElementById('bankingProof').files[0];
-        if (bankingProof) {
-            paymentInfo.bankingProofName = bankingProof.name;
-        }
+
+    if (paymentMethod === 'banking') {
+        paymentInfo.bankName = document.getElementById('customerBankName').value.trim();
+        paymentInfo.accountNumber = document.getElementById('customerBankAccount').value.trim();
+        paymentInfo.accountName = document.getElementById('customerBankAccountName').value.trim();
+    } else if (paymentMethod === 'momo') {
+        paymentInfo.momoPhone = document.getElementById('customerMomoPhone').value.trim();
+        paymentInfo.momoName = document.getElementById('customerMomoName').value.trim();
     }
 
     const cart = getCart();
-    const subtotalValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const totalValue = subtotalValue + SHIPPING_FEE;
-    
-    // 4. Tạo đối tượng đơn hàng
+    const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    const total = subtotal + SHIPPING_FEE;
+
+    // Tạo đối tượng đơn hàng
     const newOrder = {
-        id: Date.now().toString(), // Tạo ID đơn hàng bằng timestamp
-        customer: { fullname, phone, email, address, note },
+        id: Date.now().toString(),
+        customer: { fullname, email, phone, address, note },
         items: cart,
-        subtotal: subtotalValue,
+        subtotal,
         shippingFee: SHIPPING_FEE,
-        total: totalValue,
-        payment: paymentMethod,
-        paymentInfo: paymentInfo,
-        date: new Date().toLocaleDateString('vi-VN'),
-        status: 'Đang chờ xác nhận' // Trạng thái đơn hàng
+        total,
+        paymentMethod,
+        paymentInfo,
+        date: new Date().toLocaleString('vi-VN'),
+        status: 'Đang chờ xác nhận'
     };
 
-    // 5. Lưu đơn hàng
-    saveOrder(newOrder);
-
-    // 6. Xóa giỏ hàng và thông báo thành công
-    localStorage.removeItem('cart');
-
-    let successMessage = `Đặt hàng thành công! Tổng cộng: ${formatCurrency(totalValue)}`;
-    
-    if (paymentMethod === 'banking') {
-        successMessage += '\n\nVui lòng chuyển khoản theo thông tin đã cung cấp với nội dung: HOADON ' + newOrder.id;
-    } else if (paymentMethod === 'momo') {
-        successMessage += '\n\nVui lòng thanh toán qua MoMo theo thông tin đã cung cấp với nội dung: HOADON ' + newOrder.id;
-    }
-    
-    successMessage += '\n\nĐơn hàng của bạn đang chờ xác nhận.';
-    
-    alert(successMessage);
-    
-    // Chuyển hướng về trang chủ
-    window.location.href = 'home.html'; 
+    // Gửi đơn hàng vào db.json
+    fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newOrder)
+    })
+    .then(res => {
+        if (!res.ok) throw new Error('Không thể gửi đơn hàng');
+        return res.json();
+    })
+    .then(data => {
+        console.log('Đơn hàng đã lưu:', data);
+        localStorage.removeItem('cart');
+        alert(`✅ Đặt hàng thành công!\nTổng cộng: ${formatCurrency(total)}\nMã đơn: ${data.id}`);
+        window.location.href = 'home.html';
+    })
+    .catch(err => {
+        console.error(err);
+        alert('❌ Có lỗi khi gửi đơn hàng. Hãy thử lại sau.');
+    });
 }
 
-// Tải tóm tắt đơn hàng khi trang được load
+// ------------------- TẢI KHI TRANG ĐƯỢC MỞ -------------------
 document.addEventListener('DOMContentLoaded', renderOrderSummary);

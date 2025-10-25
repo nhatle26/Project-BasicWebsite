@@ -89,6 +89,59 @@
       "email": "user01@gmail.com",
       "role": "user",
       "fullname": "Nguyễn Văn A"
+    },
+    {
+      "id": 3,
+      "username": "minhnhatle218",
+      "fullname": "Lê Minh Nhật",
+      "email": "minhnhatle218@gmail.com",
+      "password": "ben123ben",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "username": "minhnhatle218",
+      "fullname": "Lê Minh Nhật",
+      "email": "minhnhatle218@gmail.com",
+      "password": "ben123ben",
+      "role": "user"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1761420303905",
+      "customer": {
+        "fullname": "Lê Minh Nhật",
+        "email": "leminhnhat1326@gmail.com",
+        "phone": "0904564620",
+        "address": "ffff",
+        "note": "fffff"
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Hoa Tulip Vàng",
+          "price": 200000,
+          "image": "../assets/images/tulip-yellow.jpg",
+          "stock": 30,
+          "quantity": 1
+        },
+        {
+          "id": "4",
+          "name": "Hoa Ly Trắng",
+          "price": 180000,
+          "image": "../assets/images/lily-white.jpg",
+          "stock": 35,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 380000,
+      "shippingFee": 30000,
+      "total": 410000,
+      "paymentMethod": "cod",
+      "paymentInfo": {},
+      "date": "02:25:03 26/10/2025",
+      "status": "Đang chờ xác nhận"
     }
   ]
 }
