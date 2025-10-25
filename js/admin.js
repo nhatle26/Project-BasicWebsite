@@ -182,8 +182,8 @@ function renderUsers(users) {
         <td>${u.role}</td>
         <td>${u.email}</td>
         <td>
-          <button onclick="editUser(${u.id})">✏️ Sửa</button>
-          <button onclick="deleteUser(${u.id})">🗑️ Xóa</button>
+          <button onclick="editUser(${u.id})">Sửa</button>
+          <button onclick="deleteUser(${u.id})">Xóa</button>
         </td>
       </tr>
     `;

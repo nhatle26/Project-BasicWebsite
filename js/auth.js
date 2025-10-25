@@ -43,13 +43,32 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// === Đăng nhập (dùng username hoặc email) ===
+// Hàm kiểm tra định dạng email
+function validateEmail(email) {
+  // Regex kiểm tra định dạng email cơ bản
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Kiểm tra format cơ bản
+  if (!emailRegex.test(email)) {
+    return false;
+  }
+  return 'Email không hợp lệ!';
+}
+
+// === Đăng nhập ===
 async function login() {
-  const input = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  if (!input || !password) {
+  if (!email || !password) {
     showToast("Vui lòng nhập đầy đủ thông tin!", "error");
+    return;
+  }
+
+   const isEmail = input.includes('@');
+  if (isEmail && !isValidEmail(input)) {
+    const errorMsg = getEmailErrorMessage(input);
+    showToast(errorMsg, "error");
     return;
   }
 
@@ -65,7 +84,7 @@ async function login() {
     );
 
     if (!user) {
-      showToast("Sai tài khoản hoặc mật khẩu!", "error");
+      showToast("Sai tên đăng nhập/email hoặc mật khẩu!", "error");
       return;
     }
 
@@ -92,19 +111,35 @@ async function login() {
   }
 }
 
-// === Đăng ký (ID tự tăng) ===
 async function register() {
   const fullname = document.getElementById("fullname").value.trim();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("newPassword").value.trim();
   const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-  const username = email.split("@")[0]; // username tự động dựa trên email
-
+  // KIỂM TRA ĐẦY ĐỦ
   if (!fullname || !email || !password || !confirmPassword) {
     showToast("Vui lòng nhập đầy đủ thông tin!", "error");
     return;
   }
+
+  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+  if (!usernameRegex.test(username)) {
+    showToast("Tên đăng nhập phải từ 3-20 ký tự, chỉ chứa chữ, số và dấu gạch dưới!", "error");
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    const errorMsg = getEmailErrorMessage(email);
+    showToast(errorMsg, "error");
+    return;
+  }
+
+  if (password.length < 6) {
+    showToast("Mật khẩu phải có ít nhất 6 ký tự!", "error");
+    return;
+  }
+
   if (password !== confirmPassword) {
     showToast("Mật khẩu xác nhận không khớp!", "error");
     return;
@@ -117,6 +152,12 @@ async function register() {
     const lastId = users.length > 0 ? parseInt(users[users.length - 1].id) : 0;
     const newId = lastId + 1;
 
+    // KIỂM TRA USERNAME ĐÃ TỒN TẠI
+    if (users.find((u) => u.username === username)) {
+      showToast("Tên đăng nhập đã tồn tại!", "error");
+      return;
+    }
+
     if (users.find((u) => u.email === email)) {
       showToast("Email đã tồn tại!", "error");
       return;
@@ -124,7 +165,6 @@ async function register() {
 
     const newUser = {
       id: newId,
-      username,
       fullname,
       email,
       password,
