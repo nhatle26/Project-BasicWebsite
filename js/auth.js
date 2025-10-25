@@ -45,14 +45,23 @@ document.head.appendChild(style);
 
 // Hàm kiểm tra định dạng email
 function validateEmail(email) {
-  // Regex kiểm tra định dạng email cơ bản
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email); // Return true nếu hợp lệ, false nếu không
+}
 
-    // Kiểm tra format cơ bản
-  if (!emailRegex.test(email)) {
-    return false;
+// Hàm toggle hiển thị/ẩn mật khẩu
+function togglePassword(inputId) {
+  const input = document.getElementById(inputId);
+  const icon = input.nextElementSibling; // Icon mắt nằm ngay sau input
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    input.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
   }
-  return 'Email không hợp lệ!';
 }
 
 // === Đăng nhập ===
@@ -61,14 +70,12 @@ async function login() {
   const password = document.getElementById("password").value.trim();
 
   if (!email || !password) {
-    showToast("Vui lòng nhập đầy đủ thông tin!", "error");
+    showToast("Vui lòng nhập đầy đủ email và mật khẩu!", "error");
     return;
   }
 
-   const isEmail = input.includes('@');
-  if (isEmail && !isValidEmail(input)) {
-    const errorMsg = getEmailErrorMessage(input);
-    showToast(errorMsg, "error");
+  if (!validateEmail(email)) {
+    showToast("Email không hợp lệ!", "error");
     return;
   }
 
@@ -76,19 +83,17 @@ async function login() {
     const res = await fetch("http://localhost:3000/users");
     const users = await res.json();
 
-    // Cho phép đăng nhập bằng username hoặc email
+    // Chỉ tìm user bằng email
     const user = users.find(
-      (u) =>
-        (u.username === input || u.email === input) &&
-        u.password === password
+      (u) => u.email === email && u.password === password
     );
 
     if (!user) {
-      showToast("Sai tên đăng nhập/email hoặc mật khẩu!", "error");
+      showToast("Sai email hoặc mật khẩu!", "error");
       return;
     }
 
-    // Lưu email làm tên hiển thị
+    // Lưu thông tin user
     localStorage.setItem(
       "currentUser",
       JSON.stringify({
@@ -111,27 +116,21 @@ async function login() {
   }
 }
 
+// === Đăng ký ===
 async function register() {
   const fullname = document.getElementById("fullname").value.trim();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("newPassword").value.trim();
   const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-  // KIỂM TRA ĐẦY ĐỦ
+  // Kiểm tra đầy đủ
   if (!fullname || !email || !password || !confirmPassword) {
     showToast("Vui lòng nhập đầy đủ thông tin!", "error");
     return;
   }
 
-  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
-  if (!usernameRegex.test(username)) {
-    showToast("Tên đăng nhập phải từ 3-20 ký tự, chỉ chứa chữ, số và dấu gạch dưới!", "error");
-    return;
-  }
-
-  if (!isValidEmail(email)) {
-    const errorMsg = getEmailErrorMessage(email);
-    showToast(errorMsg, "error");
+  if (!validateEmail(email)) {
+    showToast("Email không hợp lệ!", "error");
     return;
   }
 
@@ -152,19 +151,14 @@ async function register() {
     const lastId = users.length > 0 ? parseInt(users[users.length - 1].id) : 0;
     const newId = lastId + 1;
 
-    // KIỂM TRA USERNAME ĐÃ TỒN TẠI
-    if (users.find((u) => u.username === username)) {
-      showToast("Tên đăng nhập đã tồn tại!", "error");
-      return;
-    }
-
+    // Kiểm tra trùng email
     if (users.find((u) => u.email === email)) {
       showToast("Email đã tồn tại!", "error");
       return;
     }
 
     const newUser = {
-      id: newId,
+      id: newId.toString(), // Đảm bảo id là string như db.json
       fullname,
       email,
       password,
