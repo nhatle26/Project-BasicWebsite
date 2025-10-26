@@ -43,13 +43,45 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// === Đăng nhập (dùng username hoặc email) ===
+// Hàm kiểm tra định dạng email
+function validateEmail(email) {
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+}
+
+// Hàm kiểm tra số điện thoại (10-11 số)
+function validatePhone(phone) {
+  const phoneRegex = /^[0-9]{10,11}$/;
+  return phoneRegex.test(phone);
+}
+
+// Hàm toggle hiển thị/ẩn mật khẩu
+function togglePassword(inputId) {
+  const input = document.getElementById(inputId);
+  const icon = input.nextElementSibling;
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    input.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
+}
+
+// === ĐĂNG NHẬP ===
 async function login() {
-  const input = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  if (!input || !password) {
-    showToast("Vui lòng nhập đầy đủ thông tin!", "error");
+  if (!email || !password) {
+    showToast("Vui lòng nhập đầy đủ email và mật khẩu!", "error");
+    return;
+  }
+
+  if (!validateEmail(email)) {
+    showToast("Email không hợp lệ!", "error");
     return;
   }
 
@@ -57,25 +89,29 @@ async function login() {
     const res = await fetch("http://localhost:3000/users");
     const users = await res.json();
 
-    // Cho phép đăng nhập bằng username hoặc email
     const user = users.find(
-      (u) =>
-        (u.username === input || u.email === input) &&
-        u.password === password
+      (u) => u.email === email && u.password === password
     );
 
     if (!user) {
-      showToast("Sai tài khoản hoặc mật khẩu!", "error");
+      showToast("Sai email hoặc mật khẩu!", "error");
       return;
     }
 
-    // Lưu email làm tên hiển thị
+    // Kiểm tra tài khoản có bị khóa không
+    if (user.isLocked) {
+      showToast("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên!", "error");
+      return;
+    }
+
+    // Lưu thông tin user
     localStorage.setItem(
       "currentUser",
       JSON.stringify({
         id: user.id,
         email: user.email,
         fullname: user.fullname,
+        phone: user.phone,
         role: user.role,
       })
     );
@@ -92,19 +128,56 @@ async function login() {
   }
 }
 
-// === Đăng ký (ID tự tăng) ===
+// === ĐĂNG KÝ ===
 async function register() {
-  const fullname = document.getElementById("fullname").value.trim();
-  const email = document.getElementById("email").value.trim();
+  // Lấy giá trị từ form đăng ký (đúng id từ registerForm)
+  const fullname = document.querySelector('#registerForm #fullname').value.trim();
+  const email = document.querySelector('#registerForm #email').value.trim();
+  const phone = document.querySelector('#registerForm #phone').value.trim();
   const password = document.getElementById("newPassword").value.trim();
   const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-  const username = email.split("@")[0]; // username tự động dựa trên email
-
-  if (!fullname || !email || !password || !confirmPassword) {
-    showToast("Vui lòng nhập đầy đủ thông tin!", "error");
+  // ✅ Kiểm tra tất cả các trường BẮT BUỘC
+  if (!fullname) {
+    showToast("Vui lòng nhập họ và tên!", "error");
     return;
   }
+
+  if (!email) {
+    showToast("Vui lòng nhập email!", "error");
+    return;
+  }
+
+  if (!validateEmail(email)) {
+    showToast(" Email không hợp lệ!", "error");
+    return;
+  }
+
+  if (!phone) {
+    showToast("Vui lòng nhập số điện thoại!", "error");
+    return;
+  }
+
+  if (!validatePhone(phone)) {
+    showToast("Số điện thoại phải có 10-11 chữ số!", "error");
+    return;
+  }
+
+  if (!password) {
+    showToast("Vui lòng nhập mật khẩu!", "error");
+    return;
+  }
+
+  if (password.length < 6) {
+    showToast("Mật khẩu phải có ít nhất 6 ký tự!", "error");
+    return;
+  }
+
+  if (!confirmPassword) {
+    showToast("Vui lòng xác nhận mật khẩu!", "error");
+    return;
+  }
+
   if (password !== confirmPassword) {
     showToast("Mật khẩu xác nhận không khớp!", "error");
     return;
@@ -114,21 +187,24 @@ async function register() {
     const res = await fetch("http://localhost:3000/users");
     const users = await res.json();
 
-    const lastId = users.length > 0 ? parseInt(users[users.length - 1].id) : 0;
-    const newId = lastId + 1;
-
+    // Kiểm tra trùng email
     if (users.find((u) => u.email === email)) {
       showToast("Email đã tồn tại!", "error");
       return;
     }
 
+    // Tính ID mới
+    const lastId = users.length > 0 ? parseInt(users[users.length - 1].id) : 0;
+    const newId = lastId + 1;
+
     const newUser = {
-      id: newId,
-      username,
+      id: newId.toString(),
       fullname,
       email,
       password,
+      phone,
       role: "user",
+      isLocked: false // Mặc định không bị khóa
     };
 
     const addRes = await fetch("http://localhost:3000/users", {
@@ -139,6 +215,10 @@ async function register() {
 
     if (addRes.ok) {
       showToast("Đăng ký thành công! Vui lòng đăng nhập.", "success");
+      
+      // Reset form
+      document.querySelector('#registerForm form').reset();
+      
       setTimeout(() => showLogin(), 1500);
     } else {
       showToast("Không thể lưu tài khoản!", "error");

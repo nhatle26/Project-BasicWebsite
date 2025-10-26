@@ -73,7 +73,7 @@ function addToCart(productId, quantity = 1) {
 
 // Check Authentication
 function checkAuth() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('currentUser')); // Sửa: dùng currentUser
     const authLink = document.getElementById('authLink');
     
     if (authLink) {
@@ -98,17 +98,13 @@ function checkAuth() {
     }
 }
 
-// =========== ĐĂNG XUẤT (DÙNG CHUNG CHO TẤT CẢ TRANG) ===========
+// Đăng xuất
 function logout() {
   if (confirm("Bạn có chắc muốn đăng xuất không?")) {
-    // Xóa TẤT CẢ thông tin đăng nhập
     localStorage.removeItem("currentUser");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    
-    alert(" Đã đăng xuất thành công!");
-    
-    // Chuyển về trang đăng nhập (đường dẫn ĐÚNG)
+    alert("Đã đăng xuất thành công!");
     window.location.href = "login.html";
   }
 }
@@ -117,4 +113,4 @@ function logout() {
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
     checkAuth();
-})
+});

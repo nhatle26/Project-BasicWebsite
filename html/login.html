@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng nhập - Flower Shop</title>
+  <title>Đăng nhập - DaTuNha Shop</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
   <!-- Header -->
-  <header id="head-login" >
+  <header id="head-login">
     <h1><i class="fa-solid fa-spa"></i> DaTuNha Shop</h1>
     <nav>
       <a href="home.html"><i class="fa-solid fa-house"></i> Trang chủ</a>
@@ -22,33 +22,54 @@
       <div id="loginForm">
         <h2>Đăng Nhập</h2>
         <form onsubmit="event.preventDefault(); login();">
-          <label for="username">Tên đăng nhập hoặc Email:</label>
-          <input type="text" id="username" placeholder="Nhập tên đăng nhập hoặc Email">
-          <label for="password">Mật khẩu:</label>
-          <input type="password" id="password" placeholder="Nhập mật khẩu">
+          <label for="email">Email: *</label>
+          <input type="email" id="email" placeholder="Nhập email" required>
+          
+          <label for="password">Mật khẩu: *</label>
+          <div class="password-wrapper">
+            <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+            <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+          </div>
+          
           <button type="submit">Đăng nhập</button>
         </form>
+        <p>Bạn quên mật khẩu?
+          <a href="#" onclick="alert('Tính năng đang phát triển!')">Quên mật khẩu</a>
+        </p>
         <p>Chưa có tài khoản?
           <a href="#" onclick="showRegister()">Đăng ký ngay</a>
         </p>
-                <div class="demo">
-                    <p><strong>Tài khoản demo:</strong></p>
-                    <p>Admin: admin / admin123</p>
-                    <p>User: user01 / user123</p>
-                </div>
-            </div>
+        <div class="demo">
+          <p><strong>Tài khoản demo:</strong></p>
+          <p>Admin: admin@flowershop.com / admin123</p>
+          <p>User: user01@gmail.com / user123</p>
+        </div>
+      </div>
+      
       <!-- Form đăng ký -->
       <div id="registerForm" style="display: none;">
-        <h2>Đăng Ký</h2>
+        <h2>Đăng Ký Tài Khoản</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+          <i class="fas fa-info-circle"></i> Vui lòng điền đầy đủ tất cả thông tin bên dưới
+        </p>
         <form onsubmit="event.preventDefault(); register();">
-          <label for="fullname">Họ và tên:</label>
-          <input type="text" id="fullname" placeholder="Nhập họ và tên">
-          <label for="email">Email:</label>
-          <input type="email" id="email" placeholder="Nhập email">
-          <label for="newPassword">Mật khẩu:</label>
-          <input type="password" id="newPassword" placeholder="Nhập mật khẩu">
-          <label for="confirmPassword">Xác nhận mật khẩu:</label>
-          <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu">
+          <label for="fullname">Họ và tên: *</label>
+          <input type="text" id="fullname" placeholder="Nhập họ và tên đầy đủ" required minlength="3">
+          <label for="email">Email: *</label>
+          <input type="email" id="email" placeholder="Nhập email hợp lệ" required>
+          <label for="phone">Số điện thoại: *</label>
+          <input type="tel" id="phone" placeholder="Nhập 10-11 chữ số" required pattern="[0-9]{10,11}" title="Số điện thoại phải có 10-11 chữ số">
+          <label for="newPassword">Mật khẩu: *</label>
+          <div class="password-wrapper">
+            <input type="password" id="newPassword" placeholder="Ít nhất 6 ký tự" required minlength="6">
+            <i class="fas fa-eye toggle-password" onclick="togglePassword('newPassword')"></i>
+          </div>
+          <label for="confirmPassword">Xác nhận mật khẩu: *</label>
+          <div class="password-wrapper">
+            <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required minlength="6"
+            >
+            <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
+          </div>
           <button type="submit">Đăng ký</button>
         </form>
         <p>Đã có tài khoản?
@@ -57,12 +78,10 @@
       </div>
     </div>
   </main>
-
   <footer>
     <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
-    <p> 0123.456.789 | contact@DaTuNhashop.com</p>
+    <p>0123.456.789 | contact@DaTuNhashop.com</p>
   </footer>
-
   <script src="../js/main.js"></script>
   <script src="../js/auth.js"></script>
 </body>

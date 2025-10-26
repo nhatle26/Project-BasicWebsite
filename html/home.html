@@ -26,48 +26,206 @@
         <h2>Chào mừng đến với DaTuNha Shop</h2>
         <p>Nơi cung cấp những bó hoa tươi đẹp nhất</p>
     </section>
-    <!-- Bộ lọc sản phẩm -->
-    <section class="filter">
-        <label>Danh mục:
-            <select id="categoryFilter" onchange="filterProducts()">
-                <option value="">Tất cả</option>
-                <option value="Hoa Hồng">Hoa Hồng</option>
-                <option value="Hoa Tulip">Hoa Tulip</option>
-                <option value="Hoa Ly">Hoa Ly</option>
-                <option value="Hoa Lan">Hoa Lan</option>
-                <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
-                <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
-            </select>
-        </label>
-        <label>Giá:
-            <select id="priceFilter" onchange="filterProducts()">
-                <option value="">Tất cả</option>
-                <option value="0-150000">Dưới 150k</option>
-                <option value="150000-200000">150k - 200k</option>
-                <option value="200000-10000000000">Trên 200k</option>
-            </select>
-        </label>
-        <label>Sắp xếp:
-            <select id="sortFilter" onchange="sortProducts()">
-                <option value="">Mặc định</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
-            </select>
-        </label>
+    <!-- Bộ chọn chủ đề -->
+    <section class="theme-selector">
+        <div class="theme-tabs">
+            <button class="theme-tab active" data-theme="all">Tất cả</button>
+            <button class="theme-tab" data-theme="valentine">Hoa Valentine</button>
+            <button class="theme-tab" data-theme="sinh-nhat">Hoa Sinh Nhật</button>
+            <button class="theme-tab" data-theme="tiec-cuoi">Hoa Tiệc Cưới</button>
+            <button class="theme-tab" data-theme="chuc-mung">Hoa Chúc Mừng</button>
+            <button class="theme-tab" data-theme="tot-nghiep">Hoa Tốt Nghiệp</button>
+        </div>
     </section>
-    <!-- Danh sách sản phẩm -->
+    <!-- Các phần ẩn cho từng chủ đề -->
     <main>
-        <h3>Danh Sách Sản Phẩm</h3>
-        <div id="productList" class="product-grid">
-            <!-- Sản phẩm sẽ được thêm vào đây -->
+        <!-- Tất cả sản phẩm (mặc định) -->
+        <div id="theme-all" class="theme-section">
+            <h3>Danh Sách Tất Cả Sản Phẩm</h3>
+            <div id="productList" class="product-grid">
+                <!-- Sản phẩm sẽ được thêm vào đây -->
+            </div>
+        </div>
+        <!-- Chủ đề Valentine -->
+        <div id="theme-valentine" class="theme-section" style="display: none;">
+            <h3>Sản Phẩm Chủ Đề Valentine</h3>
+            <div class="filter-bar">
+                <label>Danh mục:
+                    <select id="categoryFilter-valentine" onchange="filterProducts('valentine')">
+                        <option value="">Tất cả</option>
+                        <option value="Hoa Hồng">Hoa Hồng</option>
+                        <option value="Hoa Tulip">Hoa Tulip</option>
+                        <option value="Hoa Ly">Hoa Ly</option>
+                        <option value="Hoa Lan">Hoa Lan</option>
+                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+                    </select>
+                </label>
+                <label>Giá:
+                    <select id="priceFilter-valentine" onchange="filterProducts('valentine')">
+                        <option value="">Tất cả</option>
+                        <option value="0-150000">Dưới 150k</option>
+                        <option value="150000-200000">150k - 200k</option>
+                        <option value="200000-10000000000">Trên 200k</option>
+                    </select>
+                </label>
+                <label>Sắp xếp:
+                    <select id="sortFilter-valentine" onchange="sortProducts('valentine')">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </label>
+            </div>
+            <div id="productList-valentine" class="product-grid">
+                <!-- Sản phẩm Valentine sẽ được thêm vào đây -->
+            </div>
+        </div>
+        <!-- Chủ đề Sinh Nhật -->
+        <div id="theme-sinh-nhat" class="theme-section" style="display: none;">
+            <h3>Sản Phẩm Chủ Đề Sinh Nhật</h3>
+            <div class="filter-bar">
+                <label>Danh mục:
+                    <select id="categoryFilter-sinh-nhat" onchange="filterProducts('sinh-nhat')">
+                        <option value="">Tất cả</option>
+                        <option value="Hoa Hồng">Hoa Hồng</option>
+                        <option value="Hoa Tulip">Hoa Tulip</option>
+                        <option value="Hoa Ly">Hoa Ly</option>
+                        <option value="Hoa Lan">Hoa Lan</option>
+                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+                    </select>
+                </label>
+                <label>Giá:
+                    <select id="priceFilter-sinh-nhat" onchange="filterProducts('sinh-nhat')">
+                        <option value="">Tất cả</option>
+                        <option value="0-150000">Dưới 150k</option>
+                        <option value="150000-200000">150k - 200k</option>
+                        <option value="200000-10000000000">Trên 200k</option>
+                    </select>
+                </label>
+                <label>Sắp xếp:
+                    <select id="sortFilter-sinh-nhat" onchange="sortProducts('sinh-nhat')">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </label>
+            </div>
+            <div id="productList-sinh-nhat" class="product-grid">
+                <!-- Sản phẩm Sinh Nhật sẽ được thêm vào đây -->
+            </div>
+        </div>
+        <!-- Chủ đề Cưới -->
+        <div id="theme-tiec-cuoi" class="theme-section" style="display: none;">
+            <h3>Sản Phẩm Chủ Đề Tiệc Cưới</h3>
+            <div class="filter-bar">
+                <label>Danh mục:
+                    <select id="categoryFilter-tiec-cuoi" onchange="filterProducts('tiec-cuoi')">
+                        <option value="">Tất cả</option>
+                        <option value="Hoa Hồng">Hoa Hồng</option>
+                        <option value="Hoa Tulip">Hoa Tulip</option>
+                        <option value="Hoa Ly">Hoa Ly</option>
+                        <option value="Hoa Lan">Hoa Lan</option>
+                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+                    </select>
+                </label>
+                <label>Giá:
+                    <select id="priceFilter-tiec-cuoi" onchange="filterProducts('tiec-cuoi')">
+                        <option value="">Tất cả</option>
+                        <option value="0-150000">Dưới 150k</option>
+                        <option value="150000-200000">150k - 200k</option>
+                        <option value="200000-10000000000">Trên 200k</option>
+                    </select>
+                </label>
+                <label>Sắp xếp:
+                    <select id="sortFilter-tiec-cuoi" onchange="sortProducts('tiec-cuoi')">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </label>
+            </div>
+            <div id="productList-tiec-cuoi" class="product-grid">
+                <!-- Sản phẩm Cưới sẽ được thêm vào đây -->
+            </div>
+        </div>
+        <!-- Chủ đề Chia Buồn -->
+        <div id="theme-chuc-mung" class="theme-section" style="display: none;">
+            <h3>Sản Phẩm Chủ Đề Chúc Mừng</h3>
+            <div class="filter-bar">
+                <label>Danh mục:
+                    <select id="categoryFilter-chuc-mung" onchange="filterProducts('chuc-mung')">
+                        <option value="">Tất cả</option>
+                        <option value="Hoa Hồng">Hoa Hồng</option>
+                        <option value="Hoa Tulip">Hoa Tulip</option>
+                        <option value="Hoa Ly">Hoa Ly</option>
+                        <option value="Hoa Lan">Hoa Lan</option>
+                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+                    </select>
+                </label>
+                <label>Giá:
+                    <select id="priceFilter-chuc-mung" onchange="filterProducts('chuc-mung')">
+                        <option value="">Tất cả</option>
+                        <option value="0-150000">Dưới 150k</option>
+                        <option value="150000-200000">150k - 200k</option>
+                        <option value="200000-10000000000">Trên 200k</option>
+                    </select>
+                </label>
+                <label>Sắp xếp:
+                    <select id="sortFilter-chuc-mung" onchange="sortProducts('chuc-mung')">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </label>
+            </div>
+            <div id="productList-chuc-mung" class="product-grid">
+                <!-- Sản phẩm Chia Buồn sẽ được thêm vào đây -->
+            </div>
+        </div>
+        <!-- Chủ đề Khai Trương -->
+        <div id="theme-tot-nghiep" class="theme-section" style="display: none;">
+            <h3>Sản Phẩm Chủ Đề Tốt Nghiệp</h3>
+            <div class="filter-bar">
+                <label>Danh mục:
+                    <select id="categoryFilter-tot-nghiep" onchange="filterProducts('tot-nghiep')">
+                        <option value="">Tất cả</option>
+                        <option value="Hoa Hồng">Hoa Hồng</option>
+                        <option value="Hoa Tulip">Hoa Tulip</option>
+                        <option value="Hoa Ly">Hoa Ly</option>
+                        <option value="Hoa Lan">Hoa Lan</option>
+                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+                    </select>
+                </label>
+                <label>Giá:
+                    <select id="priceFilter-tot-nghiep" onchange="filterProducts('tot-nghiep')">
+                        <option value="">Tất cả</option>
+                        <option value="0-150000">Dưới 150k</option>
+                        <option value="150000-200000">150k - 200k</option>
+                        <option value="200000-10000000000">Trên 200k</option>
+                    </select>
+                </label>
+                <label>Sắp xếp:
+                    <select id="sortFilter-tot-nghiep" onchange="sortProducts('tot-nghiep')">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </label>
+            </div>
+            <div id="productList-tot-nghiep" class="product-grid">
+                <!-- Sản phẩm Khai Trương sẽ được thêm vào đây -->
+            </div>
         </div>
     </main>
-
     <footer>
         <p>© 2024 DaTuNha Shop - Giao hoa toàn quốc</p>
         <p> 0123.456.789 | contact@DaTuNhashop.com</p>
     </footer>
-
     <script src="../js/main.js"></script>
     <script src="../js/home.js"></script>
 </body>
