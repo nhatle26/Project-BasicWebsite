@@ -211,6 +211,7 @@ main h3 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
+  padding: 20px;
 }
 
 .product-card:hover {
@@ -563,7 +564,7 @@ table img {
   width: auto;
 }
 
-#orderItems .order-item {
+ .order-item #orderItems{
   display: flex;
   justify-content: space-between;
   padding: 12px 0;
@@ -1268,9 +1269,10 @@ footer p {
     gap: 15px;
   }
 }
+/* Style cho trang theo dõi đơn hàng */
 .tracking-order {
   width: 500px ;
-  height: 170px;
+  height: fit-content;
   background-color: #ffffff;
   border-radius: 8px;
   border: black solid;
@@ -1281,7 +1283,3 @@ footer p {
 .tracking-order input {
   height: 40px;
 }
-/* .tracking-order #result {
-  text-align: center;
-  margin: 0px 200px 0px 200px;
-  border: green solid; */
