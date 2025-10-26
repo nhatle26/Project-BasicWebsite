@@ -908,7 +908,7 @@ table img {
 .switch-buttons button {
   padding: 12px 30px;
   border: 2px solid #ddd;
-  background: white;
+  background: rgb(167, 167, 167);
   cursor: pointer;
   font-size: 16px;
   border-radius: 8px;
@@ -1122,7 +1122,7 @@ table img {
 table tbody tr td[colspan] {
   text-align: center;
   padding: 40px;
-  color: #999;
+  color: #ff6b6b;
   font-style: italic;
 }
 
