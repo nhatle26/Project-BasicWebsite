@@ -499,24 +499,9 @@
       "phone": "0987654321",
       "role": "user",
       "isLocked": false
-    },
-    {
-      "id": "4",
-      "fullname": "Lê Minh Nhật",
-      "email": "minhnhatle218@gmail.com",
-      "password": "ben123ben",
-      "phone": "0374567890",
-      "role": "user",
-      "isLocked": false
-    },
-    {
-      "id": "5",
-      "fullname": "Hoàng Tiến Đạt",
-      "email": "hdat45399@gmail.com",
-      "password": "123456",
-      "phone": "0826263816",
-      "role": "user",
-      "isLocked": false
     }
+  ],
+  "orders": [
+    
   ]
 }

@@ -88,7 +88,7 @@ function addToCart(product) {
             stock: product.stock,
             quantity: 1 
         });
-        alert("🛒 Đã thêm vào giỏ hàng!");
+        alert("Đã thêm vào giỏ hàng!");
     }
     
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -142,5 +142,5 @@ async function loadRelatedProducts(category, currentId) {
 if (productId) {
     loadProductDetail();
 } else {
-    productDetail.innerHTML = `<p style="text-align: center; padding: 40px;">⚠️ Không tìm thấy sản phẩm.</p>`;
+    productDetail.innerHTML = `<p style="text-align: center; padding: 40px;">Không tìm thấy sản phẩm.</p>`;
 }
