@@ -73,7 +73,7 @@ function addToCart(productId, quantity = 1) {
 
 // Check Authentication
 function checkAuth() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('currentUser')); // Sửa: dùng currentUser
     const authLink = document.getElementById('authLink');
     
     if (authLink) {
@@ -98,21 +98,19 @@ function checkAuth() {
     }
 }
 
-// Logout
-function logout(e) {
-    if (e) e.preventDefault();
-    
-    if (confirm('Bạn có chắc muốn đăng xuất?')) {
-        localStorage.removeItem('user');
-        showToast('Đã đăng xuất thành công!', 'success');
-        setTimeout(() => {
-            window.location.href = 'home.html';
-        }, 1000);
-    }
+// Đăng xuất
+function logout() {
+  if (confirm("Bạn có chắc muốn đăng xuất không?")) {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    alert("Đã đăng xuất thành công!");
+    window.location.href = "login.html";
+  }
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
     checkAuth();
-})
+});

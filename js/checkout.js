@@ -1,19 +1,15 @@
-// checkout.js
-
 const orderItemsContainer = document.getElementById('orderItems');
 const subtotalElement = document.getElementById('subtotal');
 const totalElement = document.getElementById('total');
 
 const SHIPPING_FEE = 30000;
 
-// -------------------------------------------------------------------
 // Hàm lấy giỏ hàng từ LocalStorage
 function getCart() {
     const cart = localStorage.getItem('cart');
     return cart ? JSON.parse(cart) : [];
 }
 
-// -------------------------------------------------------------------
 // Hàm định dạng tiền tệ
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {
@@ -22,7 +18,6 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// -------------------------------------------------------------------
 // Hàm toggle hiển thị form thanh toán
 function togglePaymentDetails() {
     const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
@@ -39,7 +34,6 @@ function togglePaymentDetails() {
     }
 }
 
-// -------------------------------------------------------------------
 // Hàm hiển thị tóm tắt đơn hàng
 function renderOrderSummary() {
     const cart = getCart();
@@ -84,7 +78,6 @@ function renderOrderSummary() {
     totalElement.textContent = formatCurrency(finalTotal);
 }
 
-// -------------------------------------------------------------------
 // Hàm lưu đơn hàng vào LocalStorage
 function saveOrder(order) {
     // Lấy danh sách đơn hàng đã có
@@ -97,13 +90,12 @@ function saveOrder(order) {
     localStorage.setItem('orders', JSON.stringify(existingOrders));
 }
 
-// -------------------------------------------------------------------
 // Hàm xử lý đặt hàng (gọi từ nút "Đặt hàng")
 function placeOrder() {
     // 1. Lấy thông tin khách hàng
     const fullname = document.getElementById('fullname').value.trim();
     const phone = document.getElementById('phone').value.trim();
-    const email = document.getElementById('email').value.trim();
+    // const email = document.getElementById('email').value.trim();
     const address = document.getElementById('address').value.trim();
     const note = document.getElementById('note').value.trim();
     const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
