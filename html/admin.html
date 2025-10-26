@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý sản phẩm - DaTuNha Shop</title>
+  <title>Quản lý - DaTuNha Shop</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../style/style.css">
 </head>
@@ -11,53 +11,77 @@
   <header>
     <div class="header-nav">
       <h1><i class="fa-solid fa-spa"></i> DaTuNha Shop - Trang quản trị viên</h1>
-      <div class="search">
-        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
-        <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
-        <nav>
-          <a href="home.html">Trang chủ</a>
-          <a href="#" onclick="logout(); return false;" id="logOut">Đăng xuất</a>
-        </nav>
-      </div>
+      <nav>
+        <a href="home.html"><i class="fa-solid fa-house"></i> Trang chủ</a>
+        <a href="#" onclick="logout(); return false;" id="logOut">
+          <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+        </a>
+      </nav>
     </div>
   </header>
+
   <main>
     <!-- Nút chuyển giữa hai phần -->
     <div class="switch-buttons">
-      <button id="btnProduct" class="active" onclick="showSection('product')">Quản lý sản phẩm</button>
-      <button id="btnUser" onclick="showSection('user')">Quản lý người dùng</button>
+      <button id="btnProduct" class="active" onclick="showSection('product')">
+        <i class="fa-solid fa-box"></i> Quản lý sản phẩm
+      </button>
+      <button id="btnUser" onclick="showSection('user')">
+        <i class="fa-solid fa-users"></i> Quản lý người dùng
+      </button>
     </div>
+
+    <!-- ==================== QUẢN LÝ SẢN PHẨM ==================== -->
     <section id="productSection">
-      <h2>Quản Lý Sản Phẩm</h2>
-      <button onclick="showAddProductForm()">+ Thêm sản phẩm mới</button>
+      <div class="section-header">
+        <h2><i class="fa-solid fa-box-open"></i> Quản Lý Sản Phẩm</h2>
+      </div>
+
+      <button onclick="showAddProductForm()" class="btn-add">
+        <i class="fa-solid fa-plus"></i> Thêm sản phẩm mới
+      </button>
+
       <!-- Form thêm / sửa -->
       <div id="productForm" style="display:none; margin-top:20px;">
         <h3 id="formTitle">Thêm Sản Phẩm</h3>
         <form id="formProduct">
           <input type="hidden" id="productId">
-          <label>Tên sản phẩm:</label>
-          <input type="text" id="productName" required>
-          <label>Giá (VNĐ):</label>
-          <input type="number" id="productPrice" required>
-          <label>Danh mục:</label>
+          
+          <label>Tên sản phẩm: *</label>
+          <input type="text" id="productName" placeholder="Nhập tên sản phẩm" required>
+          
+          <label>Giá (VNĐ): *</label>
+          <input type="number" id="productPrice" placeholder="Nhập giá" required min="0">
+          
+          <label>Danh mục: *</label>
           <select id="productCategory">
             <option value="Hoa Hồng">Hoa Hồng</option>
             <option value="Hoa Tulip">Hoa Tulip</option>
             <option value="Hoa Ly">Hoa Ly</option>
             <option value="Hoa Lan">Hoa Lan</option>
           </select>
+          
           <label>Mô tả:</label>
-          <textarea id="productDescription" rows="3"></textarea>
+          <textarea id="productDescription" rows="3" placeholder="Nhập mô tả sản phẩm"></textarea>
+          
           <label>Link ảnh:</label>
-          <input type="text" id="productImage">
+          <input type="text" id="productImage" placeholder="https://example.com/image.jpg">
+          
           <label>Số lượng trong kho:</label>
-          <input type="number" id="productStock">
+          <input type="number" id="productStock" placeholder="Nhập số lượng" min="0" value="0">
+          
           <div style="margin-top:10px;">
-            <button type="button" onclick="saveProduct()">Lưu</button>
-            <button type="button" onclick="cancelProductForm()">Hủy</button>
+            <button type="button" onclick="saveProduct()" class="btn-save">
+              <i class="fa-solid fa-floppy-disk"></i> Lưu
+            </button>
+            <button type="button" onclick="cancelProductForm()" class="btn-cancel">
+              <i class="fa-solid fa-xmark"></i> Hủy
+            </button>
           </div>
         </form>
       </div>
+
+      <!-- Bảng sản phẩm -->
       <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
         <thead style="background:#1beb04;">
           <tr>
@@ -70,31 +94,23 @@
             <th>Hành động</th>
           </tr>
         </thead>
-        <tbody id="productsTableBody"></tbody>
+        <tbody id="productsTableBody">
+          <tr>
+            <td colspan="7" style="text-align:center; padding:20px;">
+              <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
+            </td>
+          </tr>
+        </tbody>
       </table>
     </section>
-    <!-- QUẢN LÝ NGƯỜI DÙNG -->
+
+    <!-- ==================== QUẢN LÝ NGƯỜI DÙNG ==================== -->
     <section id="userSection" style="display:none;">
-      <h2>Quản Lý Người Dùng</h2>
-      <div id="userForm" style="display:none; margin-top:20px;">
-        <h3 id="userFormTitle">Thêm Người Dùng</h3>
-        <form id="formUser">
-          <input type="hidden" id="userId">
-          <label>Tên người dùng:</label>
-          <input type="text" id="userName" required>
-          <label>Email:</label>
-          <input type="email" id="userEmail" required>
-          <label>Vai trò:</label>
-          <select id="userRole">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-          <div style="margin-top:10px;">
-            <button type="button" onclick="saveUser()">Lưu</button>
-            <button type="button" onclick="cancelUserForm()">Hủy</button>
-          </div>
-        </form>
+      <div class="section-header">
+        <h2><i class="fa-solid fa-users-gear"></i> Quản Lý Người Dùng</h2>
       </div>
+
+      <!-- Bảng người dùng -->
       <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
         <thead style="background:#0951ae;">
           <tr>
@@ -102,10 +118,17 @@
             <th>Tên</th>
             <th>Vai trò</th>
             <th>Email</th>
+            <th>Trạng thái</th>
             <th>Hành động</th>
           </tr>
         </thead>
-        <tbody id="usersTableBody"></tbody>
+        <tbody id="usersTableBody">
+          <tr>
+            <td colspan="6" style="text-align:center; padding:20px;">
+              <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
+            </td>
+          </tr>
+        </tbody>
       </table>
     </section>
   </main>
