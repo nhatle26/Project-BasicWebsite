@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Theo dõi đơn hàng</title>
-  <link rel="stylesheet" href="../style/style.css">
-</head>
-<body>
-  <h1>Theo dõi đơn hàng</h1>
-  <input id="orderId" placeholder="Nhập mã đơn hàng...">
-  <button onclick="trackOrder()">Xem trạng thái</button>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Theo dõi đơn hàng</title>
+    <link rel="stylesheet" href="../style/style.css" />
+  </head>
+  <body>
+    <div class="tracking-order">
+      <h1>Theo dõi đơn hàng</h1>
+      <input id="orderId" placeholder="Nhập mã đơn hàng..." />
+      <button onclick="trackOrder()">Xem trạng thái</button>
 
-  <div id="result"></div>
+      <div id="result"></div>
+    </div>
 
-  <script src="../js/tracking.js"></script>
-</body>
+    <script src="../js/tracking.js"></script>
+  </body>
 </html>

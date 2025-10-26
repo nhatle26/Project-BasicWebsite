@@ -502,6 +502,31 @@
     }
   ],
   "orders": [
-    
+    {
+      "id": "1761495817090",
+      "customer": {
+        "fullname": "NGO MINH TU",
+        "email": "tu.ngo27@student.passerellesnumeriques.org",
+        "phone": "0777971340",
+        "address": "asdfdsf",
+        "note": ""
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Dreamy Love",
+          "price": 200000,
+          "image": "../assets/images/dreamy-love.png.webp",
+          "quantity": 5
+        }
+      ],
+      "subtotal": 1000000,
+      "shippingFee": 30000,
+      "total": 1030000,
+      "paymentMethod": "cod",
+      "paymentInfo": {},
+      "date": "23:23:37 26/10/2025",
+      "status": "Đang chờ xác nhận"
+    }
   ]
 }
