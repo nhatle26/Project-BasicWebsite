@@ -70,6 +70,15 @@
           <label>Số lượng trong kho:</label>
           <input type="number" id="productStock" placeholder="Nhập số lượng" min="0" value="0">
           
+          <label>Sự kiện: *</label>
+          <select id="productEvent">
+            <option value="Valentine">Valentine</option>
+            <option value="Sinh Nhật">Sinh Nhật</option>
+            <option value="Tiệc Cưới">Tiệc Cưới</option>
+            <option value="Chúc Mừng">Chúc Mừng</option>
+            <option value="Tốt Nghiệp">Tốt Nghiệp</option>
+          </select>
+
           <div style="margin-top:10px;">
             <button type="button" onclick="saveProduct()" class="btn-save">
               <i class="fa-solid fa-floppy-disk"></i> Lưu

@@ -205,7 +205,7 @@ main h3 {
 }
 
 .product-card {
-  background: white;
+  background: rgb(255, 255, 255);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -226,12 +226,14 @@ main h3 {
 
 .product-card .content {
   padding: 15px;
+  text-align: center;
 }
 
 .product-card h3 {
     font-size: 18px;
     margin: 10px 0;
     color: #333;
+    text-align: center;
 }
 
 .product-card h4 {
@@ -255,6 +257,7 @@ main h3 {
   color: #ff6b9d;
   font-weight: bold;
   margin: 10px 0;
+  text-align: center;
 }
 
 .product-card .stock {

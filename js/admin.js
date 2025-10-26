@@ -143,6 +143,7 @@ async function editProduct(id) {
     document.getElementById('productDescription').value = product.description || '';
     document.getElementById('productImage').value = product.image || '';
     document.getElementById('productStock').value = product.stock || '';
+    document.getElementById('productEvent').value = product.event || '';
   } catch (err) {
     console.error('Lỗi khi sửa sản phẩm:', err);
     alert('Không thể tải thông tin sản phẩm!');
@@ -163,7 +164,7 @@ async function deleteProduct(id) {
   }
 }
 
-// 🔍 TÌM KIẾM SẢN PHẨM
+// TÌM KIẾM SẢN PHẨM
 function searchProducts() {
   const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
   

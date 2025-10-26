@@ -1,12 +1,12 @@
 {
   "products": [
     {
-      "name": "Hoa Hồng Đỏ",
+      "name": "Baby Boo",
       "price": 120000,
       "category": "Hoa Hồng",
-      "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn",
-      "image": "../assets/images/rose-red.jpg",
-      "stock": 49,
+      "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn.",
+      "image": "../assets/images/babyboo.jpg.webp",
+      "stock": 50,
       "id": "1",
       "event": [
         "valentine"
@@ -14,119 +14,120 @@
     },
     {
       "id": "2",
-      "name": "Hoa Hồng Trắng",
+      "name": "Cuteness",
       "price": 140000,
       "category": "Hoa Hồng",
       "description": "Bó hoa hồng trắng tinh khôi, thanh lịch và sang trọng",
-      "image": "../assets/images/rose-white.jpg",
+      "image": "../assets/images/Cuteness.jpg.webp",
       "stock": 45,
       "event": [
-        "tiec-cuoi"
+        "valentine"
       ]
     },
     {
       "id": "3",
-      "name": "Hoa Tulip Vàng",
+      "name": "Dreamy Love",
       "price": 200000,
       "category": "Hoa Tulip",
       "description": "Bó tulip vàng rực rỡ, mang đến niềm vui và sự ấm áp",
-      "image": "../assets/images/tulip-yellow.jpg",
+      "image": "../assets/images/dreamy-love.png.webp",
       "stock": 30,
       "event": [
-        "sinh-nhat"
+        "valentine"
       ]
     },
     {
       "id": "4",
-      "name": "Hoa Ly Trắng",
+      "name": "Hồng Ngọt Ngào",
       "price": 180000,
       "category": "Hoa Ly",
       "description": "Hoa ly trắng thanh khiết, thích hợp cho mọi dịp lễ",
-      "image": "../assets/images/lily-white.jpg",
+      "image": "https://flowercorner.b-cdn.net/image/cache/catalog/products/Winter_2024/say-anh-mat.jpg.webp",
       "stock": 35,
       "event": [
-        "tot-nghiep"
+        "valentine"
       ]
+
     },
     {
       "id": "5",
-      "name": "Hoa Cẩm Chướng",
+      "name": "Ngày Rực Rỡ",
       "price": 120000,
       "category": "Hoa Cẩm Chướng",
       "description": "Bó cẩm chướng đa sắc, tươi vui và đầy màu sắc",
-      "image": "../assets/images/carnation.jpg",
+      "image": "../assets/images/Ngay-Ruc-Ro.jpg.webp",
       "stock": 60,
       "event": [
-        "sinh-nhat"
+        "valentine"
       ]
     },
     {
       "id": "6",
-      "name": "Hoa Lan Hồ Điệp",
+      "name": "Sắc Hồng Dịu Dàng",
       "price": 350000,
       "category": "Hoa Lan",
       "description": "Chậu lan hồ điệp cao cấp, sang trọng và lâu tàn",
-      "image": "../assets/images/orchid.jpg",
+      "image": "../assets/images/sac-hong-diu-dang.jpg.webp",
       "stock": 20,
       "event": [
-        "chuc-mung"
+        "valentine"
       ]
     },
     {
       "id": "7",
-      "name": "Hoa Hướng Dương",
+      "name": "Ti Amo",
       "price": 160000,
       "category": "Hoa Hướng Dương",
       "description": "Bó hướng dương tươi sáng, mang đến năng lượng tích cực",
-      "image": "../assets/images/sunflower.jpg",
+      "image": "../assets/images/ti-amo.jpg.webp",
       "stock": 40,
+      "event": [
+        "valentine"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Enigma Roses",
+      "price": 90000,
+      "category": "Hoa Hồng",
+      "description": "",
+      "image": "../assets/images/enigma-roses.png.webp",
+      "stock": 70,
+      "event": [
+        "valentine"
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Ánh Hồng",
+      "price": 150000,
+      "category": "Hoa Hồng",
+      "description": "Bó hoa hồng tím lãng mạn, thể hiện tình yêu thủy chung và sâu sắc",
+      "image": "../assets/images/sn-anh-hong.jpg",
+      "stock": 50,
       "event": [
         "sinh-nhat"
       ]
     },
     {
-      "id": "8",
-      "name": "Hoa Baby Mix",
-      "price": 90000,
-      "category": "Hoa Hồng",
-      "description": "",
-      "image": "../assets/images/baby.jpeg",
-      "stock": 70,
-      "event": [
-        "chuc-mung"
-      ]
-    },
-    {
-      "id": "9",
-      "name": "Hoa Hồng Tím",
-      "price": 150000,
-      "category": "Hoa Hồng",
-      "description": "Bó hoa hồng tím lãng mạn, thể hiện tình yêu thủy chung và sâu sắc",
-      "image": "../assets/images/rose-purple.jpg",
-      "stock": 50,
-      "event": [
-        "valentine"
-      ]
-    },
-    {
       "id": "10",
-      "name": "Hoa Baby Trắng",
+      "name": "Be Love",
       "price": 110000,
       "category": "Hoa Baby",
       "description": "Bó baby trắng tinh khôi, nhẹ nhàng và dễ thương cho ngày Valentine",
-      "image": "../assets/images/baby-white.jpg",
+      "image": "../assets/images/sn-be-love.jpg",
       "stock": 65,
       "event": [
-        "valentine"
+        "sinh-nhat"
       ]
     },
     {
       "id": "11",
-      "name": "Hoa Hồng Vàng",
+      "name": "Bó Hoa Sunny",
       "price": 130000,
       "category": "Hoa Hồng",
       "description": "Hoa hồng vàng tươi sáng, gửi lời chúc mừng sinh nhật ấm áp",
-      "image": "../assets/images/rose-yellow.jpg",
+      "image": "../assets/images/sn-bo-hoa-sunny.jpg",
       "stock": 55,
       "event": [
         "sinh-nhat"
@@ -134,11 +135,11 @@
     },
     {
       "id": "12",
-      "name": "Hoa Cúc Họa Mi",
+      "name": "Hoa Đồng Tiền",
       "price": 100000,
       "category": "Hoa Cúc",
       "description": "Bó hoa cúc họa mi dịu dàng, mang đến niềm vui trong ngày sinh nhật",
-      "image": "../assets/images/daisy.jpg",
+      "image": "../assets/images/sn-hoa-dong-tien.jpg",
       "stock": 70,
       "event": [
         "sinh-nhat"
@@ -146,50 +147,50 @@
     },
     {
       "id": "13",
-      "name": "Hoa Calla Trắng",
+      "name": "Hoa Hướng Dương",
       "price": 250000,
       "category": "Hoa Calla",
       "description": "Bó hoa calla trắng thanh lịch, biểu tượng của sự tinh khiết trong lễ cưới",
-      "image": "../assets/images/calla-white.jpg",
+      "image": "../assets/images/sn-huong-duong.jpg",
       "stock": 25,
       "event": [
-        "tiec-cuoi"
+        "sinh-nhat"
       ]
     },
     {
       "id": "14",
-      "name": "Hoa Cẩm Tú Cầu",
+      "name": "Say Ánh Mắt",
       "price": 220000,
       "category": "Hoa Cẩm Tú Cầu",
       "description": "Bó hoa cẩm tú cầu nhẹ nhàng, tượng trưng cho tình yêu chân thành và bền vững",
-      "image": "../assets/images/hydrangea.jpg",
+      "image": "../assets/images/sn-say-anh-mat.jpg",
       "stock": 30,
       "event": [
-        "tiec-cuoi"
+        "sinh-nhat"
       ]
     },
     {
       "id": "15",
-      "name": "Hoa Lan Trắng",
+      "name": "Thạch Thảo Tím",
       "price": 320000,
       "category": "Hoa Lan",
       "description": "Chậu lan trắng sang trọng, thích hợp làm quà chúc mừng đối tác hoặc khai trương",
-      "image": "../assets/images/orchid-white.jpg",
+      "image": "../assets/images/sn-thach-thao-tim.jpg",
       "stock": 18,
       "event": [
-        "chuc-mung"
+        "sinh-nhat"
       ]
     },
     {
       "id": "16",
-      "name": "Hoa Đồng Tiền",
+      "name": "Thạch Thảo Trắng",
       "price": 140000,
       "category": "Hoa Đồng Tiền",
       "description": "Bó hoa đồng tiền rực rỡ, mang đến niềm vui và may mắn trong ngày chúc mừng",
-      "image": "../assets/images/gerbera.jpg",
+      "image": "../assets/images/sn-thach-thao-trang.jpg",
       "stock": 45,
       "event": [
-        "chuc-mung"
+        "sinh-nhat"
       ]
     },
     {
@@ -201,7 +202,7 @@
       "image": "../assets/images/chrysanthemum-yellow.jpg",
       "stock": 40,
       "event": [
-        "tot-nghiep"
+        "tiec-cuoi"
       ]
     },
     {
@@ -213,7 +214,7 @@
       "image": "../assets/images/tulip-pink.jpg",
       "stock": 35,
       "event": [
-        "tot-nghiep"
+        "tiec-cuoi"
       ]
     },
     {
@@ -225,19 +226,259 @@
       "image": "../assets/images/rose-orange.jpg",
       "stock": 50,
       "event": [
-        "chuc-mung"
+        "tiec-cuoi"
       ]
     },
     {
       "id": "20",
+      "name": "Hoa Hồng Xanh",
+      "price": 160000,
+      "category": "Hoa Hồng",
+      "description": "Bó hoa hồng xanh độc đáo, biểu tượng của hy vọng và khát vọng vươn xa.",
+      "image": "../assets/images/rose-blue.jpg",
+      "stock": 45,
+      "event": [
+        "tiec-cuoi"
+      ]
+    },
+    {
+      "id": "21",
+      "name": "Hoa Tulip Đỏ",
+      "price": 210000,
+      "category": "Hoa Tulip",
+      "description": "Bó tulip đỏ nồng nàn, thể hiện tình yêu sâu sắc và chân thành.",
+      "image": "../assets/images/tulip-red.jpg",
+      "stock": 40,
+      "event": [
+        "tiec-cuoi"
+      ]
+    },
+    {
+      "id": "22",
       "name": "Hoa Baby Hồng",
       "price": 95000,
       "category": "Hoa Baby",
-      "description": "Bó hoa baby hồng nhỏ xinh, phù hợp để tặng người yêu trong dịp Valentine",
+      "description": "Bó baby hồng nhẹ nhàng, tượng trưng cho tình yêu ngọt ngào và dễ thương.",
       "image": "../assets/images/baby-pink.jpg",
       "stock": 60,
       "event": [
-        "valentine"
+        "tiec-cuoi"
+      ]
+    },
+    {
+      "id": "23",
+      "name": "Hoa Ly Hồng",
+      "price": 190000,
+      "category": "Hoa Ly",
+      "description": "Hoa ly hồng sang trọng, thể hiện sự biết ơn và tôn trọng.",
+      "image": "../assets/images/lily-pink.jpg",
+      "stock": 30,
+      "event": [
+        "tiec-cuoi"
+      ]
+    },
+    {
+      "id": "24",
+      "name": "Hoa Cúc Trắng",
+      "price": 120000,
+      "category": "Hoa Cúc",
+      "description": "Hoa cúc trắng tinh khôi, tượng trưng cho lòng chân thành và bình an.",
+      "image": "../assets/images/chrysanthemum-white.jpg",
+      "stock": 55,
+      "event": [
+        "tiec-cuoi"
+      ]
+    },
+    {
+      "id": "25",
+      "name": "Hoa Tulip Tím",
+      "price": 230000,
+      "category": "Hoa Tulip",
+      "description": "Tulip tím sang trọng, biểu tượng của sự quý phái và lòng trung thành.",
+      "image": "../assets/images/tulip-purple.jpg",
+      "stock": 25,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "26",
+      "name": "Hoa Cúc Hồng",
+      "price": 130000,
+      "category": "Hoa Cúc",
+      "description": "Bó hoa cúc hồng rực rỡ, gửi gắm lời chúc hạnh phúc và yêu thương.",
+      "image": "../assets/images/chrysanthemum-pink.jpg",
+      "stock": 50,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "27",
+      "name": "Hoa Hồng Nhung",
+      "price": 180000,
+      "category": "Hoa Hồng",
+      "description": "Bó hoa hồng nhung sang trọng, món quà hoàn hảo cho người bạn yêu.",
+      "image": "../assets/images/rose-velvet.jpg",
+      "stock": 35,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "28",
+      "name": "Hoa Lan Tím",
+      "price": 340000,
+      "category": "Hoa Lan",
+      "description": "Chậu lan tím quyến rũ, biểu tượng của sự tôn trọng và thịnh vượng.",
+      "image": "../assets/images/orchid-purple.jpg",
+      "stock": 20,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "29",
+      "name": "Hoa Hướng Dương Mini",
+      "price": 130000,
+      "category": "Hoa Hướng Dương",
+      "description": "Bó hướng dương mini đáng yêu, mang đến năng lượng tích cực mỗi ngày.",
+      "image": "../assets/images/sunflower-mini.jpg",
+      "stock": 60,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "30",
+      "name": "Hoa Cẩm Chướng Hồng",
+      "price": 125000,
+      "category": "Hoa Cẩm Chướng",
+      "description": "Cẩm chướng hồng nhẹ nhàng, món quà ý nghĩa cho mẹ hoặc bạn bè.",
+      "image": "../assets/images/carnation-pink.jpg",
+      "stock": 55,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "31",
+      "name": "Hoa Hồng Mix",
+      "price": 170000,
+      "category": "Hoa Hồng",
+      "description": "Bó hoa hồng phối nhiều màu, tượng trưng cho sự đa sắc và niềm vui.",
+      "image": "../assets/images/rose-mix.jpg",
+      "stock": 45,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "32",
+      "name": "Hoa Lan Vàng",
+      "price": 330000,
+      "category": "Hoa Lan",
+      "description": "Chậu lan vàng sang trọng, mang lại may mắn và tài lộc trong dịp khai trương.",
+      "image": "../assets/images/orchid-yellow.jpg",
+      "stock": 22,
+      "event": [
+        "chuc-mung"
+      ]
+    },
+    {
+      "id": "33",
+      "name": "Hoa Cúc Đà Lạt",
+      "price": 110000,
+      "category": "Hoa Cúc",
+      "description": "Hoa cúc Đà Lạt tươi lâu, gợi cảm giác bình yên và thư thái.",
+      "image": "../assets/images/dalat-daisy.jpg",
+      "stock": 70,
+      "event": [
+        "tot-nghiep"
+      ]
+    },
+    {
+      "id": "34",
+      "name": "Hoa Baby Vàng",
+      "price": 90000,
+      "category": "Hoa Baby",
+      "description": "Bó baby vàng nhẹ nhàng, điểm xuyết cho những bó hoa thêm nổi bật.",
+      "image": "../assets/images/baby-yellow.jpg",
+      "stock": 80,
+      "event": [
+        "tot-nghiep"
+      ]
+    },
+    {
+      "id": "35",
+      "name": "Hoa Tulip Trắng",
+      "price": 200000,
+      "category": "Hoa Tulip",
+      "description": "Bó tulip trắng tinh khiết, thích hợp trong các buổi lễ trang trọng.",
+      "image": "../assets/images/tulip-white.jpg",
+      "stock": 28,
+      "event": [
+        "tot-nghiep"
+      ]
+    },
+    {
+      "id": "36",
+      "name": "Hoa Cẩm Tú Cầu Xanh",
+      "price": 240000,
+      "category": "Hoa Cẩm Tú Cầu",
+      "description": "Hoa cẩm tú cầu xanh dịu mát, biểu tượng của lòng biết ơn và cảm xúc chân thành.",
+      "image": "../assets/images/hydrangea-blue.jpg",
+      "stock": 30,
+      "event": [
+        "tot-nghiep"
+      ]
+    },
+    {
+      "id": "37",
+      "name": "Hoa Hồng Trà",
+      "price": 150000,
+      "category": "Hoa Hồng",
+      "description": "Hoa hồng trà thanh nhã, thể hiện sự nhẹ nhàng và tinh tế.",
+      "image": "../assets/images/rose-tea.jpg",
+      "stock": 40,
+      "event": [
+        "tot-nghiep"
+      ]
+    },
+    {
+      "id": "38",
+      "name": "Hoa Ly Vàng",
+      "price": 200000,
+      "category": "Hoa Ly",
+      "description": "Hoa ly vàng kiêu sa, mang lại cảm giác vui tươi và ấm áp.",
+      "image": "../assets/images/lily-yellow.jpg",
+      "stock": 30,
+      "event": [
+        "tot-nghiep"
+      ]
+    },
+    {
+      "id": "39",
+      "name": "Hoa Hướng Dương Lớn",
+      "price": 180000,
+      "category": "Hoa Hướng Dương",
+      "description": "Bó hướng dương lớn rực rỡ, gửi gắm thông điệp về sức mạnh và niềm tin.",
+      "image": "../assets/images/sunflower-large.jpg",
+      "stock": 35,
+      "event": [
+        "tot-nghiep"
+      ]
+    },
+    {
+      "id": "40",
+      "name": "Hoa Cẩm Chướng Đỏ",
+      "price": 130000,
+      "category": "Hoa Cẩm Chướng",
+      "description": "Hoa cẩm chướng đỏ tươi, biểu tượng cho tình yêu và lòng kính trọng.",
+      "image": "../assets/images/carnation-red.jpg",
+      "stock": 50,
+      "event": [
+        "tot-nghiep"
       ]
     }
   ],
@@ -268,24 +509,6 @@
       "phone": "0374567890",
       "role": "user",
       "isLocked": false
-    },
-    {
-      "id": "5",
-      "fullname": "Hoàng Tiến Đạt",
-      "email": "hdat45399@gmail.com",
-      "password": "dat2006@",
-      "phone": "0826263816",
-      "role": "user",
-      "isLocked": false
-    },
-    {
-      "id": "6",
-      "fullname": "Hoàng Tiến Đạt",
-      "email": "dat@gmail.com",
-      "password": "123456",
-      "phone": "08262638564",
-      "role": "user",
-      "isLocked": true
     }
   ]
 }
