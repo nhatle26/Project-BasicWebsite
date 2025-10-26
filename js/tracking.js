@@ -9,6 +9,6 @@ async function trackOrder() {
   document.getElementById('result').innerHTML = `
     <p><strong>Mã đơn:</strong> ${order.id}</p>
     <p><strong>Trạng thái:</strong> ${order.status}</p>
-    <p><strong>Ngày tạo:</strong> ${order.createdAt}</p>
+    <p><strong>Ngày tạo:</strong> ${order.date}</p>
   `;
 }
