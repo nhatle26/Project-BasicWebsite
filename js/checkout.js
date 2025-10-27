@@ -4,7 +4,11 @@ const SHIPPING_FEE = 30000;
 
 // ------------------- HÀM TIỆN ÍCH -------------------
 function getCart() {
-    const cart = localStorage.getItem('cart');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return [];
+    
+    const cartKey = `cart_${currentUser.id}`;
+    const cart = localStorage.getItem(cartKey);
     return cart ? JSON.parse(cart) : [];
 }
 
@@ -35,13 +39,6 @@ function autofillUserInfo() {
             el.readOnly = true;
             el.style.backgroundColor = '#f0f0f0';
         }
-
-        // if (user.phone) {
-        //     const el = document.getElementById('phone');
-        //     el.value = user.phone;
-        //     el.readOnly = true;
-        //     el.style.backgroundColor = '#f0f0f0';
-        // }
     } else {
         alert('Vui lòng đăng nhập để tiếp tục đặt hàng!');
         window.location.href = 'login.html';
@@ -169,8 +166,10 @@ function saveOrder(order) {
     })
     .then(data => {
         console.log('Đơn hàng đã lưu:', data);
-        localStorage.removeItem('cart'); // Xóa giỏ hàng
-
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser) {
+            localStorage.removeItem(`cart_${currentUser.id}`);
+        }
         alert(`Đặt hàng thành công!\n\nTổng cộng: ${formatCurrency(order.total)}\nĐơn hàng của bạn đang chờ xác nhận.`);
         window.location.href = 'home.html';
     })

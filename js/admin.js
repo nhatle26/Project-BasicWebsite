@@ -2,10 +2,8 @@ const API_URL = 'http://localhost:3000/products';
 const USER_API = 'http://localhost:3000/users';
 let currentEditId = null;
 let currentUserId = null;
-let allProducts = []; // Lưu toàn bộ sản phẩm để tìm kiếm
-let allUsers = []; // Lưu toàn bộ user để tìm kiếm
-
-// ==================== QUẢN LÝ SẢN PHẨM ====================
+let allProducts = [];
+let allUsers = [];
 
 // Hiển thị form thêm sản phẩm
 function showAddProductForm() {
@@ -27,7 +25,7 @@ async function loadProducts() {
   try {
     const res = await fetch(API_URL);
     const products = await res.json();
-    allProducts = products; // Lưu để tìm kiếm
+    allProducts = products;
     renderProducts(products, tbody);
   } catch (err) {
     console.error('Lỗi tải sản phẩm:', err);
@@ -52,6 +50,7 @@ function renderProducts(products, tbody) {
       <td>${formatCurrency(p.price)}</td>
       <td>${p.category}</td>
       <td>${p.stock}</td>
+      <td>${Array.isArray(p.event) ? p.event.join(', ') : p.event || 'N/A'}</td>
       <td>
         <button onclick="editProduct(${p.id})" class="btn-edit">Sửa</button>
         <button onclick="deleteProduct(${p.id})" class="btn-delete">Xóa</button>
@@ -70,6 +69,7 @@ function getFormData() {
     description: document.getElementById('productDescription').value.trim(),
     image: document.getElementById('productImage').value.trim(),
     stock: Number(document.getElementById('productStock').value),
+    event: [document.getElementById('productEvent').value]
   };
 }
 
@@ -143,7 +143,9 @@ async function editProduct(id) {
     document.getElementById('productDescription').value = product.description || '';
     document.getElementById('productImage').value = product.image || '';
     document.getElementById('productStock').value = product.stock || '';
-    document.getElementById('productEvent').value = product.event || '';
+    document.getElementById('productEvent').value = Array.isArray(product.event) 
+      ? product.event[0] 
+      : (product.event || '');
   } catch (err) {
     console.error('Lỗi khi sửa sản phẩm:', err);
     alert('Không thể tải thông tin sản phẩm!');
@@ -164,39 +166,6 @@ async function deleteProduct(id) {
   }
 }
 
-// TÌM KIẾM SẢN PHẨM
-function searchProducts() {
-  const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
-  
-  if (!searchInput) {
-    // Nếu không có từ khóa → hiển thị tất cả
-    renderProducts(allProducts, document.getElementById('productsTableBody'));
-    return;
-  }
-
-  // Tìm kiếm theo tên, danh mục, giá
-  const filteredProducts = allProducts.filter(p => {
-    const name = p.name.toLowerCase();
-    const category = p.category.toLowerCase();
-    const price = p.price.toString();
-    
-    return name.includes(searchInput) || 
-           category.includes(searchInput) || 
-           price.includes(searchInput);
-  });
-
-  renderProducts(filteredProducts, document.getElementById('productsTableBody'));
-  
-  // Thông báo kết quả
-  if (filteredProducts.length === 0) {
-    document.getElementById('productsTableBody').innerHTML = 
-      `<tr><td colspan="7" style="text-align:center; color: #ff6b6b;">
-        Không tìm thấy sản phẩm nào với từ khóa: "<strong>${searchInput}</strong>"
-      </td></tr>`;
-  }
-}
-
-// ==================== QUẢN LÝ NGƯỜI DÙNG ====================
 // Hàm tải danh sách người dùng
 async function loadUsers() {
   try {
@@ -335,39 +304,6 @@ async function editUser(id) {
   }
 }
 
-// 🔍 TÌM KIẾM NGƯỜI DÙNG
-function searchUsers() {
-  const searchInput = document.getElementById('searchUserInput').value.trim().toLowerCase();
-  
-  if (!searchInput) {
-    // Nếu không có từ khóa → hiển thị tất cả
-    renderUsers(allUsers);
-    return;
-  }
-
-  // Tìm kiếm theo tên, email, role
-  const filteredUsers = allUsers.filter(u => {
-    const fullname = u.fullname.toLowerCase();
-    const email = u.email.toLowerCase();
-    const role = u.role.toLowerCase();
-    
-    return fullname.includes(searchInput) || 
-           email.includes(searchInput) || 
-           role.includes(searchInput);
-  });
-
-  renderUsers(filteredUsers);
-  
-  // Thông báo kết quả
-  if (filteredUsers.length === 0) {
-    document.getElementById('usersTableBody').innerHTML = 
-      `<tr><td colspan="6" style="text-align:center; color: #ff6b6b;">
-        Không tìm thấy người dùng nào với từ khóa: "<strong>${searchInput}</strong>"
-      </td></tr>`;
-  }
-}
-
-// ==================== CHỨC NĂNG CHUNG ====================
 // Format tiền
 function formatCurrency(amount) {
   return Number(amount).toLocaleString('vi-VN', {

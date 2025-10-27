@@ -22,13 +22,20 @@ function formatCurrency(amount) {
 
 // Get Cart from localStorage
 function getCart() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    return cart;
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return [];
+    
+    const cartKey = `cart_${currentUser.id}`;
+    return JSON.parse(localStorage.getItem(cartKey)) || [];
 }
 
 // Save Cart to localStorage
 function saveCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return;
+
+    const cartKey = `cart_${currentUser.id}`;
+    localStorage.setItem(cartKey, JSON.stringify(cart));
     updateCartBadge();
 }
 

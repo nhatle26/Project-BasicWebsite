@@ -6,7 +6,10 @@
       "category": "Hoa Hồng",
       "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn.",
       "image": "../assets/images/babyboo.jpg.webp",
-      "stock": 49,
+      "stock": 50,
+      "event": [
+        "valentine"
+      ],
       "id": "1"
     },
     {
@@ -188,15 +191,6 @@
       "event": [
         "sinh-nhat"
       ]
-    },
-    {
-      "id": 17,
-      "name": "Hoa Hồng",
-      "price": 120000,
-      "category": "Hoa Hồng",
-      "description": "Những bông hồng đẹp dành tặng cho người mình yêu thương",
-      "image": "../assets/images/babyboo.jpg.webp",
-      "stock": 10
     }
   ],
   "users": [

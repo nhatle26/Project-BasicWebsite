@@ -9,14 +9,21 @@ const SHIPPING_FEE = 50000; // Phí vận chuyển cố định 50,000đ
 
 // Hàm lấy giỏ hàng từ LocalStorage
 function getCart() {
-    const cart = localStorage.getItem('cart');
-
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return [];
+    
+    const cartKey = `cart_${currentUser.id}`;
+    const cart = localStorage.getItem(cartKey);
     return cart ? JSON.parse(cart) : [];
 }
 
 // Hàm lưu giỏ hàng vào LocalStorage
 function saveCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return;
+
+    const cartKey = `cart_${currentUser.id}`;
+    localStorage.setItem(cartKey, JSON.stringify(cart));
 }
 
 // Hàm định dạng tiền tệ

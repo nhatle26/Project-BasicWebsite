@@ -19,12 +19,13 @@ function requireLogin() {
 // Tải sản phẩm từ file db.json
 async function loadProducts() {
     try {
-        const response = await fetch('../data/db.json');
+        //Gọi API JSON Server thay vì file tĩnh
+        const response = await fetch('http://localhost:3000/products');
         if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: Không thể tải db.json`);
+            throw new Error(`HTTP ${response.status}: Không thể tải products từ API`);
         }
-        const data = await response.json();
-        allProducts = data.products || [];
+        //JSON Server trả về trực tiếp mảng, không cần .products
+        allProducts = await response.json();
         filteredProducts = [...allProducts];
         console.log('✅ Load thành công:', allProducts.length, 'sản phẩm');
         
@@ -123,6 +124,7 @@ function addToCart(productId) {
             name: product.name,
             price: product.price,
             image: product.image,
+            stock: product.stock,
             quantity: 1
         });
     }
@@ -312,11 +314,19 @@ function showRegisterFirst() {
 }
 
 function getCart() {
-    return JSON.parse(localStorage.getItem('cart')) || [];
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return [];
+    
+    const cartKey = `cart_${currentUser.id}`;
+    return JSON.parse(localStorage.getItem(cartKey)) || [];
 }
 
 function saveCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return;
+
+    const cartKey = `cart_${currentUser.id}`;
+    localStorage.setItem(cartKey, JSON.stringify(cart));
     updateCartCountDisplay();
 }
 
