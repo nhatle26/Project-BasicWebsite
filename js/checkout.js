@@ -36,12 +36,12 @@ function autofillUserInfo() {
             el.style.backgroundColor = '#f0f0f0';
         }
 
-        if (user.phone) {
-            const el = document.getElementById('phone');
-            el.value = user.phone;
-            el.readOnly = true;
-            el.style.backgroundColor = '#f0f0f0';
-        }
+        // if (user.phone) {
+        //     const el = document.getElementById('phone');
+        //     el.value = user.phone;
+        //     el.readOnly = true;
+        //     el.style.backgroundColor = '#f0f0f0';
+        // }
     } else {
         alert('Vui lòng đăng nhập để tiếp tục đặt hàng!');
         window.location.href = 'login.html';
@@ -77,8 +77,8 @@ function renderOrderSummary() {
                 <div class="order-item-info">
                     <p class="order-item-name">${item.name}</p>
                     <p class="order-item-quantity">x${item.quantity}</p>
-                </div>
                 <p>${formatCurrency(totalItem)}</p>
+                </div>
             </div>
         `;
     }).join('');

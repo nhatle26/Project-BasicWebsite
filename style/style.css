@@ -32,7 +32,7 @@ header h1 {
   font-size: 28px;
   font-weight: bold;
   color: white;
-  margin: 0;
+  margin: 10px 30px;
   flex-shrink: 0;
 }
 
@@ -611,11 +611,19 @@ table img {
   color: #222;
   margin-bottom: 10px;
 }
-
+.order-item{
+  display: flex;
+  flex-direction: row;  
+  gap: 10px;
+  padding: 10px;
+}
 .action-buttons {
   margin-top: 20px;
 }
-
+img.order-item-img {
+  width: 80px;
+  height: 80px;
+}
 .add-cart-btn {
   background: linear-gradient(135deg, #18801f, #51d2f2);
   color: #fff;
