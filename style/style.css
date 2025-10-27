@@ -32,7 +32,7 @@ header h1 {
     font-size: 28px;
     font-weight: bold;
     color: white;
-    margin: 0;
+    margin: 10px 20px;
     flex-shrink: 0;
 }
 
