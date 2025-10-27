@@ -10,6 +10,13 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
     ></script>
+    <script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "k6z0oRgF_uwPnPWkA",
+      });
+   })();
+</script>
 </head>
 <body>
   <!-- Header -->
@@ -23,9 +30,9 @@
   <main>
     <div class="container">
       <!-- Form đăng nhập -->
-      <div id="loginForm">
+      <div class="loginForm" id="loginForm">
         <h2>Đăng Nhập</h2>
-        <form onsubmit="event.preventDefault(); login();">
+        <form>
           <label for="email">Email: *</label>
           <input type="email" id="email" placeholder="Nhập email" required>
           
@@ -35,10 +42,10 @@
             <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
           </div>
           
-          <button type="submit">Đăng nhập</button>
+          <button type="button" onclick= "login()">Đăng nhập</button>
         </form>
         <p>Chưa có tài khoản?
-          <a href="#" onclick="showRegister()">Đăng ký ngay</a>
+          <a href="#" id="showRegister">Đăng ký ngay</a>
         </p>
         <div class="demo">
           <p><strong>Tài khoản demo:</strong></p>
@@ -48,12 +55,12 @@
       </div>
       
       <!-- Form đăng ký -->
-      <div id="registerForm" style="display: none;">
+      <div class="registerForm hidden" id="registerForm">
         <h2>Đăng Ký Tài Khoản</h2>
         <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
           <i class="fas fa-info-circle"></i> Vui lòng điền đầy đủ tất cả thông tin bên dưới
         </p>
-        <form onsubmit="event.preventDefault(); register();">
+        <form>
           <label for="fullname">Họ và tên: *</label>
           <input type="text" id="fullname" placeholder="Nhập họ và tên đầy đủ" required minlength="3">
           <label for="email">Email: *</label>
@@ -71,10 +78,10 @@
             >
             <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
           </div>
-          <button type="submit">Đăng ký</button>
+          <button type="button" onclick="register()">Đăng ký</button>
         </form>
         <p>Đã có tài khoản?
-          <a href="#" onclick="showLogin()">Đăng nhập</a>
+          <a href="#" id="showLogin">Đăng nhập</a>
         </p>
       </div> 
     </div>
