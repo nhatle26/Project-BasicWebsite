@@ -211,43 +211,7 @@
       "phone": "0987654321",
       "role": "user",
       "isLocked": false
-    },
-    {
-      "id": "3",
-      "fullname": "NGO MINH TU",
-      "email": "tu.ngo27@student.passerellesnumeriques.org",
-      "password": "minhtu",
-      "phone": "0777971340",
-      "role": "user",
-      "isLocked": false
     }
   ],
-  "orders": [
-    {
-      "id": "1761545602858",
-      "customer": {
-        "fullname": "NGO MINH TU",
-        "email": "tu.ngo27@student.passerellesnumeriques.org",
-        "phone": "0777971340",
-        "address": "quan nam 1, phường liên chiểu",
-        "note": "chú ý giao hàng không làm hỏng hoa"
-      },
-      "items": [
-        {
-          "id": "6",
-          "name": "Sắc Hồng Dịu Dàng",
-          "price": 350000,
-          "image": "../assets/images/sac-hong-diu-dang.jpg.webp",
-          "quantity": 4
-        }
-      ],
-      "subtotal": 1400000,
-      "shippingFee": 30000,
-      "total": 1430000,
-      "paymentMethod": "cod",
-      "paymentInfo": {},
-      "date": "13:13:22 27/10/2025",
-      "status": "Đang chờ xác nhận"
-    }
-  ]
+  "orders": []
 }
