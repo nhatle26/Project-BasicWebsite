@@ -17,12 +17,6 @@ showLogin.addEventListener("click", (e) => {
   loginForm.classList.remove("hidden");
 });
 
-const style = document.createElement("style");
-style.textContent = `
-@keyframes fadeIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes fadeOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(40px); } }
-`;
-document.head.appendChild(style);
 
 // Hàm kiểm tra định dạng email
 function validateEmail(email) {
@@ -197,9 +191,9 @@ async function register() {
     if (addRes.ok) {
       emailjs
         .send("service_6uulo8x", "template_2zz5xx9", {
-          email: newUser.email,
-          name: newUser.fullname,
-          password: newUser.password,
+          email : newUser.email,
+        name : newUser.fullname,
+        password : newUser.password
         })
         .then((response) => {
           console.log("Email sent!", response.status, response.text);
