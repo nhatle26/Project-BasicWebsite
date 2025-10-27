@@ -77,8 +77,8 @@ function renderOrderSummary() {
                 <div class="order-item-info">
                     <p class="order-item-name">${item.name}</p>
                     <p class="order-item-quantity">x${item.quantity}</p>
-                </div>
                 <p>${formatCurrency(totalItem)}</p>
+                </div>
             </div>
         `;
     }).join('');
