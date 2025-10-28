@@ -222,5 +222,60 @@
       "isLocked": false
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": "1761617227029",
+      "customer": {
+        "fullname": "Nguyễn Văn A",
+        "email": "user01@gmail.com",
+        "phone": "0777971340",
+        "address": "minh tú home",
+        "note": "gọi đến số của minh tú:"
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Dreamy Love",
+          "price": 200000,
+          "image": "../assets/images/dreamy-love.png.webp",
+          "stock": 30,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 200000,
+      "shippingFee": 30000,
+      "total": 230000,
+      "paymentMethod": "cod",
+      "paymentInfo": {},
+      "date": "09:07:07 28/10/2025",
+      "status": "Đang chờ xác nhận"
+    },
+    {
+      "id": "1761617541916",
+      "customer": {
+        "fullname": "Nguyễn Văn A",
+        "email": "user01@gmail.com",
+        "phone": "0987654321",
+        "address": "tự mò đi lêu lêu",
+        "note": "gọi đến số 113"
+      },
+      "items": [
+        {
+          "id": "1",
+          "name": "Baby Boo",
+          "price": 120000,
+          "image": "../assets/images/babyboo.jpg.webp",
+          "stock": 50,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 120000,
+      "shippingFee": 30000,
+      "total": 150000,
+      "paymentMethod": "cod",
+      "paymentInfo": {},
+      "date": "09:12:21 28/10/2025",
+      "status": "Đang chờ xác nhận"
+    }
+  ]
 }

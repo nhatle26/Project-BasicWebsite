@@ -7,8 +7,10 @@ async function trackOrder() {
   const order = await res.json();
   document.getElementById("result").innerHTML = `
     <p><strong>Mã đơn:</strong> ${order.id}</p>
+    <p><strong>Sản phẩm:</strong> ${order.items.map(item => item.name).join(', ')}</p>
     <p><strong>Tổng tiền:</strong> ${order.total} VND</p>
     <p><strong>Trạng thái:</strong> ${order.status}</p>
+    <p><strong>Địa chỉ: </strong> ${order.customer.address}</p>
     <p><strong>Ngày tạo:</strong> ${order.date}</p>
   `;
 }
@@ -36,7 +38,7 @@ async function displayUserOrders() {
     const orderIds = orders.map((order) => order.id).join("<br>");
 
     document.getElementById("userOrderId").innerHTML = `
-      <strong>Các mã đơn hàng của bạn:</strong> <br>${orderIds}
+      <strong>Các mã đơn hàng của bạn:</strong><br>${orderIds}
     `;
   } catch (error) {
     console.error("Lỗi khi lấy dữ liệu:", error);
