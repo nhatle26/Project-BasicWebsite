@@ -17,8 +17,7 @@ showLogin.addEventListener("click", (e) => {
   loginForm.classList.remove("hidden");
 });
 
-
-// Hàm kiểm tra định dạng email - sử dụng biểu thức chính quy để kiểm tra định dạng email 
+// Hàm kiểm tra định dạng email - sử dụng biểu thức chính quy để kiểm tra định dạng email
 function validateEmail(email) {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email);
@@ -26,7 +25,7 @@ function validateEmail(email) {
 
 // Hàm kiểm tra số điện thoại (10-11 số)
 function validatePhone(phone) {
-  // {10,11} - giới hạn từ 10 đến 11 chữ số chạy từ 0 đến 9 
+  // {10,11} - giới hạn từ 10 đến 11 chữ số chạy từ 0 đến 9
   const phoneRegex = /^[0-9]{10,11}$/;
   return phoneRegex.test(phone);
 }
@@ -191,18 +190,18 @@ async function register() {
       body: JSON.stringify(newUser),
     });
     if (addRes.ok) {
-      emailjs
-        .send("service_6uulo8x", "template_2zz5xx9", {
-          email : newUser.email,
-        name : newUser.fullname,
-        password : newUser.password
-        })
-        .then((response) => {
-          console.log("Email sent!", response.status, response.text);
-        })
-        .catch((error) => {
-          console.error("Email send error:", error);
-        });
+      // emailjs
+      //   .send("service_6uulo8x", "template_2zz5xx9", {
+      //     email: newUser.email,
+      //     name: newUser.fullname,
+      //     password: newUser.password,
+      //   })
+      //   .then((response) => {
+      //     console.log("Email sent!", response.status, response.text);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Email send error:", error);
+      //   });
 
       alert("Đăng ký thành công");
     } else {

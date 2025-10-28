@@ -2,7 +2,7 @@
   "products": [
     {
       "name": "Baby Boo",
-      "price": 120000,
+      "price": 12000000,
       "category": "Hoa Hồng",
       "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn.",
       "image": "../assets/images/babyboo.jpg.webp",
@@ -157,18 +157,6 @@
       ]
     },
     {
-      "id": "14",
-      "name": "Say Ánh Mắt",
-      "price": 220000,
-      "category": "Hoa Cẩm Tú Cầu",
-      "description": "Bó hoa cẩm tú cầu nhẹ nhàng, tượng trưng cho tình yêu chân thành và bền vững",
-      "image": "../assets/images/sn-say-anh-mat.jpg",
-      "stock": 30,
-      "event": [
-        "sinh-nhat"
-      ]
-    },
-    {
       "id": "15",
       "name": "Thạch Thảo Tím",
       "price": 320000,
@@ -203,6 +191,18 @@
       "event": [
         "valentine"
       ]
+    },
+    {
+      "id": 18,
+      "name": "baby shark",
+      "price": 120000,
+      "category": "Hoa Hồng",
+      "description": "hoa hồng không gai",
+      "image": "http://127.0.0.1:5500/html/admin.html",
+      "stock": 45,
+      "event": [
+        "valentine"
+      ]
     }
   ],
   "users": [
@@ -229,6 +229,15 @@
       "fullname": "NGO MINH TU",
       "email": "tu.ngo27@student.passerellesnumeriques.org",
       "password": "minhtu",
+      "phone": "0777971340",
+      "role": "user",
+      "isLocked": false
+    },
+    {
+      "id": "4",
+      "fullname": "naht",
+      "email": "nhat@gmail.com",
+      "password": "111111",
       "phone": "0777971340",
       "role": "user",
       "isLocked": false
@@ -288,6 +297,41 @@
       "paymentInfo": {},
       "date": "09:12:21 28/10/2025",
       "status": "Đang chờ xác nhận"
+    },
+    {
+      "id": "1761622140477",
+      "customer": {
+        "fullname": "naht",
+        "email": "nhat@gmail.com",
+        "phone": "0777971340",
+        "address": "khoong biet",
+        "note": ""
+      },
+      "items": [
+        {
+          "id": "3",
+          "name": "Dreamy Love",
+          "price": 200000,
+          "image": "../assets/images/dreamy-love.png.webp",
+          "stock": 30,
+          "quantity": 3
+        },
+        {
+          "id": "4",
+          "name": "Hồng Ngọt Ngào",
+          "price": 180000,
+          "image": "https://flowercorner.b-cdn.net/image/cache/catalog/products/Winter_2024/say-anh-mat.jpg.webp",
+          "stock": 35,
+          "quantity": 5
+        }
+      ],
+      "subtotal": 1500000,
+      "shippingFee": 30000,
+      "total": 1530000,
+      "paymentMethod": "cod",
+      "paymentInfo": {},
+      "date": "10:29:00 28/10/2025",
+      "status": "Đang giao"
     }
   ]
 }
