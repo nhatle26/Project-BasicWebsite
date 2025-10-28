@@ -21,13 +21,16 @@
   </header>
 
   <main>
-    <!-- Nút chuyển giữa hai phần -->
+    <!-- Nút chuyển giữa các phần -->
     <div class="switch-buttons">
       <button id="btnProduct" class="active" onclick="showSection('product')">
         <i class="fa-solid fa-box"></i> Quản lý sản phẩm
       </button>
       <button id="btnUser" onclick="showSection('user')">
         <i class="fa-solid fa-users"></i> Quản lý người dùng
+      </button>
+      <button id="btnOrder" onclick="showSection('order')">
+        <i class="fa-solid fa-receipt"></i> Quản lý đơn hàng
       </button>
     </div>
 
@@ -69,8 +72,7 @@
           
           <label>Số lượng trong kho:</label>
           <input type="number" id="productStock" placeholder="Nhập số lượng" min="0" value="0">
-          
-          <label>Sự kiện: *</label>
+<label>Sự kiện: *</label>
           <select id="productEvent">
             <option value="valentine">Valentine</option>
             <option value="sinh-nhat">Sinh Nhật</option>
@@ -106,7 +108,7 @@
         </thead>
         <tbody id="productsTableBody">
           <tr>
-            <td colspan="7" style="text-align:center; padding:20px;">
+            <td colspan="8" style="text-align:center; padding:20px;">
               <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
             </td>
           </tr>
@@ -135,6 +137,34 @@
         <tbody id="usersTableBody">
           <tr>
             <td colspan="6" style="text-align:center; padding:20px;">
+              <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ==================== QUẢN LÝ ĐƠN HÀNG ==================== -->
+    <section id="orderSection" style="display:none;">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-file-invoice"></i> Quản Lý Đơn Hàng</h2>
+      </div>
+
+      <table border="1" cellpadding="8" cellspacing="0" style="margin-top:20px; width:100%; border-collapse:collapse;">
+        <thead style="background:#f5a623; color:white;">
+<tr>
+            <th>Mã đơn</th>
+            <th>Tên người dùng</th>
+            <th>Sản phẩm</th>
+            <th>Địa chỉ</th>
+            <th>Tổng tiền (VNĐ)</th>
+            <th>Ghi chú của người dùng</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+          <tr>
+            <td colspan="7" style="text-align:center; padding:20px;">
               <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
             </td>
           </tr>

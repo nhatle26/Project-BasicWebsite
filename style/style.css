@@ -564,7 +564,7 @@ table img {
   width: auto;
 }
 
- .order-item #orderItems{
+.order-item #orderItems {
   display: flex;
   justify-content: space-between;
   padding: 12px 0;
@@ -611,9 +611,9 @@ table img {
   color: #222;
   margin-bottom: 10px;
 }
-.order-item{
+.order-item {
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   gap: 10px;
   padding: 10px;
 }
@@ -668,7 +668,9 @@ img.order-item-img {
   display: flex;
   flex-direction: row;
 }
-
+.hidden {
+  display: none;
+}
 .container {
   max-width: 450px;
   margin: 50px auto;
@@ -1279,7 +1281,7 @@ footer p {
 }
 /* Style cho trang theo dõi đơn hàng */
 .tracking-order {
-  width: 500px ;
+  width: 500px;
   height: fit-content;
   background-color: #ffffff;
   border-radius: 8px;

@@ -188,7 +188,6 @@ function filterProductsByTheme(theme) {
         filteredProducts = filteredProducts.filter(product => 
             product.event && Array.isArray(product.event) && product.event.includes(theme)
         );
-        console.log(`🔍 Lọc theme "${theme}": ${filteredProducts.length} sản phẩm`);
     }
     
     renderProducts(filteredProducts, theme);
