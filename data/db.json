@@ -191,6 +191,18 @@
       "event": [
         "sinh-nhat"
       ]
+    },
+    {
+      "id": 17,
+      "name": "Baby Boo",
+      "price": 1200000,
+      "category": "Hoa Hồng",
+      "description": "hoa hồng màu hường",
+      "image": "http://127.0.0.1:5500/html/admin.html",
+      "stock": 10,
+      "event": [
+        "valentine"
+      ]
     }
   ],
   "users": [

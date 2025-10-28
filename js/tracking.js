@@ -23,28 +23,53 @@ async function displayUserOrders() {
   }
 
   const user = JSON.parse(currentUser);
-  const userEmail = user.email;
+  const userEmail = user.email; // ✅ Lấy email người dùng hiện tại
 
   try {
-    const res = await fetch(
-      `http://localhost:3000/orders?userEmail=${userEmail}`
-    );
+    const res = await fetch(`http://localhost:3000/orders`);
     if (!res.ok) {
       alert("Không thể lấy thông tin đơn hàng.");
       return;
     }
 
-    const orders = await res.json();
-    const orderIds = orders.map((order) => order.id).join("<br>");
+    const allOrders = await res.json();
+    // ✅ Lọc ra các đơn hàng có email trùng khớp
+    const orders = allOrders.filter(
+      (order) => order.customer?.email === userEmail
+    );
+
+    if (!orders.length) {
+      document.getElementById("userOrderId").innerHTML =
+        "<strong>Bạn chưa có đơn hàng nào.</strong>";
+      return;
+    }
+
+    // ✅ Hiển thị danh sách đơn hàng chi tiết
+    const orderListHTML = orders
+      .map(
+        (order) => `
+        <div class="order-card" style="border:1px solid #ccc;padding:10px;margin:8px 0;border-radius:8px;">
+          <p><strong>Mã đơn:</strong> ${order.id}</p>
+          <p><strong>Sản phẩm:</strong> ${order.items.map((i) => i.name).join(", ")}</p>
+          <p><strong>Tổng tiền:</strong> ${order.total.toLocaleString("vi-VN")} ₫</p>
+          <p><strong>Trạng thái:</strong> ${order.status}</p>
+          <p><strong>Địa chỉ:</strong> ${order.customer?.address || "Không có"}</p>
+          <p><strong>Ngày tạo:</strong> ${order.date}</p>
+        </div>
+      `
+      )
+      .join("");
 
     document.getElementById("userOrderId").innerHTML = `
-      <strong>Các mã đơn hàng của bạn:</strong><br>${orderIds}
+      <strong>Các đơn hàng của bạn:</strong><br>${orderListHTML}
     `;
   } catch (error) {
     console.error("Lỗi khi lấy dữ liệu:", error);
     alert("Đã xảy ra lỗi khi lấy dữ liệu.");
   }
 }
+
+document.addEventListener("DOMContentLoaded", displayUserOrders);
 
 // Gọi hàm khi trang được tải
 document.addEventListener("DOMContentLoaded", displayUserOrders);
