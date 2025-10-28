@@ -18,7 +18,7 @@ showLogin.addEventListener("click", (e) => {
 });
 
 
-// Hàm kiểm tra định dạng email
+// Hàm kiểm tra định dạng email - sử dụng biểu thức chính quy để kiểm tra định dạng email 
 function validateEmail(email) {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email);
@@ -26,6 +26,7 @@ function validateEmail(email) {
 
 // Hàm kiểm tra số điện thoại (10-11 số)
 function validatePhone(phone) {
+  // {10,11} - giới hạn từ 10 đến 11 chữ số chạy từ 0 đến 9 
   const phoneRegex = /^[0-9]{10,11}$/;
   return phoneRegex.test(phone);
 }
@@ -47,6 +48,7 @@ function togglePassword(inputId) {
 
 // === ĐĂNG NHẬP ===
 async function login() {
+  // trim là xóa khoảng cách
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
