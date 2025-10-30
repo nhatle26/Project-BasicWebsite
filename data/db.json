@@ -181,7 +181,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Baby Boo",
       "price": 1200000,
       "category": "Hoa Hồng",
@@ -193,7 +193,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "baby shark",
       "price": 120000,
       "category": "Hoa Hồng",
@@ -227,111 +227,12 @@
     {
       "id": "3",
       "fullname": "NGO MINH TU",
-      "email": "tu.ngo27@student.passerellesnumeriques.org",
+      "email": "dat.hoang27@student.passerellesnumeriques.org",
       "password": "minhtu",
-      "phone": "0777971340",
-      "role": "user",
-      "isLocked": false
-    },
-    {
-      "id": "4",
-      "fullname": "naht",
-      "email": "nhat@gmail.com",
-      "password": "111111",
-      "phone": "0777971340",
+      "phone": "07779713340",
       "role": "user",
       "isLocked": false
     }
   ],
-  "orders": [
-    {
-      "id": "1761617227029",
-      "customer": {
-        "fullname": "Nguyễn Văn A",
-        "email": "user01@gmail.com",
-        "phone": "0777971340",
-        "address": "minh tú home",
-        "note": "gọi đến số của minh tú:"
-      },
-      "items": [
-        {
-          "id": "3",
-          "name": "Dreamy Love",
-          "price": 200000,
-          "image": "../assets/images/dreamy-love.png.webp",
-          "stock": 30,
-          "quantity": 1
-        }
-      ],
-      "subtotal": 200000,
-      "shippingFee": 30000,
-      "total": 230000,
-      "paymentMethod": "cod",
-      "paymentInfo": {},
-      "date": "09:07:07 28/10/2025",
-      "status": "Đang chờ xác nhận"
-    },
-    {
-      "id": "1761617541916",
-      "customer": {
-        "fullname": "Nguyễn Văn A",
-        "email": "user01@gmail.com",
-        "phone": "0987654321",
-        "address": "tự mò đi lêu lêu",
-        "note": "gọi đến số 113"
-      },
-      "items": [
-        {
-          "id": "1",
-          "name": "Baby Boo",
-          "price": 120000,
-          "image": "../assets/images/babyboo.jpg.webp",
-          "stock": 50,
-          "quantity": 1
-        }
-      ],
-      "subtotal": 120000,
-      "shippingFee": 30000,
-      "total": 150000,
-      "paymentMethod": "cod",
-      "paymentInfo": {},
-      "date": "09:12:21 28/10/2025",
-      "status": "Đang chờ xác nhận"
-    },
-    {
-      "id": "1761622140477",
-      "customer": {
-        "fullname": "naht",
-        "email": "nhat@gmail.com",
-        "phone": "0777971340",
-        "address": "khoong biet",
-        "note": ""
-      },
-      "items": [
-        {
-          "id": "3",
-          "name": "Dreamy Love",
-          "price": 200000,
-          "image": "../assets/images/dreamy-love.png.webp",
-          "stock": 30,
-          "quantity": 3
-        },
-        {
-          "id": "4",
-          "name": "Hồng Ngọt Ngào",
-          "price": 180000,
-          "image": "https://flowercorner.b-cdn.net/image/cache/catalog/products/Winter_2024/say-anh-mat.jpg.webp",
-          "stock": 35,
-          "quantity": 5
-        }
-      ],
-      "subtotal": 1500000,
-      "shippingFee": 30000,
-      "total": 1530000,
-      "paymentMethod": "cod",
-      "paymentInfo": {},
-      "date": "10:29:00 28/10/2025",
-      "status": "Đang giao"
-    }
-  ]
+  "orders": []
 }
