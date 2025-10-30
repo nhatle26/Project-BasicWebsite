@@ -181,7 +181,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Baby Boo",
       "price": 1200000,
       "category": "Hoa Hồng",
@@ -193,7 +193,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "baby shark",
       "price": 120000,
       "category": "Hoa Hồng",
@@ -269,7 +269,7 @@
       "paymentMethod": "cod",
       "paymentInfo": {},
       "date": "09:07:07 28/10/2025",
-      "status": "Đang chờ xác nhận"
+      "status": "Chờ xử lý"
     },
     {
       "id": "1761617541916",

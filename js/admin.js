@@ -1,324 +1,295 @@
 const API_URL = "http://localhost:3000/products";
 const USER_API = "http://localhost:3000/users";
-const ORDER_API = "http://localhost:3000/orders"; // ✅ Thêm API đơn hàng
+const ORDER_API = "http://localhost:3000/orders";
 
-let currentEditId = null;
-let currentUserId = null;
 let allProducts = [];
 let allUsers = [];
-let allOrders = []; // ✅ Lưu toàn bộ đơn hàng
+let allOrders = [];
+let currentEditId = null;
 
-// ==================== QUẢN LÝ SẢN PHẨM ====================
-function showAddProductForm() {
-  currentEditId = null;
-  document.getElementById("formTitle").innerText = "Thêm Sản Phẩm Mới";
-  document.getElementById("formProduct").reset();
-  document.getElementById("productForm").style.display = "block";
-}
-
-function cancelProductForm() {
-  document.getElementById("productForm").style.display = "none";
-  currentEditId = null;
-}
-
+// ============ SẢN PHẨM ============
 async function loadProducts() {
   const tbody = document.getElementById("productsTableBody");
   try {
     const res = await fetch(API_URL);
-    const products = await res.json();
-    allProducts = products;
-    renderProducts(products, tbody);
+    if (!res.ok) throw new Error("Không thể kết nối tới API sản phẩm");
+    allProducts = await res.json();
+
+    if (allProducts.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="text-center">Chưa có sản phẩm nào</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = allProducts
+      .map(
+        (p) => `
+      <tr>
+        <td>${p.id}</td>
+        <td><img src="${p.image || "https://via.placeholder.com/60"}" width="60" height="60" style="object-fit:cover;border-radius:5px"></td>
+        <td>${p.name}</td>
+        <td>${formatCurrency(p.price)}</td>
+        <td>${p.category}</td>
+        <td>${p.stock}</td>
+        <td>${p.event}</td>
+        <td>
+          <button class="btn btn-sm btn-warning" onclick="openEditProduct(${p.id})"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn btn-sm btn-danger" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>
+        </td>
+      </tr>`
+      )
+      .join("");
   } catch (err) {
     console.error("Lỗi tải sản phẩm:", err);
-    tbody.innerHTML = `<tr><td colspan="7">Không thể tải dữ liệu từ server.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">Không thể tải dữ liệu sản phẩm!</td></tr>`;
   }
 }
 
-function renderProducts(products, tbody) {
-  tbody.innerHTML = "";
-  if (!products.length) {
-    tbody.innerHTML =
-      '<tr><td colspan="7" style="text-align:center;">Chưa có sản phẩm nào</td></tr>';
-    return;
-  }
-
-  products.forEach((p) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${p.id}</td>
-      <td><img src="${
-        p.image || ""
-      }" width="60" height="60" style="object-fit:cover;border-radius:5px;" onerror="this.src='https://via.placeholder.com/60?text=No+Img'"></td>
-      <td>${p.name}</td>
-      <td>${formatCurrency(p.price)}</td>
-      <td>${p.category}</td>
-      <td>${p.stock}</td>
-      <td>${Array.isArray(p.event) ? p.event.join(", ") : p.event || "N/A"}</td>
-      <td>
-        <button onclick="editProduct(${p.id})" class="btn-edit">Sửa</button>
-        <button onclick="deleteProduct(${p.id})" class="btn-delete">Xóa</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
+function openAddProduct() {
+  currentEditId = null;
+  document.getElementById("productForm").reset();
+  document.getElementById("productModalLabel").innerText = "Thêm sản phẩm mới";
+  new bootstrap.Modal(document.getElementById("productModal")).show();
 }
 
-function getFormData() {
-  return {
-    name: document.getElementById("productName").value.trim(),
-    price: Number(document.getElementById("productPrice").value),
-    category: document.getElementById("productCategory").value,
-    description: document.getElementById("productDescription").value.trim(),
-    image: document.getElementById("productImage").value.trim(),
-    stock: Number(document.getElementById("productStock").value),
-    event: [document.getElementById("productEvent").value],
-  };
+function openEditProduct(id) {
+  const p = allProducts.find((x) => x.id === id);
+  if (!p) return alert("Không tìm thấy sản phẩm!");
+
+  currentEditId = id;
+  document.getElementById("productModalLabel").innerText = "Sửa sản phẩm";
+  document.getElementById("productId").value = id;
+  document.getElementById("productName").value = p.name;
+  document.getElementById("productPrice").value = p.price;
+  document.getElementById("productCategory").value = p.category;
+  document.getElementById("productDescription").value = p.description;
+  document.getElementById("productImage").value = p.image;
+  document.getElementById("productStock").value = p.stock;
+  document.getElementById("productEvent").value = p.event;
+  new bootstrap.Modal(document.getElementById("productModal")).show();
 }
 
 async function saveProduct() {
-  const product = getFormData();
-  if (!product.name || !product.price)
-    return alert("Vui lòng nhập đầy đủ tên và giá.");
+  const p = {
+    name: productName.value.trim(),
+    price: Number(productPrice.value),
+    category: productCategory.value.trim(),
+    description: productDescription.value.trim(),
+    image: productImage.value.trim(),
+    stock: Number(productStock.value),
+    event: productEvent.value.trim(),
+  };
+
+  if (!p.name || isNaN(p.price)) return alert("⚠️ Vui lòng nhập đủ thông tin hợp lệ!");
+
+  const modal = bootstrap.Modal.getInstance(document.getElementById("productModal"));
 
   try {
     if (currentEditId) {
+      // Sửa sản phẩm
       await fetch(`${API_URL}/${currentEditId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
+        body: JSON.stringify(p),
       });
-      alert("Đã cập nhật sản phẩm.");
+      alert("✅ Đã cập nhật sản phẩm!");
     } else {
-      const res = await fetch(API_URL);
-      const products = await res.json();
-      const maxId = products.length
-        ? Math.max(...products.map((p) => p.id || 0))
-        : 0;
-      const newProduct = { id: maxId + 1, ...product };
-
+      // Thêm sản phẩm
+      p.id = Date.now();
       await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(p),
       });
-      alert("Đã thêm sản phẩm mới.");
+      alert("✅ Đã thêm sản phẩm!");
     }
 
-    cancelProductForm();
+    modal.hide();
     await loadProducts();
   } catch (err) {
-    console.error("Lỗi khi lưu:", err);
-    alert("Không thể lưu sản phẩm!");
-  }
-}
-
-async function editProduct(id) {
-  try {
-    const res = await fetch(`${API_URL}/${id}`);
-    const product = await res.json();
-    currentEditId = id;
-    document.getElementById("formTitle").innerText = "Chỉnh Sửa Sản Phẩm";
-    document.getElementById("productForm").style.display = "block";
-
-    document.getElementById("productId").value = product.id;
-    document.getElementById("productName").value = product.name;
-    document.getElementById("productPrice").value = product.price;
-    document.getElementById("productCategory").value = product.category;
-    document.getElementById("productDescription").value =
-      product.description || "";
-    document.getElementById("productImage").value = product.image || "";
-    document.getElementById("productStock").value = product.stock || "";
-    document.getElementById("productEvent").value = Array.isArray(product.event)
-      ? product.event[0]
-      : product.event || "";
-  } catch (err) {
-    console.error("Lỗi khi sửa sản phẩm:", err);
+    console.error("Lỗi lưu sản phẩm:", err);
+    alert("❌ Không thể lưu sản phẩm!");
   }
 }
 
 async function deleteProduct(id) {
-  if (!confirm("Bạn có chắc muốn xóa sản phẩm này không?")) return;
-  await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-  alert("Đã xóa sản phẩm.");
-  await loadProducts();
+  if (!confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) return;
+  try {
+    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    alert("🗑️ Đã xóa sản phẩm!");
+    loadProducts();
+  } catch (err) {
+    console.error("Lỗi xóa sản phẩm:", err);
+    alert("❌ Không thể xóa sản phẩm!");
+  }
 }
 
-// ==================== QUẢN LÝ NGƯỜI DÙNG ====================
+// ============ NGƯỜI DÙNG ============
 async function loadUsers() {
+  const tbody = document.getElementById("usersTableBody");
   try {
     const res = await fetch(USER_API);
-    const users = await res.json();
-    allUsers = users;
-    renderUsers(users);
-  } catch (err) {
-    console.error("Lỗi tải danh sách người dùng:", err);
-  }
-}
+    if (!res.ok) throw new Error("Không thể kết nối tới API người dùng");
+    allUsers = await res.json();
 
-function renderUsers(users) {
-  const tbody = document.getElementById("usersTableBody");
-  tbody.innerHTML = "";
-  if (!users.length) {
-    tbody.innerHTML =
-      '<tr><td colspan="6" style="text-align:center;">Không có người dùng nào.</td></tr>';
-    return;
-  }
+    if (allUsers.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center">Chưa có người dùng nào</td></tr>`;
+      return;
+    }
 
-  users.forEach((u) => {
-    const isLocked = u.isLocked || false;
-    const statusText = isLocked ? "Đã khóa" : "Hoạt động";
-    const actionButton = isLocked
-      ? `<button class="btn-unlock" onclick="toggleLockUser(${u.id}, false)">Mở khóa</button>`
-      : `<button class="btn-lock" onclick="toggleLockUser(${u.id}, true)">Khóa TK</button>`;
-
-    tbody.innerHTML += `
+    tbody.innerHTML = allUsers
+      .map(
+        (u) => `
       <tr>
         <td>${u.id}</td>
         <td>${u.fullname}</td>
-<td>${u.role}</td>
+        <td>${u.role}</td>
         <td>${u.email}</td>
-        <td>${statusText}</td>
-        <td>${actionButton}</td>
-      </tr>
-    `;
-  });
+        <td>${u.isLocked ? "🔒 Đã khóa" : "🟢 Hoạt động"}</td>
+        <td>
+          <button class="btn btn-${u.isLocked ? "success" : "danger"} btn-sm" onclick="toggleUser(${u.id}, ${!u.isLocked})">
+            ${u.isLocked ? "Mở khóa" : "Khóa TK"}
+          </button>
+          <button class="btn btn-sm btn-warning" onclick="openEditUser(${u.id})"><i class="fa-solid fa-pen"></i></button>
+        </td>
+      </tr>`
+      )
+      .join("");
+  } catch (err) {
+    console.error("Lỗi tải người dùng:", err);
+    tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Không thể tải dữ liệu người dùng!</td></tr>`;
+  }
 }
 
-// ==================== QUẢN LÝ ĐƠN HÀNG ====================
+async function toggleUser(id, lock) {
+  const action = lock ? "khóa" : "mở khóa";
+  if (!confirm(`Bạn có chắc muốn ${action} người dùng này không?`)) return;
+
+  try {
+    await fetch(`${USER_API}/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ isLocked: lock }),
+    });
+    alert(`✅ Đã ${action} tài khoản!`);
+    loadUsers();
+  } catch (err) {
+    console.error("Lỗi khóa/mở khóa:", err);
+    alert("❌ Không thể thay đổi trạng thái!");
+  }
+}
+
+// ======== SỬA NGƯỜI DÙNG =========
+function openEditUser(id) {
+  const u = allUsers.find((x) => x.id === id);
+  if (!u) return alert("Không tìm thấy người dùng!");
+
+  currentEditId = id;
+  document.getElementById("userModalLabel").innerText = "Sửa thông tin người dùng";
+  document.getElementById("userFullname").value = u.fullname;
+  document.getElementById("userEmail").value = u.email;
+  document.getElementById("userRole").value = u.role;
+  new bootstrap.Modal(document.getElementById("userModal")).show();
+}
+
+async function saveUser() {
+  const u = {
+    fullname: userFullname.value.trim(),
+    email: userEmail.value.trim(),
+    role: userRole.value.trim(),
+  };
+  if (!u.fullname || !u.email) return alert("⚠️ Vui lòng nhập đầy đủ thông tin!");
+
+  const modal = bootstrap.Modal.getInstance(document.getElementById("userModal"));
+
+  try {
+    await fetch(`${USER_API}/${currentEditId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(u),
+    });
+    alert("✅ Đã cập nhật người dùng!");
+    modal.hide();
+    loadUsers();
+  } catch (err) {
+    console.error("Lỗi lưu người dùng:", err);
+    alert("❌ Không thể cập nhật người dùng!");
+  }
+}
+
+// ============ CHẠY KHI MỞ TRANG ============
+document.addEventListener("DOMContentLoaded", () => {
+  loadProducts();
+  loadUsers();
+});
+
+// ============ HÀM HỖ TRỢ ============
+function formatCurrency(n) {
+  return n.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+}
+// ============ ĐƠN HÀNG ============
 async function loadOrders() {
+  const tbody = document.getElementById("ordersTableBody");
   try {
     const res = await fetch(ORDER_API);
-    const orders = await res.json();
-    allOrders = orders;
-    renderOrders(orders);
-  } catch (err) {
-    console.error("Lỗi tải danh sách đơn hàng:", err);
-    document.getElementById(
-      "ordersTableBody"
-    ).innerHTML = `<tr><td colspan="7">Không thể tải dữ liệu đơn hàng.</td></tr>`;
-  }
-}
-
-function renderOrders(orders) {
-  const tbody = document.getElementById("ordersTableBody");
-  tbody.innerHTML = "";
-
-  if (!orders.length) {
-    tbody.innerHTML =
-      '<tr><td colspan="7" style="text-align:center;">Không có đơn hàng nào.</td></tr>';
-    return;
-  }
-
-  orders.forEach((o) => {
-    const date = o.date || "N/A";
-    const total = formatCurrency(o.total || 0);
-
-    // ✅ Lấy dữ liệu khách hàng
-    const customerName = o.customer?.fullname || "Không rõ";
-    const customerEmail = o.customer?.email || "";
-    const customerPhone = o.customer?.phone || "";
-    const customerAddress = o.customer?.address || "";
-    const note = o.customer?.note || "";
-
-    // ✅ Hiển thị sản phẩm trong đơn (dạng danh sách)
-    const productList =
-      o.items
-        ?.map(
-          (item) =>
-            `<div>
-        <img src="${item.image}" alt="${item.name}" style="width:40px;height:40px;border-radius:4px;margin-right:6px;vertical-align:middle;">
-        ${item.name} (x${item.quantity})
-      </div>`
-        )
-        .join("") || "";
-
-    tbody.innerHTML += `
+    allOrders = await res.json();
+    tbody.innerHTML = allOrders.map(o => `
       <tr>
         <td>${o.id}</td>
-        <td>${customerName}</td>
-        <td>${productList}</td>
-         <td>${customerAddress}</td>
-        <td>${total}</td>
-        <td>Ghi chú:</strong> ${note || "Không có"}</td>
+        <td>${o.customer?.fullname || "Không rõ"}</td>
+        <td>${o.items.map(i => `${i.name} (x${i.quantity})`).join("<br>")}</td>
+        <td>${o.customer?.address || ""}</td>
+        <td>${formatCurrency(o.total || 0)}</td>
+        <td>${o.customer?.note || ""}</td>
         <td>
-          <select onchange="updateOrderStatus('${o.id}', this.value)">
-            <option value="Chờ xử lý" ${
-              o.status === "Chờ xử lý" ? "selected" : ""
-            }>Chờ xử lý</option>
-            <option value="Đang giao" ${
-              o.status === "Đang giao" ? "selected" : ""
-            }>Đang giao</option>
-            <option value="Hoàn tất" ${
-              o.status === "Hoàn tất" ? "selected" : ""
-            }>Hoàn tất</option>
-            <option value="Đã hủy" ${
-              o.status === "Đã hủy" ? "selected" : ""
-            }>Đã hủy</option>
+          <select class="form-select form-select-sm" onchange="updateOrderStatus('${o.id}', this.value)">
+            ${["Chờ xử lý","Đang giao","Hoàn tất","Đã hủy"].map(s => 
+              `<option value="${s}" ${o.status===s?"selected":""}>${s}</option>`).join("")}
           </select>
         </td>
       </tr>
-    `;
-  });
-}
-
-async function updateOrderStatus(id, newStatus) {
-  try {
-    await fetch(`${ORDER_API}/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: newStatus }),
-    });
-    alert("✅ Đã cập nhật trạng thái đơn hàng!");
-  } catch (err) {
-    console.error("Lỗi khi cập nhật đơn hàng:", err);
-    alert("❌ Không thể cập nhật trạng thái!");
+    `).join("");
+  } catch {
+    tbody.innerHTML = `<tr><td colspan="7">Không thể tải dữ liệu!</td></tr>`;
   }
 }
-// ==================== CHUNG ====================
-function formatCurrency(amount) {
-  return Number(amount).toLocaleString("vi-VN", {
-    style: "currency",
-    currency: "VND",
+
+async function updateOrderStatus(id, status) {
+  await fetch(`${ORDER_API}/${id}`, {
+    method: "PATCH",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ status })
   });
+  alert("✅ Đã cập nhật trạng thái!");
 }
 
+// ============ CHUNG ============
 function showSection(section) {
-  const product = document.getElementById("productSection");
-  const user = document.getElementById("userSection");
-  const order = document.getElementById("orderSection"); // ✅ Thêm
-  const btnProduct = document.getElementById("btnProduct");
-  const btnUser = document.getElementById("btnUser");
-  const btnOrder = document.getElementById("btnOrder"); // ✅ Thêm
+  ["product", "user", "order"].forEach(s => {
+    document.getElementById(`${s}Section`).style.display = s===section ? "block" : "none";
+    document.getElementById(`btn${s.charAt(0).toUpperCase()+s.slice(1)}`).classList.toggle("active", s===section);
+  });
+  if (section==="user") loadUsers();
+  if (section==="order") loadOrders();
+}
 
-  product.style.display = section === "product" ? "block" : "none";
-  user.style.display = section === "user" ? "block" : "none";
-  order.style.display = section === "order" ? "block" : "none";
-
-  btnProduct.classList.toggle("active", section === "product");
-  btnUser.classList.toggle("active", section === "user");
-  btnOrder.classList.toggle("active", section === "order");
-
-  if (section === "user") loadUsers();
-  if (section === "order") loadOrders();
+function formatCurrency(num) {
+  return Number(num).toLocaleString("vi-VN", {style:"currency", currency:"VND"});
 }
 
 function logout() {
-  if (confirm("Bạn có chắc muốn đăng xuất không?")) {
+  if (confirm("Đăng xuất tài khoản quản trị?")) {
     localStorage.clear();
-    alert("Đã đăng xuất.");
     window.location.href = "login.html";
   }
 }
 
-// ==================== KHỞI TẠO ====================
-document.addEventListener("DOMContentLoaded", async () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser || currentUser.role !== "admin") {
+// ============ KHỞI TẠO ============
+document.addEventListener("DOMContentLoaded", () => {
+  const u = JSON.parse(localStorage.getItem("currentUser"));
+  if (!u || u.role!=="admin") {
     alert("Bạn không có quyền truy cập!");
-    window.location.href = "login.html";
-    return;
+    location.href = "login.html";
+  } else {
+    loadProducts();
   }
-  await loadProducts();
-  await loadUsers();
-  await loadOrders();
 });
