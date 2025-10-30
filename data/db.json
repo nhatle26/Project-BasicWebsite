@@ -4,12 +4,10 @@
       "name": "Baby Boo",
       "price": 12000000,
       "category": "Hoa Hồng",
-      "description": "Bó hoa hồng đỏ tươi tắn, tượng trưng cho tình yêu nồng nàn.",
+      "description": "hoa hồng này tặng người yêu oki lắm nè",
       "image": "../assets/images/babyboo.jpg.webp",
       "stock": 50,
-      "event": [
-        "valentine"
-      ],
+      "event": "valentine",
       "id": "1"
     },
     {
