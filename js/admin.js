@@ -104,7 +104,12 @@ async function saveProduct() {
       alert("✅ Đã cập nhật sản phẩm!");
     } else {
       // Thêm sản phẩm
-      p.id = Date.now();
+      let newID = 1; // mặc định nếu chưa có sản phẩm nào
+      if (allProducts.length > 0) {
+        const maxId = Math.max(...allProducts.map((item) => Number(item.id)));
+        newID = maxId + 1; // lấy id cao nhất +1
+      }
+      p.id = newID.toString();
       await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
