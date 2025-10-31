@@ -131,18 +131,22 @@ async function register() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),
     });
-
+    console.log(newUser);
+    console.log(newUser.email);
     if (addRes.ok) {
       try {
-        await emailjs.send("service_6uulo8x", "template_2zz5xx9", {
-          email: newUser.email,
-          name: newUser.fullname,
-          password: newUser.password,
-          from_name: "Datunha",
-        });
+        Email.send({
+          Host: "3ac3bd99-d753-4085-b4da-e4b66603eff9",
+          Username: newUser.fullname,
+          Password: newUser.password,
+          To: newUser.email,
+          From: "minhtu080906@gmail.com",
+          Subject: "Thank you for your joining",
+          Body: "Cảm ơn bạn đã tham gia vào trang web của chúng tôi ",
+        }).then((message) => alert(message));
         alert("🎉 Đăng ký thành công và email đã được gửi!");
       } catch (error) {
-        console.error("Email send error:", error);
+        console.error("Email send error:", error.stack);
         alert("Đăng ký thành công, nhưng không gửi được email!");
       }
     } else {

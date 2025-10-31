@@ -225,8 +225,8 @@
     {
       "id": "3",
       "fullname": "NGO MINH TU",
-      "email": "dat.hoang27@student.passerellesnumeriques.org",
-      "password": "minhtu",
+      "email": "tu.ngo27@student.passerellesnumeriques.org",
+      "password": "123456",
       "phone": "07779713340",
       "role": "user",
       "isLocked": false
