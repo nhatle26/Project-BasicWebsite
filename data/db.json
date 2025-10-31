@@ -1,6 +1,16 @@
 {
   "products": [
     {
+      "id": "1",
+      "name": "Baby Boo",
+      "price": 250000,
+      "category": "Hoa Hồng",
+      "description": "hoa hồng này tặng người yêu oki lắm nè.",
+      "image": "../assets/images/babyboo.jpg.webp",
+      "stock": 50,
+      "event": "valentine"
+    },
+    {
       "id": "2",
       "name": "Cuteness",
       "price": 140000,
@@ -167,6 +177,40 @@
       "event": [
         "sinh-nhat"
       ]
+    },
+    {
+      "id": "17",
+      "name": "Baby Boo",
+      "price": 1200000,
+      "category": "Hoa Hồng",
+      "description": "hoa hồng màu hường",
+      "image": "http://127.0.0.1:5500/html/admin.html",
+      "stock": 10,
+      "event": [
+        "valentine"
+      ]
+    },
+    {
+      "id": "18",
+      "name": "baby shark",
+      "price": 120000,
+      "category": "Hoa Hồng",
+      "description": "hoa hồng không gai",
+      "image": "http://127.0.0.1:5500/html/admin.html",
+      "stock": 45,
+      "event": [
+        "valentine"
+      ]
+    },
+    {
+      "id": 1761875970332,
+      "name": "Hoa Hồng",
+      "price": 350000,
+      "category": "Hoa Hồng",
+      "description": "Những bó hồng đẹp dành tặng người yêu thương.",
+      "image": "../assets/images/Cuteness.jpg.webp",
+      "stock": 100,
+      "event": "sinh-nhat"
     }
   ],
   "users": [

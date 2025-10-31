@@ -87,7 +87,7 @@ async function saveProduct() {
   };
 
   if (!p.name || isNaN(p.price))
-    return alert("⚠️ Vui lòng nhập đủ thông tin hợp lệ!");
+    return alert("Vui lòng nhập đủ thông tin hợp lệ!");
 
   const modal = bootstrap.Modal.getInstance(
     document.getElementById("productModal")
@@ -101,7 +101,7 @@ async function saveProduct() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(p),
       });
-      alert("✅ Đã cập nhật sản phẩm!");
+      alert("Đã cập nhật sản phẩm!");
     } else {
       // Thêm sản phẩm
       let newID = 1; // mặc định nếu chưa có sản phẩm nào
@@ -115,14 +115,14 @@ async function saveProduct() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(p),
       });
-      alert("✅ Đã thêm sản phẩm!");
+      alert("Đã thêm sản phẩm!");
     }
 
     modal.hide();
     await loadProducts();
   } catch (err) {
     console.error("Lỗi lưu sản phẩm:", err);
-    alert("❌ Không thể lưu sản phẩm!");
+    alert("Không thể lưu sản phẩm!");
   }
 }
 
@@ -134,7 +134,7 @@ async function deleteProduct(id) {
     loadProducts();
   } catch (err) {
     console.error("Lỗi xóa sản phẩm:", err);
-    alert("❌ Không thể xóa sản phẩm!");
+    alert("Không thể xóa sản phẩm!");
   }
 }
 
@@ -159,7 +159,7 @@ async function loadUsers() {
         <td>${u.fullname}</td>
         <td>${u.role}</td>
         <td>${u.email}</td>
-        <td>${u.isLocked ? "🔒 Đã khóa" : "🟢 Hoạt động"}</td>
+        <td>${u.isLocked ? "Đã khóa" : "Hoạt động"}</td>
         <td>
           <button class="btn btn-${
             u.isLocked ? "success" : "danger"
@@ -189,11 +189,11 @@ async function toggleUser(id, lock) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ isLocked: lock }),
     });
-    alert(`✅ Đã ${action} tài khoản!`);
+    alert(`Đã ${action} tài khoản!`);
     loadUsers();
   } catch (err) {
     console.error("Lỗi khóa/mở khóa:", err);
-    alert("❌ Không thể thay đổi trạng thái!");
+    alert("Không thể thay đổi trạng thái!");
   }
 }
 
