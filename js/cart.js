@@ -5,7 +5,7 @@ const totalItemsElement = document.getElementById('totalItems');
 const subtotalElement = document.getElementById('subtotal');
 const totalElement = document.getElementById('total');
 
-const SHIPPING_FEE = 50000; // Phí vận chuyển cố định 50,000đ
+const SHIPPING_FEE = 50000;
 
 // Hàm lấy giỏ hàng từ LocalStorage
 function getCart() {

@@ -158,7 +158,7 @@ function viewCart() {
   window.location.href = "cart.html";
 }
 
-// 🎯 HÀM CHỌN CHỦ ĐỀ - ĐÃ CẬP NHẬT
+// HÀM CHỌN CHỦ ĐỀ - ĐÃ CẬP NHẬT
 function selectTheme() {
   const themeTabs = document.querySelectorAll(".theme-tab");
   const themeSections = document.getElementsByClassName("theme-section");

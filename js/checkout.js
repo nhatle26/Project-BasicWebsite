@@ -1,8 +1,8 @@
-// ------------------- CẤU HÌNH -------------------
+// ------------------- CẤU HÌNH -----------------
 const API_URL = "http://localhost:3000/orders";
 const SHIPPING_FEE = 30000;
 
-// ------------------- HÀM TIỆN ÍCH -------------------
+// ------------------- HÀM TIỆN ÍCH ----------------
 function getCart() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) return [];
