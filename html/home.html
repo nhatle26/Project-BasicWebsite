@@ -1,160 +1,126 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ - Cửa hàng hoa</title>
-    <link rel="stylesheet" href="../style/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ - DaTuNha Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../style/style.css" />
 </head>
 <body>
-    <!-- HEADER -->
+    <!-- Phần đầu trang -->
     <header>
-        <nav>
-            <a href="home.html" class="logo">🌹 Flower Shop</a>
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Tìm hoa, chậu, phụ kiện...">
-                <button onclick="searchProducts()">🔍</button>
+        <div class="header-nav">
+            <h1><i class="fa-solid fa-spa"></i> DaTuNha Shop</h1>
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." />
+                <button onclick="search()" class="fa-solid fa-magnifying-glass"></button>
+                <nav id="mainNav">
+                    <!-- Navigation sẽ được tạo động bởi JavaScript -->
+                </nav>
             </div>
-            <div class="nav-menu">
-                <a href="home.html">Trang chủ</a>
-                <a href="search.html">Tìm kiếm</a>
-                <a href="cart.html" class="cart-icon">
-                    🛒 Giỏ hàng
-                    <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
-                </a>
-                <a href="login.html" id="loginLink">Đăng nhập</a>
-                <a href="admin.html" id="adminLink" style="display: none;">⚙️ Admin</a>
-            </div>
-        </nav>
+        </div>
     </header>
-
-    <!-- BANNER -->
-    <div class="container">
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 40px; border-radius: 10px; text-align: center; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-            <h1 style="font-size: 36px; margin-bottom: 15px;">🌸 Chào mừng đến với Flower Shop</h1>
-            <p style="font-size: 18px; opacity: 0.9;">Hoa tươi - Chậu cây - Phụ kiện làm vườn</p>
-            <p style="font-size: 14px; margin-top: 10px; opacity: 0.8;">Giao hàng nhanh chóng - Giá cả hợp lý - Chất lượng đảm bảo</p>
+    <!-- Banner chào mừng -->
+    <section class="banner">
+        <h2>Chào mừng đến với DaTuNha Shop</h2>
+        <p>Nơi cung cấp những bó hoa tươi đẹp nhất</p>
+    </section>
+    <!-- Bộ chọn chủ đề -->
+    <section class="theme-selector">
+        <div class="theme-tabs">
+            <button class="theme-tab active" data-theme="all">Tất cả</button>
+            <button class="theme-tab" data-theme="valentine">Hoa Valentine</button>
+            <button class="theme-tab" data-theme="sinh-nhat">Hoa Sinh Nhật</button>
+           
+        </div>
+    </section>
+    <!-- Các phần ẩn cho từng chủ đề -->
+    <main>
+        <!-- Tất cả sản phẩm (mặc định) -->
+        <div id="theme-all" class="theme-section">
+            <h3>Danh Sách Tất Cả Sản Phẩm</h3>
+            <div id="productList" class="product-grid">
+                <!-- Sản phẩm sẽ được thêm vào đây -->
+            </div>
+        </div>
+        <!-- Chủ đề Valentine -->
+        <div id="theme-valentine" class="theme-section" style="display: none;">
+            <h3>Sản Phẩm Chủ Đề Valentine</h3>
+            <div class="filter-bar">
+                <label>Danh mục:
+                    <select id="categoryFilter-valentine" onchange="filterProducts('valentine')">
+                        <option value="">Tất cả</option>
+                        <option value="Hoa Hồng">Hoa Hồng</option>
+                        <option value="Hoa Tulip">Hoa Tulip</option>
+                        <option value="Hoa Ly">Hoa Ly</option>
+                        <option value="Hoa Lan">Hoa Lan</option>
+                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+                    </select>
+                </label>
+                <label>Giá:
+                    <select id="priceFilter-valentine" onchange="filterProducts('valentine')">
+                        <option value="">Tất cả</option>
+                        <option value="0-300000">Dưới 300k</option>
+                        <option value="300000-500000">300k - 500k</option>
+                        <option value="500000-10000000">Trên 500k</option>
+                    </select>
+                </label>
+                <label>Sắp xếp:
+                    <select id="sortFilter-valentine" onchange="sortProducts('valentine')">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </label>
+            </div>
+            <div id="productList-valentine" class="product-grid">
+                <!-- Sản phẩm Valentine sẽ được thêm vào đây -->
+            </div>
+        </div>
+        <!-- Chủ đề Sinh Nhật -->
+        <div id="theme-sinh-nhat" class="theme-section" style="display: none;">
+            <h3>Sản Phẩm Chủ Đề Sinh Nhật</h3>
+            <div class="filter-bar">
+                <label>Danh mục:
+                    <select id="categoryFilter-sinh-nhat" onchange="filterProducts('sinh-nhat')">
+                        <option value="">Tất cả</option>
+                        <option value="Hoa Hồng">Hoa Hồng</option>
+                        <option value="Hoa Tulip">Hoa Tulip</option>
+                        <option value="Hoa Ly">Hoa Ly</option>
+                        <option value="Hoa Lan">Hoa Lan</option>
+                        <option value="Hoa Cẩm Chướng">Hoa Cẩm Chướng</option>
+                        <option value="Hoa Hướng Dương">Hoa Hướng Dương</option>
+                    </select>
+                </label>
+                <label>Giá:
+                    <select id="priceFilter-sinh-nhat" onchange="filterProducts('sinh-nhat')">
+                        <option value="">Tất cả</option>
+                        <option value="0-150000">Dưới 150k</option>
+                        <option value="150000-200000">150k - 200k</option>
+                        <option value="200000-10000000000">Trên 200k</option>
+                    </select>
+                </label>
+                <label>Sắp xếp:
+                    <select id="sortFilter-sinh-nhat" onchange="sortProducts('sinh-nhat')">
+                        <option value="">Mặc định</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                    </select>
+                </label>
+            </div>
+            <div id="productList-sinh-nhat" class="product-grid">
+                <!-- Sản phẩm Sinh Nhật sẽ được thêm vào đây -->
+            </div>
         </div>
 
-        <!-- SẮP XẾP & LỌC -->
-        <div class="sort-section">
-            <h2 style="margin: 0; color: #333;">🌹 Sản phẩm nổi bật</h2>
-            <select class="sort-select" id="sortSelect" onchange="sortProducts()">
-                <option value="default">Mặc định</option>
-                <option value="name-asc">Tên: A → Z</option>
-                <option value="name-desc">Tên: Z → A</option>
-                <option value="price-asc">Giá: Thấp → Cao</option>
-                <option value="price-desc">Giá: Cao → Thấp</option>
-            </select>
-        </div>
-
-        <!-- DANH SÁCH SẢN PHẨM -->
-        <div class="products-grid" id="productsContainer">
-            <!-- Sản phẩm sẽ được render từ products.js -->
-        </div>
-    </div>
-
-    <!-- FOOTER -->
+    </main>
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>🌹 Flower Shop</h3>
-                <p>Cửa hàng hoa tươi uy tín, chất lượng cao.</p>
-                <p>Giao hàng nhanh chóng, giá cả hợp lý.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Liên hệ</h3>
-                <p>📍 123 Nguyễn Huệ, Q.1, TP.HCM</p>
-                <p>📞 0901 234 567</p>
-                <p>✉️ contact@flowershop.vn</p>
-            </div>
-            <div class="footer-section">
-                <h3>Liên kết nhanh</h3>
-                <p><a href="home.html">Trang chủ</a></p>
-                <p><a href="search.html">Tìm kiếm sản phẩm</a></p>
-                <p><a href="orders.html">Lịch sử đơn hàng</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Chính sách</h3>
-                <p><a href="#">Chính sách đổi trả</a></p>
-                <p><a href="#">Chính sách bảo mật</a></p>
-                <p><a href="#">Điều khoản sử dụng</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2024 Flower Shop. All rights reserved. Made with ❤️ by IT Students</p>
-        </div>
+        <p>© 2025 DaTuNha Shop - Giao hoa toàn quốc</p>
+        <p> 0123.456.789 | contact@DaTuNhashop.com</p>
     </footer>
-
-    <!-- LOADING OVERLAY -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- IMPORT JS -->
-    <script src="../js/cart.js"></script>
-    <script src="../js/products.js"></script>
     <script src="../js/main.js"></script>
-    <script>
-        // Render sản phẩm khi trang load
-        document.addEventListener('DOMContentLoaded', function() {
-            renderAllProducts();
-            updateCartBadge();
-            updateNavbar();
-        });
-
-        // Sắp xếp sản phẩm
-        function sortProducts() {
-            const sortValue = document.getElementById('sortSelect').value;
-            const products = window.productsUtils.getAllProducts();
-
-            switch(sortValue) {
-                case 'name-asc':
-                    products.sort((a, b) => a.name.localeCompare(b.name));
-                    break;
-                case 'name-desc':
-                    products.sort((a, b) => b.name.localeCompare(a.name));
-                    break;
-                case 'price-asc':
-                    products.sort((a, b) => a.price - b.price);
-                    break;
-                case 'price-desc':
-                    products.sort((a, b) => b.price - a.price);
-                    break;
-                default:
-                    products.sort((a, b) => a.id - b.id);
-            }
-
-            renderAllProducts();
-        }
-
-        // Tìm kiếm sản phẩm
-        function searchProducts() {
-            const query = document.getElementById('searchInput').value;
-            if (query.trim()) {
-                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-            }
-        }
-
-        // Xử lý Enter trong search
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') searchProducts();
-        });
-
-        // Hiển thị loading
-        function showLoading() {
-            document.getElementById('loadingOverlay').classList.add('show');
-        }
-
-        function hideLoading() {
-            document.getElementById('loadingOverlay').classList.remove('show');
-        }
-        // Thêm vào giỏ khi click button
-    function quickAddToCart(productId) {
-        const product = getProductById(productId);
-        cartUtils.addToCart(product, 1);  // ← Gọi hàm từ cart.js
-        alert('Đã thêm vào giỏ!');
-    }
-    </script>
+    <script src="../js/home.js"></script>
 </body>
 </html>

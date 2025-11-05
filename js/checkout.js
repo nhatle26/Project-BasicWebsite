@@ -1,141 +1,186 @@
-// js/checkout.js - Xử lý thanh toán (POST order đến API)
+// ------------------- CẤU HÌNH -------------------
+const API_URL = "http://localhost:3000/orders";
+const SHIPPING_FEE = 30000;
 
-// ===== LƯU ĐỌN HÀNG VÀO LOCALSTORAGE =====
-// Trong thực tế, bạn sẽ POST đến API: fetch('http://localhost:3000/orders', {...})
-function saveOrder(orderData) {
-    let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+// ------------------- HÀM TIỆN ÍCH -------------------
+function getCart() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return [];
     
-    // Tạo order với ID và timestamp
+    const cartKey = `cart_${currentUser.id}`;
+    const cart = localStorage.getItem(cartKey);
+    return cart ? JSON.parse(cart) : [];
+}
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    }).format(amount);
+}
+
+// ------------------- TỰ ĐỘNG ĐIỀN USER -------------------
+function autofillUserInfo() {
+    const currentUser = localStorage.getItem('currentUser');
+    
+    if (currentUser) {
+        const user = JSON.parse(currentUser);
+        
+        if (user.fullname) {
+            const el = document.getElementById('fullname');
+            el.value = user.fullname;
+            el.readOnly = true;
+            el.style.backgroundColor = '#f0f0f0';
+        }
+
+        if (user.email) {
+            const el = document.getElementById('email');
+            el.value = user.email;
+            el.readOnly = true;
+            el.style.backgroundColor = '#f0f0f0';
+        }
+    } else {
+        alert('Vui lòng đăng nhập để tiếp tục đặt hàng!');
+        window.location.href = 'login.html';
+    }
+}
+
+// ------------------- HIỂN THỊ GIỎ HÀNG -------------------
+function renderOrderSummary() {
+    const orderItemsContainer = document.getElementById('orderItems');
+    const subtotalElement = document.getElementById('subtotal');
+    const totalElement = document.getElementById('total');
+
+    const cart = getCart();
+
+    if (cart.length === 0) {
+        alert('Giỏ hàng trống! Quay lại trang giỏ hàng.');
+        window.location.href = 'cart.html';
+        return;
+    }
+
+    let subtotal = 0;
+    orderItemsContainer.innerHTML = cart.map(item => {
+        const totalItem = item.price * item.quantity;
+        subtotal += totalItem;
+        return `
+            <div class="order-item">
+                <img 
+                    src="${item.image}" 
+                    alt="${item.name}" 
+                    class="order-item-img"
+                    onerror="this.src='https://via.placeholder.com/60?text=No+Image'" 
+                >
+                <div class="order-item-info">
+                    <p class="order-item-name">${item.name}</p>
+                    <p class="order-item-quantity">x${item.quantity}</p>
+                <p>${formatCurrency(totalItem)}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    subtotalElement.textContent = formatCurrency(subtotal);
+    totalElement.textContent = formatCurrency(subtotal + SHIPPING_FEE);
+}
+
+// ------------------- CHUYỂN ĐỔI PHƯƠNG THỨC THANH TOÁN -------------------
+function togglePaymentDetails() {
+    const method = document.querySelector('input[name="payment"]:checked').value;
+
+    document.getElementById('bankingDetails').style.display = 'none';
+    document.getElementById('momoDetails').style.display = 'none';
+
+    if (method === 'banking') {
+        document.getElementById('bankingDetails').style.display = 'block';
+    } else if (method === 'momo') {
+        document.getElementById('momoDetails').style.display = 'block';
+    }
+}
+
+// ------------------- XỬ LÝ ĐẶT HÀNG -------------------
+function placeOrder() {
+    const fullname = document.getElementById('fullname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const note = document.getElementById('note').value.trim();
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+    // 1. Kiểm tra địa chỉ
+    if (!address) {
+        alert('Vui lòng nhập địa chỉ giao hàng!');
+        document.getElementById('address').focus();
+        return;
+    }
+
+    // 2. Lấy thông tin thanh toán
+    let paymentInfo = {};
+
+    if (paymentMethod === 'banking') {
+        paymentInfo = {
+            bankName: document.getElementById('customerBankName').value.trim(),
+            accountNumber: document.getElementById('customerBankAccount').value.trim(),
+            accountName: document.getElementById('customerBankAccountName').value.trim()
+        };
+    } else if (paymentMethod === 'momo') {
+        paymentInfo = {
+            momoPhone: document.getElementById('customerMomoPhone').value.trim(),
+            momoName: document.getElementById('customerMomoName').value.trim()
+        };
+    }
+
+    // 3. Lấy giỏ hàng và tính tiền
+    const cart = getCart();
+    const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    const totalValue = subtotal + SHIPPING_FEE;
+
+    // 4. Tạo đối tượng đơn hàng
     const newOrder = {
-        id: Date.now(),
-        ...orderData,
-        createdAt: new Date().toISOString(),
-        status: 'pending' // pending, processing, completed, cancelled
+        id: Date.now().toString(),
+        customer: { fullname, email, phone, address, note },
+        items: cart,
+        subtotal,
+        shippingFee: SHIPPING_FEE,
+        total: totalValue,
+        paymentMethod: paymentMethod,
+        paymentInfo: paymentInfo,
+        date: new Date().toLocaleString('vi-VN'),
+        status: 'Đang chờ xác nhận'
     };
-    
-    orders.push(newOrder);
-    localStorage.setItem('orders', JSON.stringify(orders));
-    
-    return newOrder;
+
+    // 5. Lưu vào db.json qua JSON Server
+    saveOrder(newOrder);
 }
 
-// ===== LẤY TẤT CẢ ĐƠN HÀNG =====
-function getAllOrders() {
-    return JSON.parse(localStorage.getItem('orders') || '[]');
+// ------------------- LƯU ĐƠN HÀNG -------------------
+function saveOrder(order) {
+    fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+    })
+    .then(res => {
+        if (!res.ok) throw new Error('Lưu đơn hàng thất bại');
+        return res.json();
+    })
+    .then(data => {
+        console.log('Đơn hàng đã lưu:', data);
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser) {
+            localStorage.removeItem(`cart_${currentUser.id}`);
+        }
+        alert(`Đặt hàng thành công!\n\nTổng cộng: ${formatCurrency(order.total)}\nĐơn hàng của bạn đang chờ xác nhận.`);
+        window.location.href = 'home.html';
+    })
+    .catch(err => {
+        console.error('Lỗi khi lưu đơn hàng:', err);
+        alert('Không thể lưu đơn hàng. Vui lòng thử lại!');
+    });
 }
 
-// ===== LẤY ĐƠN HÀNG CỦA USER HIỆN TẠI =====
-function getUserOrders(userEmail) {
-    const allOrders = getAllOrders();
-    return allOrders.filter(order => order.email === userEmail);
-}
-
-// ===== LẤY ĐƠN HÀNG THEO ID =====
-function getOrderById(orderId) {
-    const orders = getAllOrders();
-    return orders.find(order => order.id === parseInt(orderId));
-}
-
-// ===== CẬP NHẬT TRẠNG THÁI ĐƠN HÀNG =====
-function updateOrderStatus(orderId, newStatus) {
-    const orders = getAllOrders();
-    const order = orders.find(o => o.id === parseInt(orderId));
-    
-    if (order) {
-        order.status = newStatus;
-        order.updatedAt = new Date().toISOString();
-        localStorage.setItem('orders', JSON.stringify(orders));
-        return true;
-    }
-    return false;
-}
-
-// ===== XÓA ĐƠN HÀNG =====
-function deleteOrder(orderId) {
-    let orders = getAllOrders();
-    orders = orders.filter(o => o.id !== parseInt(orderId));
-    localStorage.setItem('orders', JSON.stringify(orders));
-}
-
-// ===== VALIDATE THÔNG TIN THANH TOÁN =====
-function validateCheckoutForm(formData) {
-    const errors = [];
-    
-    // Kiểm tra họ tên
-    if (!formData.fullName || formData.fullName.trim().length < 3) {
-        errors.push('Họ tên phải có ít nhất 3 ký tự');
-    }
-    
-    // Kiểm tra email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email || !emailRegex.test(formData.email)) {
-        errors.push('Email không hợp lệ');
-    }
-    
-    // Kiểm tra số điện thoại
-    const phoneRegex = /^[0-9]{10,11}$/;
-    if (!formData.phone || !phoneRegex.test(formData.phone.replace(/[- ]/g, ''))) {
-        errors.push('Số điện thoại phải có 10-11 chữ số');
-    }
-    
-    // Kiểm tra địa chỉ
-    if (!formData.address || formData.address.trim().length < 5) {
-        errors.push('Địa chỉ không hợp lệ');
-    }
-    
-    // Kiểm tra thành phố
-    if (!formData.city || formData.city.trim().length < 2) {
-        errors.push('Vui lòng nhập thành phố/tỉnh');
-    }
-    
-    return errors;
-}
-
-// ===== FORMAT TRẠNG THÁI ĐƠN HÀNG =====
-function getOrderStatusLabel(status) {
-    const statusLabels = {
-        'pending': '⏳ Chờ xử lý',
-        'processing': '📦 Đang xử lý',
-        'shipping': '🚚 Đang giao hàng',
-        'completed': '✅ Hoàn thành',
-        'cancelled': '❌ Đã hủy'
-    };
-    return statusLabels[status] || status;
-}
-
-// ===== FORMAT PHƯƠNG THỨC THANH TOÁN =====
-function getPaymentMethodLabel(method) {
-    const methodLabels = {
-        'cod': '💵 Thanh toán khi nhận hàng (COD)',
-        'bank': '🏦 Chuyển khoản ngân hàng',
-        'card': '💳 Thẻ tín dụng/Ghi nợ',
-        'momo': '📱 Ví MoMo',
-        'zalopay': '💙 ZaloPay'
-    };
-    return methodLabels[method] || method;
-}
- // Thanh toán
-    const cart = cartUtils.getCart();  // ← Lấy giỏ hàng
-    // Xử lý thanh toán...
-
-// ===== TÍNH TỔNG DOANH THU =====
-function calculateTotalRevenue() {
-    const orders = getAllOrders();
-    return orders
-        .filter(order => order.status === 'completed')
-        .reduce((total, order) => total + order.total, 0);
-}
-
-// ===== EXPORT FUNCTIONS =====
-window.checkoutUtils = {
-    saveOrder,
-    getAllOrders,
-    getUserOrders,
-    getOrderById,
-    updateOrderStatus,
-    deleteOrder,
-    validateCheckoutForm,
-    getOrderStatusLabel,
-    getPaymentMethodLabel,
-    calculateTotalRevenue
-};
+// ------------------- KHI TRANG LOAD -------------------
+document.addEventListener('DOMContentLoaded', () => {
+    autofillUserInfo();
+    renderOrderSummary();
+});

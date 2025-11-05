@@ -1,135 +1,98 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Thanh toán - Cửa hàng hoa</title>
-     <link rel="stylesheet" href="../style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Thanh toán - Flower Shop</title>
+    <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-     <!-- HEADER -->
-     <header>
-          <nav>
-               <a href="home.html" class="logo">🌹 Flower Shop</a>
-               <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Tìm hoa, chậu, phụ kiện...">
-                    <button onclick="searchProducts()">🔍</button>
-               </div>
-               <div class="nav-menu">
-                    <a href="home.html">Trang chủ</a>
-                    <a href="search.html">Tìm kiếm</a>
-                    <a href="cart.html" class="cart-icon">
-                         🛒 Giỏ hàng
-                         <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
-                    </a>
-                    <a href="login.html">Đăng nhập</a>
-               </div>
-          </nav>
-     </header>
-
-     <!-- MAIN CONTENT -->
-     <div class="container">
-          <h1>💳 Thanh toán</h1>
-
-          <div class="checkout-wrapper">
-               <!-- Form thanh toán -->
-               <div class="form-section">
-                    <h2>📋 Thông tin giao hàng</h2>
-
-                    <div class="error-message" id="errorMessage" style="display: none;"></div>
-
-                    <form id="checkoutForm" onsubmit="handleSubmit(event)">
-                         <!-- Thông tin cá nhân -->
-                         <div class="form-group">
-                              <label>Họ và tên *</label>
-                              <input type="text" id="fullName" required placeholder="Nguyễn Văn A">
-                         </div>
-
-                         <div class="form-row">
-                              <div class="form-group">
-                                   <label>Email *</label>
-                                   <input type="email" id="email" required placeholder="example@email.com">
-                              </div>
-                              <div class="form-group">
-                                   <label>Số điện thoại *</label>
-                                   <input type="tel" id="phone" required placeholder="0901234567">
-                              </div>
-                         </div>
-
-                         <!-- Địa chỉ giao hàng -->
-                         <div class="form-group">
-                              <label>Địa chỉ *</label>
-                              <input type="text" id="address" required placeholder="Số nhà, tên đường">
-                         </div>
-
-                         <div class="form-row">
-                              <div class="form-group">
-                                   <label>Quận/Huyện *</label>
-                                   <input type="text" id="district" required placeholder="Quận 1">
-                              </div>
-                              <div class="form-group">
-                                   <label>Thành phố/Tỉnh *</label>
-                                   <input type="text" id="city" required placeholder="TP. Hồ Chí Minh">
-                              </div>
-                         </div>
-
-                         <!-- Ghi chú -->
-                         <div class="form-group">
-                              <label>Ghi chú cho đơn hàng</label>
-                              <textarea id="note"
-                                   placeholder="Ví dụ: Giao vào buổi sáng, có chuông cửa không..."></textarea>
-                         </div>
-
-                         <!-- Phương thức thanh toán -->
-                         <h2 style="margin-top: 30px;">💳 Phương thức thanh toán</h2>
-
-                         <div style="margin-bottom: 20px;">
-                              <div class="payment-method">
-                                   <input type="radio" id="payment1" name="payment" value="cod" checked>
-                                   <label for="payment1" style="margin: 0; flex: 1; cursor: pointer;">Thanh toán khi
-                                        nhận hàng (COD)</label>
-                              </div>
-                              <div class="payment-method">
-                                   <input type="radio" id="payment2" name="payment" value="bank">
-                                   <label for="payment2" style="margin: 0; flex: 1; cursor: pointer;">Chuyển khoản ngân
-                                        hàng</label>
-                              </div>
-                              <div class="payment-method">
-                                   <input type="radio" id="payment3" name="payment" value="card">
-                                   <label for="payment3" style="margin: 0; flex: 1; cursor: pointer;">Thanh toán bằng
-                                        thẻ credit/debit</label>
-                              </div>
-                         </div>
-
-                         <div class="action-buttons">
-                              <button type="button" class="btn btn-secondary" onclick="goBack()">← Quay lại</button>
-                              <button type="submit" class="btn btn-primary">Đặt hàng →</button>
-                         </div>
-                    </form>
-               </div>
-
-               <!-- Tóm tắt đơn hàng -->
-               <div class="order-section">
-                    <h2>📦 Đơn hàng của bạn</h2>
-                    <div id="orderItems"></div>
-                    <div class="summary">
-                         <div class="summary-row">
-                              <span>Tạm tính:</span>
-                              <span id="subtotal">0đ</span>
-                         </div>
-                         <div class="summary-row">
-                              <span>Phí vận chuyển:</span>
-                              <span>0đ</span>
-                         </div>
-                         <div class="summary-row total">
-                              <span>Tổng cộng:</span>
-                              <span id="total">0đ</span>
-                         </div>
+    <!-- Phần đầu trang -->
+    <header id="head-checkout">
+        <h1><i class="fa-solid fa-spa"></i> DaTuNha Shop</h1>
+        <nav>
+            <a href="home.html">Trang chủ</a>
+            <a href="cart.html">Giỏ hàng</a>
+        </nav>
+    </header>
+    <!-- Form thanh toán -->
+    <main>
+        <h2>Thanh Toán Đơn Hàng</h2>
+        <div class="checkout-container">
+            <!-- Form thông tin giao hàng -->
+            <div class="shipping-info">
+                <h3>Thông tin giao hàng</h3>
+                <form>
+                    <label>Họ và Tên: *</label>
+                    <input type="text" id="fullname" required>
+                    <label>Email: *</label>
+                    <input type="email" id="email" required>
+                    <label>Số điện thoại: *</label>
+                    <input type="tel" id="phone" required>
+                    <label>Địa chỉ giao hàng: *</label>
+                    <textarea id="address" rows="3" required></textarea>
+                    <label>Ghi chú:</label>
+                    <textarea id="note" rows="2"></textarea>
+                </form>
+                <!-- Phương thức thanh toán -->
+                <h3>Phương thức thanh toán</h3>
+                <label>
+                    <input type="radio" name="payment" value="cod" checked onchange="togglePaymentDetails()">
+                    Thanh toán khi nhận hàng (COD)
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="banking" onchange="togglePaymentDetails()">
+                    Chuyển khoản ngân hàng
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="momo" onchange="togglePaymentDetails()">
+                    Ví điện tử MoMo
+                </label>
+                <!-- Form chi tiết chuyển khoản ngân hàng -->
+                <div id="bankingDetails" class="payment-details" style="display: none;">
+                    <h4>Thông tin tài khoản của bạn</h4>
+                    <label>Tên ngân hàng: *</label>
+                    <input type="text" id="customerBankName" placeholder="VD: Vietcombank, Techcombank, BIDV..." required>
+                    <label>Số tài khoản: *</label>
+                    <input type="text" id="customerBankAccount" placeholder="Nhập số tài khoản ngân hàng" required>
+                    <label>Tên chủ tài khoản: *</label>
+                    <input type="text" id="customerBankAccountName" placeholder="Nhập tên chủ tài khoản" required>
+                </div>
+                <!-- Form chi tiết MoMo -->
+                <div id="momoDetails" class="payment-details" style="display: none;">
+                    <h4>Thông tin MoMo của bạn</h4>
+                    <label>Số điện thoại MoMo của bạn: *</label>
+                    <input type="tel" id="customerMomoPhone" placeholder="Nhập số điện thoại MoMo của bạn" required>
+                    <label>Tên tài khoản MoMo: *</label>
+                    <input type="text" id="customerMomoName" placeholder="Nhập tên tài khoản MoMo" required>
+                    <label for="password">Mật khẩu:</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" placeholder="Nhập mật khẩu">
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
                     </div>
-               </div>
-          </div>
-     </div>
-     <script src="../js/cart.js"></script>
-     <script src="../js/checkout.js"></script>
+                </div>
+            </div>
+            <!-- Tóm tắt đơn hàng -->
+            <div class="order-summary">
+                <h3>Đơn hàng của bạn</h3>
+                <div id="orderItems"></div>
+                <hr>
+                <p>Tạm tính: <span id="subtotal">0đ</span></p>
+                <p>Phí vận chuyển: <span>30,000đ</span></p>
+                <p><strong>Tổng cộng: <span id="total">0đ</span></strong></p>
+
+                <button onclick="placeOrder()">Đặt hàng</button>
+                <a href="cart.html">Quay lại giỏ hàng</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Flower Shop - Giao hoa toàn quốc</p>
+        <p> 0123.456.789 | contact@flowershop.com</p>
+    </footer>
+
+    <script src="../js/checkout.js"></script>
 </body>
 </html>
